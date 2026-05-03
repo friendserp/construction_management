@@ -1,0 +1,274 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2026-04-23 09:46:09.642784",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_ukew",
+  "amended_from",
+  "naming_series",
+  "bid_followup_id",
+  "project_name",
+  "client",
+  "gurantee_name",
+  "category",
+  "type_of_work",
+  "bid_type",
+  "language",
+  "bid_announced_date",
+  "bid_submission_date",
+  "bid_floating_date",
+  "jv",
+  "site_visit",
+  "column_break_asfb",
+  "bid_opening_time",
+  "place_of_bid_submission",
+  "bid_bond_type",
+  "bid_bond_amount",
+  "bid_bond_period",
+  "credit_facility",
+  "contract_period",
+  "advance_amount",
+  "interim_payment_minimum",
+  "turnover",
+  "general_experience",
+  "specific_experience",
+  "method_of_selection",
+  "price_escalation"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_ukew",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Detailed bid review",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fetch_from": "bid_followup_id.project_name",
+   "fieldname": "project_name",
+   "fieldtype": "Small Text",
+   "in_list_view": 1,
+   "label": "Project Name",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "bid_followup_id.client",
+   "fieldname": "client",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Client",
+   "options": "Customer",
+   "reqd": 1
+  },
+  {
+   "fieldname": "gurantee_name",
+   "fieldtype": "Data",
+   "label": "Bid Bond Guarantee Prepared in the Name of"
+  },
+  {
+   "fetch_from": "bid_followup_id.contractor_category",
+   "fieldname": "category",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Category",
+   "options": "Contractor Category",
+   "reqd": 1
+  },
+  {
+   "fieldname": "bid_type",
+   "fieldtype": "Select",
+   "label": "Bid Type",
+   "options": "NCB\nICB",
+   "reqd": 1
+  },
+  {
+   "fieldname": "language",
+   "fieldtype": "Data",
+   "label": "Language of Bid",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "bid_followup_id.date_of_announcement",
+   "fieldname": "bid_announced_date",
+   "fieldtype": "Date",
+   "label": "Bid Announced Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "bid_floating_date",
+   "fieldtype": "Data",
+   "label": "Bid Floated date"
+  },
+  {
+   "fetch_from": "bid_followup_id.submission_time",
+   "fieldname": "bid_submission_date",
+   "fieldtype": "Datetime",
+   "label": "Bid Submission Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_asfb",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "bid_followup_id.purchase_place",
+   "fieldname": "place_of_bid_submission",
+   "fieldtype": "Data",
+   "label": "Place of Bid Submission",
+   "reqd": 1
+  },
+  {
+   "fieldname": "bid_bond_amount",
+   "fieldtype": "Float",
+   "label": "Bid Bond Amount",
+   "reqd": 1
+  },
+  {
+   "fieldname": "bid_bond_period",
+   "fieldtype": "Data",
+   "label": "Bid Bond Period",
+   "reqd": 1
+  },
+  {
+   "fieldname": "contract_period",
+   "fieldtype": "Data",
+   "label": "Contract Period"
+  },
+  {
+   "fieldname": "advance_amount",
+   "fieldtype": "Float",
+   "label": "Advance Amount"
+  },
+  {
+   "fieldname": "interim_payment_minimum",
+   "fieldtype": "Float",
+   "label": "Interim payment minimum"
+  },
+  {
+   "fieldname": "turnover",
+   "fieldtype": "Data",
+   "label": "Annual Turnover for Five Years",
+   "reqd": 1
+  },
+  {
+   "fieldname": "general_experience",
+   "fieldtype": "Small Text",
+   "label": "General Experience",
+   "reqd": 1
+  },
+  {
+   "fieldname": "specific_experience",
+   "fieldtype": "Small Text",
+   "label": "Specific Experience",
+   "reqd": 1
+  },
+  {
+   "fieldname": "credit_facility",
+   "fieldtype": "Float",
+   "label": "Credit Facility",
+   "reqd": 1
+  },
+  {
+   "fieldname": "method_of_selection",
+   "fieldtype": "Small Text",
+   "label": "Method of Selection"
+  },
+  {
+   "fieldname": "price_escalation",
+   "fieldtype": "Select",
+   "label": "Price Escalation",
+   "options": "\nYes\nNo",
+   "reqd": 1
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Naming Series",
+   "options": "KLC-CBE-",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "bid_followup_id.project_type",
+   "fieldname": "type_of_work",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Type of Work",
+   "options": "Road",
+   "reqd": 1
+  },
+  {
+   "fieldname": "bid_bond_type",
+   "fieldtype": "Select",
+   "label": "Bid Bond Type",
+   "options": "CPO\nUnconditional",
+   "reqd": 1
+  },
+  {
+   "fieldname": "jv",
+   "fieldtype": "Select",
+   "label": "Joint Venture",
+   "options": "\nYes\nNo",
+   "reqd": 1
+  },
+  {
+   "fieldname": "bid_followup_id",
+   "fieldtype": "Link",
+   "label": "Bid Followup Id",
+   "link_filters": "[[\"Bid Followup\",\"status\",\"=\",\"Purchased\"]]",
+   "options": "Bid Followup"
+  },
+  {
+   "fieldname": "site_visit",
+   "fieldtype": "Select",
+   "label": "Site Visit Required?",
+   "options": "\nYes\nNo"
+  },
+  {
+   "fetch_from": "bid_followup_id.opening_time",
+   "fieldname": "bid_opening_time",
+   "fieldtype": "Datetime",
+   "label": "Bid Opening time",
+   "reqd": 1
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2026-04-23 11:57:17.051515",
+ "modified_by": "Administrator",
+ "module": "Bid",
+ "name": "Detailed bid review",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}

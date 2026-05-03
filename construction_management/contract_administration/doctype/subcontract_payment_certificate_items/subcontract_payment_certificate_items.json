@@ -1,0 +1,145 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2026-04-26 18:38:30.354442",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "work_item",
+  "description",
+  "column_break_sxql",
+  "unit",
+  "unit_price",
+  "previous_payment_section",
+  "previous_executed",
+  "column_break_icps",
+  "previous_amount",
+  "this_period_section",
+  "this_executed",
+  "column_break_kzgg",
+  "this_amount",
+  "work_executed_to_date_section",
+  "todate_executed",
+  "column_break_gudr",
+  "todate_amount"
+ ],
+ "fields": [
+  {
+   "fieldname": "work_item",
+   "fieldtype": "Link",
+   "label": "Work Item",
+   "options": "Task"
+  },
+  {
+   "columns": 2,
+   "fieldname": "description",
+   "fieldtype": "Small Text",
+   "in_list_view": 1,
+   "label": "Description"
+  },
+  {
+   "fieldname": "column_break_sxql",
+   "fieldtype": "Column Break"
+  },
+  {
+   "columns": 1,
+   "fieldname": "unit",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Unit",
+   "options": "UOM"
+  },
+  {
+   "columns": 1,
+   "fieldname": "unit_price",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Unit Price"
+  },
+  {
+   "fieldname": "previous_payment_section",
+   "fieldtype": "Section Break",
+   "label": "Previous Payment"
+  },
+  {
+   "columns": 1,
+   "fieldname": "previous_executed",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Previous Executed"
+  },
+  {
+   "fieldname": "column_break_icps",
+   "fieldtype": "Column Break"
+  },
+  {
+   "columns": 1,
+   "fieldname": "previous_amount",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Previous Amount"
+  },
+  {
+   "fieldname": "this_period_section",
+   "fieldtype": "Section Break",
+   "label": "This Period"
+  },
+  {
+   "columns": 1,
+   "fieldname": "this_executed",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "This Executed"
+  },
+  {
+   "fieldname": "column_break_kzgg",
+   "fieldtype": "Column Break"
+  },
+  {
+   "columns": 1,
+   "fieldname": "this_amount",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "This Amount"
+  },
+  {
+   "fieldname": "work_executed_to_date_section",
+   "fieldtype": "Section Break",
+   "label": " Work Executed to Date"
+  },
+  {
+   "fieldname": "column_break_gudr",
+   "fieldtype": "Column Break"
+  },
+  {
+   "columns": 1,
+   "fieldname": "todate_executed",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "To date Executed"
+  },
+  {
+   "columns": 1,
+   "fieldname": "todate_amount",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "To date Amount"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2026-04-26 18:51:50.278205",
+ "modified_by": "Administrator",
+ "module": "Contract Administration",
+ "name": "Subcontract Payment Certificate Items",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}

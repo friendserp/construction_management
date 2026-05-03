@@ -1,0 +1,79 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2026-04-25 09:31:16.111212",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "type_of_work",
+  "work_item_description",
+  "unit",
+  "qty",
+  "rate",
+  "amount"
+ ],
+ "fields": [
+  {
+   "columns": 1,
+   "fieldname": "type_of_work",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Type of Work",
+   "options": "Task"
+  },
+  {
+   "columns": 1,
+   "fieldname": "unit",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Unit",
+   "options": "UOM"
+  },
+  {
+   "columns": 1,
+   "fieldname": "qty",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Quantity"
+  },
+  {
+   "fetch_from": "type_of_work.subject",
+   "fieldname": "work_item_description",
+   "fieldtype": "Small Text",
+   "in_list_view": 1,
+   "label": "Work item description"
+  },
+  {
+   "columns": 2,
+   "description": "Before VAT",
+   "fieldname": "rate",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Unit Price"
+  },
+  {
+   "columns": 2,
+   "description": "Before VAT",
+   "fieldname": "amount",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Total Price"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2026-04-28 15:15:31.070133",
+ "modified_by": "Administrator",
+ "module": "Contract Administration",
+ "name": "Subcontract Agreement Items",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}

@@ -1,0 +1,93 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2026-05-03 21:55:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "project",
+  "contract_amount",
+  "signing_date",
+  "site_handover_date",
+  "commencement_date",
+  "original_duration",
+  "original_completion_date",
+  "column_break_eot",
+  "eot_requested",
+  "approved_eot",
+  "revised_completion_date"
+ ],
+ "fields": [
+  {
+   "fieldname": "project",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Project",
+   "options": "Project"
+  },
+  {
+   "fieldname": "contract_amount",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Contract amount without vat and after rebate"
+  },
+  {
+   "fieldname": "signing_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Contract signing date"
+  },
+  {
+   "fieldname": "site_handover_date",
+   "fieldtype": "Date",
+   "label": "Site Hand over"
+  },
+  {
+   "fieldname": "commencement_date",
+   "fieldtype": "Date",
+   "label": "Commencement date"
+  },
+  {
+   "fieldname": "original_duration",
+   "fieldtype": "Int",
+   "label": "Original duration (days)"
+  },
+  {
+   "fieldname": "original_completion_date",
+   "fieldtype": "Date",
+   "label": "Original contract completion date"
+  },
+  {
+   "fieldname": "column_break_eot",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "eot_requested",
+   "fieldtype": "Int",
+   "label": "Extension of time requested"
+  },
+  {
+   "fieldname": "approved_eot",
+   "fieldtype": "Int",
+   "label": "Approved EOT"
+  },
+  {
+   "fieldname": "revised_completion_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Revised Completion Date As per EOT Approved"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "modified": "2026-05-03 21:55:00.000000",
+ "modified_by": "Administrator",
+ "module": "Contract Administration",
+ "name": "Contract Time Detail",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

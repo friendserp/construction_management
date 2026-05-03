@@ -1,0 +1,561 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2026-04-21 12:18:19.108043",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "bid_followup_id",
+  "section_break_yldg",
+  "distance_from_addis_column",
+  "asphalt_road",
+  "gravel_road",
+  "off_road",
+  "total_length",
+  "transportation_cost_column",
+  "price_per_qnt_per_km",
+  "price_per_qnt",
+  "price_per_m3",
+  "price_per_m3_per_km",
+  "stone_for_masonry_section",
+  "ms_ar",
+  "column_break_jqhr",
+  "ms_oc",
+  "column_break_ysob",
+  "ms_tr",
+  "column_break_iwtq",
+  "ms_tc",
+  "stone_for_hardcore_section",
+  "hd_ar",
+  "column_break_bvup",
+  "hd_oc",
+  "column_break_kooo",
+  "hd_tr",
+  "column_break_vczd",
+  "hd_tc",
+  "sand_section",
+  "sd_ar",
+  "column_break_sggt",
+  "sd_oc",
+  "column_break_efrq",
+  "sd_tr",
+  "column_break_ecyo",
+  "sd_tc",
+  "eucalyptus_wood_section",
+  "ew_ar",
+  "column_break_oghl",
+  "ew_oc",
+  "column_break_xnsg",
+  "ew_tr",
+  "column_break_jqdv",
+  "ew_tc",
+  "selected_material_section",
+  "sm_ar",
+  "column_break_kkuu",
+  "sm_oc",
+  "column_break_qmwq",
+  "sm_tr",
+  "column_break_sdjk",
+  "sm_tp",
+  "gravel_section",
+  "gr_ar",
+  "column_break_qgul",
+  "gr_oc",
+  "column_break_aujf",
+  "gr_tr",
+  "column_break_gelh",
+  "gr_tp",
+  "other_local_material_price_section",
+  "lumber",
+  "column_break_kxkb",
+  "pumice",
+  "column_break_fcxd",
+  "redash",
+  "manpower_availability_and_cost_per_day_section",
+  "mason_price",
+  "column_break_pxjb",
+  "carpenter_price",
+  "column_break_ziqg",
+  "plaster_payment",
+  "column_break_exlh",
+  "daily_laborer_payment",
+  "utility_availability_and_cost_section",
+  "water",
+  "column_break_mexf",
+  "elctricity",
+  "column_break_kgmn",
+  "hotel",
+  "site_condition_section",
+  "obstructions",
+  "column_break_pavi",
+  "accessiblity",
+  "approvals_section",
+  "prepared_by",
+  "column_break_gguc",
+  "approved_by"
+ ],
+ "fields": [
+  {
+   "fieldname": "distance_from_addis_column",
+   "fieldtype": "Column Break",
+   "label": "Distance From Addis"
+  },
+  {
+   "fieldname": "asphalt_road",
+   "fieldtype": "Float",
+   "label": "Asphalt Road"
+  },
+  {
+   "fieldname": "gravel_road",
+   "fieldtype": "Float",
+   "label": "Gravel Road"
+  },
+  {
+   "fieldname": "off_road",
+   "fieldtype": "Float",
+   "label": "Off Road"
+  },
+  {
+   "fieldname": "total_length",
+   "fieldtype": "Float",
+   "label": "Total Length"
+  },
+  {
+   "fieldname": "transportation_cost_column",
+   "fieldtype": "Column Break",
+   "label": "Transportation Cost"
+  },
+  {
+   "fieldname": "price_per_qnt_per_km",
+   "fieldtype": "Float",
+   "label": "Price Per Qnt Per Km"
+  },
+  {
+   "fieldname": "price_per_qnt",
+   "fieldtype": "Float",
+   "label": "Price Per Qnt"
+  },
+  {
+   "fieldname": "price_per_m3",
+   "fieldtype": "Float",
+   "label": "Price Per M3"
+  },
+  {
+   "fieldname": "price_per_m3_per_km",
+   "fieldtype": "Float",
+   "label": "Price Per M3 Per Km"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "stone_for_masonry_section",
+   "fieldtype": "Section Break",
+   "label": "Stone for Masonry"
+  },
+  {
+   "fieldname": "ms_ar",
+   "fieldtype": "Float",
+   "label": "Available at Radius"
+  },
+  {
+   "fieldname": "column_break_jqhr",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "ms_oc",
+   "fieldtype": "Float",
+   "label": "Original Cost"
+  },
+  {
+   "fieldname": "column_break_ysob",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "ms_tr",
+   "fieldtype": "Float",
+   "label": "Transportation Cost"
+  },
+  {
+   "fieldname": "column_break_iwtq",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "ms_tc",
+   "fieldtype": "Float",
+   "label": "Total Price"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "stone_for_hardcore_section",
+   "fieldtype": "Section Break",
+   "label": "Stone for Hardcore"
+  },
+  {
+   "fieldname": "hd_ar",
+   "fieldtype": "Float",
+   "label": "Available at Radius"
+  },
+  {
+   "fieldname": "column_break_bvup",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "hd_oc",
+   "fieldtype": "Float",
+   "label": "Original Cost"
+  },
+  {
+   "fieldname": "column_break_kooo",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "hd_tr",
+   "fieldtype": "Float",
+   "label": "Transportation Cost"
+  },
+  {
+   "fieldname": "column_break_vczd",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "hd_tc",
+   "fieldtype": "Float",
+   "label": "Total Price"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "sand_section",
+   "fieldtype": "Section Break",
+   "label": "Sand"
+  },
+  {
+   "fieldname": "sd_ar",
+   "fieldtype": "Float",
+   "label": "Available at Radius"
+  },
+  {
+   "fieldname": "column_break_sggt",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "sd_oc",
+   "fieldtype": "Float",
+   "label": "Original Cost"
+  },
+  {
+   "fieldname": "column_break_efrq",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "sd_tr",
+   "fieldtype": "Float",
+   "label": "Transportation Cost"
+  },
+  {
+   "fieldname": "column_break_ecyo",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "sd_tc",
+   "fieldtype": "Float",
+   "label": "Total Price"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "eucalyptus_wood_section",
+   "fieldtype": "Section Break",
+   "label": "Eucalyptus Wood"
+  },
+  {
+   "fieldname": "ew_ar",
+   "fieldtype": "Float",
+   "label": "Available at Radius"
+  },
+  {
+   "fieldname": "column_break_oghl",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "ew_oc",
+   "fieldtype": "Float",
+   "label": "Original Cost"
+  },
+  {
+   "fieldname": "column_break_xnsg",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "ew_tr",
+   "fieldtype": "Float",
+   "label": "Transportation    Copy"
+  },
+  {
+   "fieldname": "column_break_jqdv",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "ew_tc",
+   "fieldtype": "Float",
+   "label": "Total Price"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "selected_material_section",
+   "fieldtype": "Section Break",
+   "label": "Selected Material"
+  },
+  {
+   "fieldname": "sm_ar",
+   "fieldtype": "Float",
+   "label": "Available at Radius"
+  },
+  {
+   "fieldname": "column_break_kkuu",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "sm_oc",
+   "fieldtype": "Float",
+   "label": "Original Cost"
+  },
+  {
+   "fieldname": "column_break_qmwq",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "sm_tr",
+   "fieldtype": "Float",
+   "label": "Transportation Cost"
+  },
+  {
+   "fieldname": "column_break_sdjk",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "sm_tp",
+   "fieldtype": "Float",
+   "label": "Total Price"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "gravel_section",
+   "fieldtype": "Section Break",
+   "label": "Gravel"
+  },
+  {
+   "fieldname": "gr_ar",
+   "fieldtype": "Float",
+   "label": "Available at Radius"
+  },
+  {
+   "fieldname": "column_break_qgul",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "gr_oc",
+   "fieldtype": "Float",
+   "label": "Original Cost"
+  },
+  {
+   "fieldname": "column_break_aujf",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "gr_tr",
+   "fieldtype": "Float",
+   "label": "Transportation Cost"
+  },
+  {
+   "fieldname": "column_break_gelh",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "gr_tp",
+   "fieldtype": "Float",
+   "label": "Total Price"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "other_local_material_price_section",
+   "fieldtype": "Section Break",
+   "label": "Other Local Material Price"
+  },
+  {
+   "fieldname": "lumber",
+   "fieldtype": "Float",
+   "label": "Lumber"
+  },
+  {
+   "fieldname": "column_break_kxkb",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "pumice",
+   "fieldtype": "Float",
+   "label": "Pumice"
+  },
+  {
+   "fieldname": "column_break_fcxd",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "redash",
+   "fieldtype": "Float",
+   "label": "Redash"
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Naming Series",
+   "options": "KLC-CSVA-",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_yldg",
+   "fieldtype": "Section Break"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "manpower_availability_and_cost_per_day_section",
+   "fieldtype": "Section Break",
+   "label": "Manpower Availability and Cost (Per Day)"
+  },
+  {
+   "fieldname": "mason_price",
+   "fieldtype": "Float",
+   "label": "Mason Price"
+  },
+  {
+   "fieldname": "column_break_pxjb",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "carpenter_price",
+   "fieldtype": "Float",
+   "label": "Carpenter Price"
+  },
+  {
+   "fieldname": "column_break_ziqg",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "plaster_payment",
+   "fieldtype": "Float",
+   "label": "Plaster Payment"
+  },
+  {
+   "fieldname": "column_break_exlh",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "daily_laborer_payment",
+   "fieldtype": "Float",
+   "label": "Daily Laborer Payment"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "utility_availability_and_cost_section",
+   "fieldtype": "Section Break",
+   "label": "Utility Availability and Cost"
+  },
+  {
+   "fieldname": "water",
+   "fieldtype": "Data",
+   "label": "Water"
+  },
+  {
+   "fieldname": "column_break_mexf",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "elctricity",
+   "fieldtype": "Data",
+   "label": "Elctricity"
+  },
+  {
+   "fieldname": "column_break_kgmn",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "hotel",
+   "fieldtype": "Data",
+   "label": "Hotel"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "site_condition_section",
+   "fieldtype": "Section Break",
+   "label": "Site Condition"
+  },
+  {
+   "fieldname": "obstructions",
+   "fieldtype": "Data",
+   "label": "Obstructions"
+  },
+  {
+   "fieldname": "column_break_pavi",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "accessiblity",
+   "fieldtype": "Data",
+   "label": "Accessiblity"
+  },
+  {
+   "fieldname": "approvals_section",
+   "fieldtype": "Section Break",
+   "label": "Approvals"
+  },
+  {
+   "fieldname": "prepared_by",
+   "fieldtype": "Link",
+   "label": "Prepared By",
+   "options": "User"
+  },
+  {
+   "fieldname": "column_break_gguc",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "approved_by",
+   "fieldtype": "Link",
+   "label": "Approved By",
+   "options": "User"
+  },
+  {
+   "fieldname": "bid_followup_id",
+   "fieldtype": "Link",
+   "label": "Bid Followup Id",
+   "options": "Bid Followup"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-04-22 15:01:40.252647",
+ "modified_by": "Administrator",
+ "module": "Bid",
+ "name": "Site Visit Assessment",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}

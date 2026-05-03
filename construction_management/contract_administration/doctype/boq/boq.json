@@ -1,0 +1,216 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2026-04-28 11:41:37.553814",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_4sy6",
+  "amended_from",
+  "subcontractor_agreement",
+  "project",
+  "client",
+  "consultant",
+  "column_break_pjnx",
+  "naming_series",
+  "subcontractor",
+  "location",
+  "specification_and_bill_of_quantity_section",
+  "items",
+  "summary_tab",
+  "summary",
+  "section_break_wnmf",
+  "previous_column",
+  "p_total",
+  "p_vat",
+  "p_total_vat",
+  "current_column",
+  "c_total",
+  "c_vat",
+  "c_total_vat",
+  "todate_column",
+  "t_total",
+  "t_vat",
+  "t_total_vat"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_4sy6",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "BOQ",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fetch_from": "subcontractor_agreement.project",
+   "fieldname": "project",
+   "fieldtype": "Link",
+   "label": "Project",
+   "options": "Project"
+  },
+  {
+   "fieldname": "client",
+   "fieldtype": "Link",
+   "label": "Client",
+   "options": "Customer"
+  },
+  {
+   "fieldname": "consultant",
+   "fieldtype": "Link",
+   "label": "Consultant",
+   "options": "Consultant"
+  },
+  {
+   "fieldname": "column_break_pjnx",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "hidden": 1,
+   "label": "Naming Series",
+   "options": "KLC-CBOQ-"
+  },
+  {
+   "fetch_from": "subcontractor_agreement.r_entity",
+   "fieldname": "subcontractor",
+   "fieldtype": "Link",
+   "label": "Subcontractor",
+   "options": "Subcontractor"
+  },
+  {
+   "fieldname": "location",
+   "fieldtype": "Small Text",
+   "label": "Location"
+  },
+  {
+   "fieldname": "specification_and_bill_of_quantity_section",
+   "fieldtype": "Section Break",
+   "label": "Specification and Bill of Quantity"
+  },
+  {
+   "fieldname": "subcontractor_agreement",
+   "fieldtype": "Link",
+   "label": "Subcontractor Agreement",
+   "options": "Subcontract Agreement"
+  },
+  {
+   "fieldname": "items",
+   "fieldtype": "Table",
+   "options": "BOQ Items"
+  },
+  {
+   "fieldname": "summary_tab",
+   "fieldtype": "Tab Break",
+   "label": "Summary"
+  },
+  {
+   "fieldname": "summary",
+   "fieldtype": "Table",
+   "label": "Summary",
+   "options": "BOQ Summary"
+  },
+  {
+   "fieldname": "section_break_wnmf",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "previous_column",
+   "fieldtype": "Column Break",
+   "label": "Previous "
+  },
+  {
+   "fieldname": "p_total",
+   "fieldtype": "Float",
+   "label": "Total Grand Summary"
+  },
+  {
+   "fieldname": "p_vat",
+   "fieldtype": "Float",
+   "label": "15 % VAT"
+  },
+  {
+   "fieldname": "p_total_vat",
+   "fieldtype": "Float",
+   "label": "Total"
+  },
+  {
+   "fieldname": "current_column",
+   "fieldtype": "Column Break",
+   "label": "Current"
+  },
+  {
+   "fieldname": "c_total",
+   "fieldtype": "Float",
+   "label": "Total Grand Summary"
+  },
+  {
+   "fieldname": "c_vat",
+   "fieldtype": "Float",
+   "label": "15 % VAT"
+  },
+  {
+   "fieldname": "c_total_vat",
+   "fieldtype": "Float",
+   "label": "Total"
+  },
+  {
+   "fieldname": "todate_column",
+   "fieldtype": "Column Break",
+   "label": "Todate"
+  },
+  {
+   "fieldname": "t_total",
+   "fieldtype": "Float",
+   "label": "Total Grand Summary"
+  },
+  {
+   "fieldname": "t_vat",
+   "fieldtype": "Float",
+   "label": "15 % VAT"
+  },
+  {
+   "fieldname": "t_total_vat",
+   "fieldtype": "Float",
+   "label": "Total"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2026-04-30 01:48:36.285486",
+ "modified_by": "Administrator",
+ "module": "Contract Administration",
+ "name": "BOQ",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}

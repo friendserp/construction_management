@@ -1,0 +1,63 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2026-04-28 16:05:46.333837",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "payment_no",
+  "date",
+  "before_vat",
+  "15_vat",
+  "total_amount"
+ ],
+ "fields": [
+  {
+   "fieldname": "payment_no",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Payment No",
+   "options": "Subcontract Payment Certificate"
+  },
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Date"
+  },
+  {
+   "fieldname": "before_vat",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Before VAT"
+  },
+  {
+   "fieldname": "15_vat",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "15% VAT"
+  },
+  {
+   "fieldname": "total_amount",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Total Amount"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2026-04-30 17:02:06.831723",
+ "modified_by": "Administrator",
+ "module": "Contract Administration",
+ "name": "SPC Advance",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}

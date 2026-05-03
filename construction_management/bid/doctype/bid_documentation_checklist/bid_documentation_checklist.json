@@ -1,0 +1,185 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2026-04-21 14:34:35.354268",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_rzr0",
+  "amended_from",
+  "date",
+  "template",
+  "naming_series",
+  "column_break_rgai",
+  "bid_followup_id",
+  "site_visit_assessment_id",
+  "status",
+  "other_check_lists_section",
+  "tp",
+  "fp",
+  "cbd",
+  "section_break_dzbx",
+  "items",
+  "section_break_ueja",
+  "prepare_by",
+  "column_break_jzis",
+  "approved_by"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_rzr0",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Bid Documentation Checklist",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "depends_on": "eval:doc.tp && doc.fp && doc.cbd",
+   "fieldname": "items",
+   "fieldtype": "Table",
+   "options": "Bid Check list"
+  },
+  {
+   "fieldname": "section_break_ueja",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "prepare_by",
+   "fieldtype": "Link",
+   "label": "Prepare By",
+   "options": "User"
+  },
+  {
+   "fieldname": "column_break_jzis",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "approved_by",
+   "fieldtype": "Link",
+   "label": "Approved By",
+   "options": "User"
+  },
+  {
+   "fieldname": "column_break_rgai",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "bid_followup_id",
+   "fieldtype": "Link",
+   "label": "Bid Review Id",
+   "options": "Detailed bid review"
+  },
+  {
+   "fieldname": "site_visit_assessment_id",
+   "fieldtype": "Link",
+   "label": "Site Visit Assessment Id",
+   "options": "Site Visit Assessment"
+  },
+  {
+   "fieldname": "section_break_dzbx",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "other_check_lists_section",
+   "fieldtype": "Section Break",
+   "label": "Other Check Lists"
+  },
+  {
+   "default": "0",
+   "fieldname": "tp",
+   "fieldtype": "Check",
+   "label": "Technical Proposal"
+  },
+  {
+   "default": "0",
+   "fieldname": "fp",
+   "fieldtype": "Check",
+   "label": "Financial Proposal"
+  },
+  {
+   "default": "0",
+   "fieldname": "cbd",
+   "fieldtype": "Check",
+   "label": "Cost Break Down"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "\nQualified\nNon Qualified",
+   "read_only": 1
+  },
+  {
+   "fieldname": "template",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Template",
+   "options": "Bid Template",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Naming Series",
+   "options": "KLC-CBDC-"
+  },
+  {
+   "default": "Today",
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2026-04-23 11:25:03.043562",
+ "modified_by": "Administrator",
+ "module": "Bid",
+ "name": "Bid Documentation Checklist",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Projects User",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "search_fields": "template",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

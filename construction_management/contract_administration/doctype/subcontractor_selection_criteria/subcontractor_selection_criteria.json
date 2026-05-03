@@ -1,0 +1,153 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2026-04-28 10:52:32.475847",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_zmvm",
+  "type_of_work",
+  "subcontractor",
+  "column_break_qdbp",
+  "naming_series",
+  "section_break_wyxa",
+  "items",
+  "section_break_xqsg",
+  "prepared_by",
+  "column_break_xhnj",
+  "checked_by",
+  "column_break_qjls",
+  "approved_by",
+  "column_break_ogpk",
+  "authorized_by",
+  "section_break_iroe",
+  "comment"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_zmvm",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "type_of_work",
+   "fieldtype": "Data",
+   "label": "Type of Work"
+  },
+  {
+   "fieldname": "subcontractor",
+   "fieldtype": "Link",
+   "label": "Subcontractor",
+   "options": "Subcontractor Rate"
+  },
+  {
+   "fieldname": "column_break_qdbp",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Naming Series",
+   "options": "KLC-CSSC-",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_wyxa",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "items",
+   "fieldtype": "Table",
+   "options": "Subcontractor Rate"
+  },
+  {
+   "fieldname": "section_break_xqsg",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "prepared_by",
+   "fieldtype": "Link",
+   "label": "Prepared by",
+   "options": "User"
+  },
+  {
+   "fieldname": "column_break_xhnj",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "checked_by",
+   "fieldtype": "Link",
+   "label": "Checked by",
+   "options": "User"
+  },
+  {
+   "fieldname": "column_break_qjls",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "approved_by",
+   "fieldtype": "Link",
+   "label": "Approved by",
+   "options": "User"
+  },
+  {
+   "fieldname": "column_break_ogpk",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "authorized_by",
+   "fieldtype": "Link",
+   "label": "Authorized by",
+   "options": "User"
+  },
+  {
+   "fieldname": "section_break_iroe",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "comment",
+   "fieldtype": "Small Text",
+   "label": "Comment"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-04-28 10:58:29.200124",
+ "modified_by": "Administrator",
+ "module": "Contract Administration",
+ "name": "Subcontractor Selection Criteria",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Projects User",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

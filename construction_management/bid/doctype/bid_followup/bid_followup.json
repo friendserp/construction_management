@@ -1,0 +1,182 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2026-04-21 12:03:52.101271",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "date",
+  "project_name",
+  "date_of_announcement",
+  "client",
+  "contractor_category",
+  "project_type",
+  "project_place",
+  "remark",
+  "bid_details_column",
+  "purchase_place",
+  "purchase_cost",
+  "submission_time",
+  "opening_time",
+  "opening_place",
+  "security_amount",
+  "status"
+ ],
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Naming Series",
+   "options": "KLC-CBF-",
+   "read_only": 1
+  },
+  {
+   "default": "Today",
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date"
+  },
+  {
+   "columns": 1,
+   "fieldname": "date_of_announcement",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Date of Announcement",
+   "reqd": 1
+  },
+  {
+   "fieldname": "contractor_category",
+   "fieldtype": "Link",
+   "label": "Contractor Category",
+   "options": "Contractor Category",
+   "reqd": 1
+  },
+  {
+   "columns": 1,
+   "fieldname": "project_type",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Project Type",
+   "options": "Project Type",
+   "reqd": 1
+  },
+  {
+   "columns": 2,
+   "fieldname": "project_place",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Project Place",
+   "reqd": 1
+  },
+  {
+   "fieldname": "remark",
+   "fieldtype": "Small Text",
+   "label": "Remark"
+  },
+  {
+   "fieldname": "bid_details_column",
+   "fieldtype": "Column Break",
+   "label": "BId Details"
+  },
+  {
+   "columns": 1,
+   "fieldname": "purchase_place",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Purchase Place",
+   "reqd": 1
+  },
+  {
+   "columns": 1,
+   "fieldname": "purchase_cost",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Purchase Cost",
+   "reqd": 1
+  },
+  {
+   "columns": 1,
+   "fieldname": "submission_time",
+   "fieldtype": "Datetime",
+   "in_list_view": 1,
+   "label": "Submission Time",
+   "reqd": 1
+  },
+  {
+   "columns": 1,
+   "fieldname": "opening_time",
+   "fieldtype": "Datetime",
+   "in_list_view": 1,
+   "label": "Opening Time",
+   "reqd": 1
+  },
+  {
+   "columns": 1,
+   "fieldname": "opening_place",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Opening Place",
+   "reqd": 1
+  },
+  {
+   "columns": 1,
+   "fieldname": "security_amount",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Security Amount",
+   "reqd": 1
+  },
+  {
+   "columns": 1,
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Status",
+   "options": "\nPurchased\nSkipped\nOverdue"
+  },
+  {
+   "fieldname": "client",
+   "fieldtype": "Link",
+   "label": "Client",
+   "options": "Customer",
+   "reqd": 1
+  },
+  {
+   "fieldname": "project_name",
+   "fieldtype": "Data",
+   "label": "Project Name",
+   "reqd": 1
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-04-23 10:25:13.985850",
+ "modified_by": "Administrator",
+ "module": "Bid",
+ "name": "Bid Followup",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}

@@ -1,0 +1,60 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2026-04-28 10:38:32.279024",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "projectyt",
+  "naming_series",
+  "table_irkm"
+ ],
+ "fields": [
+  {
+   "fieldname": "projectyt",
+   "fieldtype": "Link",
+   "label": "Projectyt",
+   "options": "Project"
+  },
+  {
+   "fieldname": "table_irkm",
+   "fieldtype": "Table",
+   "options": "List of Work Items"
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Naming Series",
+   "options": "KLC-CLW-"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-04-28 10:44:28.199385",
+ "modified_by": "Administrator",
+ "module": "Contract Administration",
+ "name": "List of Work",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}

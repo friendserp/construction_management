@@ -1,0 +1,216 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": " BFU-.#####",
+ "creation": "2026-04-21 14:34:51.223906",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_rhdk",
+  "bid_documentation_check_list",
+  "technical_opening",
+  "financial_opening",
+  "section_break_7hke",
+  "amended_from",
+  "project_name",
+  "name_of_client",
+  "announcement_date",
+  "opening_date",
+  "opening_place",
+  "column_break_flwe",
+  "consultant_estimate",
+  "mi_estimate",
+  "project_estimate",
+  "currency",
+  "section_break_olfs",
+  "bid_opening_folow_up_table",
+  "financial",
+  "technical",
+  "section_break_kzoz",
+  "prepare_by",
+  "column_break_dwpb",
+  "approved_by"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_rhdk",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "bid_documentation_check_list",
+   "fieldtype": "Link",
+   "label": "Bid Documentation Check list",
+   "options": "Bid Documentation Checklist"
+  },
+  {
+   "fieldname": "section_break_7hke",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Bid Opening Followup",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "project_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Project Name ",
+   "reqd": 1
+  },
+  {
+   "fieldname": "announcement_date",
+   "fieldtype": "Date",
+   "label": "Announcement Date ",
+   "reqd": 1
+  },
+  {
+   "fieldname": "opening_date",
+   "fieldtype": "Datetime",
+   "in_list_view": 1,
+   "label": "Opening Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_flwe",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "consultant_estimate",
+   "fieldtype": "Int",
+   "label": "Consultant Estimate"
+  },
+  {
+   "fieldname": "mi_estimate",
+   "fieldtype": "Int",
+   "label": "M.I Estimate"
+  },
+  {
+   "fieldname": "project_estimate",
+   "fieldtype": "Int",
+   "label": "Project Estimate"
+  },
+  {
+   "fieldname": "section_break_olfs",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "bid_opening_folow_up_table",
+   "fieldtype": "Table",
+   "hidden": 1,
+   "label": "Bid Opening Folow up Table",
+   "options": "Bid Opening Folow up Table"
+  },
+  {
+   "fieldname": "section_break_kzoz",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "prepare_by",
+   "fieldtype": "Link",
+   "label": "Prepare By",
+   "options": "User"
+  },
+  {
+   "fieldname": "column_break_dwpb",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "approved_by",
+   "fieldtype": "Link",
+   "label": "Approved By",
+   "options": "User"
+  },
+  {
+   "fieldname": "name_of_client",
+   "fieldtype": "Data",
+   "label": "Name of Client",
+   "reqd": 1
+  },
+  {
+   "fieldname": "opening_place",
+   "fieldtype": "Data",
+   "label": "Opening Place",
+   "reqd": 1
+  },
+  {
+   "fieldname": "currency",
+   "fieldtype": "Select",
+   "label": "Currency",
+   "options": "Birr\nUSD"
+  },
+  {
+   "default": "0",
+   "fieldname": "technical_opening",
+   "fieldtype": "Check",
+   "label": "Technical Opening"
+  },
+  {
+   "default": "0",
+   "fieldname": "financial_opening",
+   "fieldtype": "Check",
+   "label": "Financial Opening"
+  },
+  {
+   "depends_on": "eval:doc.financial_opening",
+   "fieldname": "financial",
+   "fieldtype": "Table",
+   "label": "Financial",
+   "options": "Bid Opening Financial Detail"
+  },
+  {
+   "depends_on": "eval:doc.technical_opening == 1",
+   "fieldname": "technical",
+   "fieldtype": "Table",
+   "label": "Technical",
+   "options": "Bid Opening Technical Detail"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2026-04-22 16:32:09.977965",
+ "modified_by": "Administrator",
+ "module": "Bid",
+ "name": "Bid Opening Followup",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Projects User",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

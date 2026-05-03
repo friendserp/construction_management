@@ -1,0 +1,268 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2026-04-25 09:15:53.489995",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_0lgf",
+  "amended_from",
+  "date",
+  "agreement_date",
+  "project",
+  "column_break_mlzr",
+  "naming_series",
+  "type_of_work",
+  "type_of_work_amharic",
+  "entity_details_section",
+  "contract_giver_detail_column",
+  "g_entity",
+  "g_address",
+  "g_phone",
+  "contract_recipient_detail_column",
+  "r_entity",
+  "r_address",
+  "r_phone",
+  "work_items_section",
+  "boq",
+  "items",
+  "section_break_naxz",
+  "total_price_before_vat",
+  "vat",
+  "total_price_with_vat",
+  "column_break_urel",
+  "advance_percent",
+  "advance_amount",
+  "payment_percentage",
+  "testimonies_section",
+  "first_testimony",
+  "second_testimony",
+  "third_testimony"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_0lgf",
+   "fieldtype": "Section Break",
+   "label": "General Details"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Subcontract Agreement",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "default": "Today",
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "agreement_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Agreement Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "project",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Project",
+   "options": "Project",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_mlzr",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Naming Series",
+   "options": "KLC-CSA-",
+   "read_only": 1
+  },
+  {
+   "fieldname": "type_of_work",
+   "fieldtype": "Small Text",
+   "in_list_view": 1,
+   "label": "Type of Work",
+   "reqd": 1
+  },
+  {
+   "fieldname": "type_of_work_amharic",
+   "fieldtype": "Small Text",
+   "label": "Type of Work Amharic"
+  },
+  {
+   "fieldname": "entity_details_section",
+   "fieldtype": "Section Break",
+   "label": "Entity Details"
+  },
+  {
+   "fieldname": "contract_giver_detail_column",
+   "fieldtype": "Column Break",
+   "label": "Contract Giver Detail"
+  },
+  {
+   "default": "\u12a9\u123d\u120b\u12f0\u122d \u12ae\u1295\u1235\u1275\u122b\u12ad\u123a\u1295 \u1283\u120b/\u12e8\u1270/\u12e8\u130d/\u121b\u1205\u1260\u122d",
+   "fieldname": "g_entity",
+   "fieldtype": "Data",
+   "label": "Entity",
+   "reqd": 1
+  },
+  {
+   "default": "\u12a0\u12f2\u1235 \u12a0\u1260\u1263 \u1295/\u1235/\u120b\u134d\u1276 \u12ad/\u12a8\u1270\u121b \u12c8\u1228\u12f3 01 \u12e8\u1264\u1275 \u1241\u1325\u122d \u12a0\u12f2\u1235",
+   "fieldname": "g_address",
+   "fieldtype": "Data",
+   "label": "Address",
+   "reqd": 1
+  },
+  {
+   "default": "+251-118473288",
+   "fieldname": "g_phone",
+   "fieldtype": "Data",
+   "label": "Phone No"
+  },
+  {
+   "fieldname": "contract_recipient_detail_column",
+   "fieldtype": "Column Break",
+   "label": "Contract Recipient Detail"
+  },
+  {
+   "fieldname": "r_entity",
+   "fieldtype": "Data",
+   "label": "Entity",
+   "reqd": 1
+  },
+  {
+   "fieldname": "r_address",
+   "fieldtype": "Data",
+   "label": "Address",
+   "reqd": 1
+  },
+  {
+   "fieldname": "r_phone",
+   "fieldtype": "Data",
+   "label": "Phone No"
+  },
+  {
+   "fieldname": "work_items_section",
+   "fieldtype": "Section Break",
+   "label": "Work Items"
+  },
+  {
+   "fieldname": "section_break_naxz",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "total_price_before_vat",
+   "fieldtype": "Float",
+   "label": "Total Price before VAT",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "vat",
+   "fieldtype": "Float",
+   "label": "VAT (15%)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_price_with_vat",
+   "fieldtype": "Float",
+   "label": "Total Price with VAT",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_urel",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "advance_percent",
+   "fieldtype": "Percent",
+   "label": "Advance Percent"
+  },
+  {
+   "fieldname": "payment_percentage",
+   "fieldtype": "Percent",
+   "label": "Payment Percentage"
+  },
+  {
+   "fieldname": "testimonies_section",
+   "fieldtype": "Section Break",
+   "label": "Testimonies"
+  },
+  {
+   "fieldname": "first_testimony",
+   "fieldtype": "Data",
+   "label": "First Testimony"
+  },
+  {
+   "fieldname": "second_testimony",
+   "fieldtype": "Data",
+   "label": "Second Testimony"
+  },
+  {
+   "fieldname": "third_testimony",
+   "fieldtype": "Data",
+   "label": "Third Testimony"
+  },
+  {
+   "fieldname": "items",
+   "fieldtype": "Table",
+   "options": "Subcontract Agreement Items",
+   "reqd": 1
+  },
+  {
+   "fieldname": "advance_amount",
+   "fieldtype": "Float",
+   "label": "Advance Amount"
+  },
+  {
+   "fieldname": "boq",
+   "fieldtype": "Link",
+   "label": "BOQ",
+   "options": "BOQ"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2026-04-28 12:02:24.811839",
+ "modified_by": "Administrator",
+ "module": "Contract Administration",
+ "name": "Subcontract Agreement",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}

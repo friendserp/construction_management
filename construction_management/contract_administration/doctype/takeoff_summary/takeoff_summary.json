@@ -1,0 +1,43 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2026-04-29 11:22:07.335399",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "group_task",
+  "qty"
+ ],
+ "fields": [
+  {
+   "fieldname": "group_task",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Group Task",
+   "link_filters": "[[\"Task\",\"is_group\",\"=\",1]]",
+   "options": "Task"
+  },
+  {
+   "fieldname": "qty",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Total Quantity"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2026-04-29 11:23:11.172203",
+ "modified_by": "Administrator",
+ "module": "Contract Administration",
+ "name": "Takeoff Summary",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}

@@ -1,0 +1,135 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2026-04-22 16:43:04.327853",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "date",
+  "bid_name",
+  "bid_submission_date",
+  "column_break_dcwk",
+  "naming_series",
+  "bid_opening_followup_id",
+  "bid_evaluation_result_section",
+  "technical",
+  "column_break_knaw",
+  "financial",
+  "section_break_njda",
+  "prepared_by",
+  "column_break_azyq",
+  "checked_by",
+  "column_break_frqs",
+  "approved_by"
+ ],
+ "fields": [
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date"
+  },
+  {
+   "fieldname": "bid_name",
+   "fieldtype": "Data",
+   "label": "Bid Name"
+  },
+  {
+   "fieldname": "bid_submission_date",
+   "fieldtype": "Date",
+   "label": "Bid Submission Date"
+  },
+  {
+   "fieldname": "column_break_dcwk",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "bid_opening_followup_id",
+   "fieldtype": "Link",
+   "label": "Bid Opening Followup Id",
+   "options": "Bid Opening Followup"
+  },
+  {
+   "fieldname": "bid_evaluation_result_section",
+   "fieldtype": "Section Break",
+   "label": "Bid Evaluation Result"
+  },
+  {
+   "fieldname": "technical",
+   "fieldtype": "Data",
+   "label": "Technical"
+  },
+  {
+   "fieldname": "column_break_knaw",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "financial",
+   "fieldtype": "Data",
+   "label": "Financial"
+  },
+  {
+   "fieldname": "section_break_njda",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "prepared_by",
+   "fieldtype": "Data",
+   "label": "Prepared By"
+  },
+  {
+   "fieldname": "column_break_azyq",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "checked_by",
+   "fieldtype": "Data",
+   "label": "Checked By"
+  },
+  {
+   "fieldname": "column_break_frqs",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "approved_by",
+   "fieldtype": "Data",
+   "label": "Approved By"
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Naming Series",
+   "options": "KLC-CBR",
+   "read_only": 1
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-04-22 16:54:08.252465",
+ "modified_by": "Administrator",
+ "module": "Bid",
+ "name": "Bid Result",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

@@ -1,0 +1,52 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2026-05-03 22:31:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "description",
+  "evidence",
+  "days_claimed",
+  "days_approved"
+ ],
+ "fields": [
+  {
+   "fieldname": "description",
+   "fieldtype": "Small Text",
+   "in_list_view": 1,
+   "label": "Description of Delay Justification",
+   "reqd": 1
+  },
+  {
+   "fieldname": "evidence",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Evidence"
+  },
+  {
+   "fieldname": "days_claimed",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "No. Of days claimed by the contractor"
+  },
+  {
+   "fieldname": "days_approved",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "No. Of days approved by the consultant"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "modified": "2026-05-03 22:31:00.000000",
+ "modified_by": "Administrator",
+ "module": "Contract Administration",
+ "name": "Delay Justification Item",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

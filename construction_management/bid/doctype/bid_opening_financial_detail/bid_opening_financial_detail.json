@@ -1,0 +1,104 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2026-04-22 16:06:58.028486",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "bidder",
+  "bid_security_validity",
+  "preliminary_requirements",
+  "offer_before_vat",
+  "column_break_jzdn",
+  "rebate_",
+  "offer_after_rebate",
+  "offer_including_vat",
+  "rank",
+  "remarks"
+ ],
+ "fields": [
+  {
+   "fieldname": "bidder",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Bidder",
+   "reqd": 1
+  },
+  {
+   "fieldname": "preliminary_requirements",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Preliminary Requirements"
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Small Text",
+   "in_list_view": 1,
+   "label": "Remarks"
+  },
+  {
+   "columns": 1,
+   "fieldname": "bid_security_validity",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Bid Security Validity"
+  },
+  {
+   "columns": 1,
+   "fieldname": "offer_before_vat",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Offer before VAT",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_jzdn",
+   "fieldtype": "Column Break"
+  },
+  {
+   "columns": 1,
+   "fieldname": "rebate_",
+   "fieldtype": "Percent",
+   "in_list_view": 1,
+   "label": "Rebate %"
+  },
+  {
+   "columns": 1,
+   "fieldname": "offer_after_rebate",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Offer after Rebate"
+  },
+  {
+   "columns": 1,
+   "fieldname": "offer_including_vat",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Offer Including VAT",
+   "reqd": 1
+  },
+  {
+   "fieldname": "rank",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Rank",
+   "reqd": 1
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2026-04-23 11:45:34.616444",
+ "modified_by": "Administrator",
+ "module": "Bid",
+ "name": "Bid Opening Financial Detail",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

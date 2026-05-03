@@ -1,0 +1,90 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2026-05-03 21:26:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "project",
+  "bank",
+  "amount",
+  "issue_date",
+  "original_duration",
+  "extended_duration",
+  "column_break_expiry",
+  "expiry_date",
+  "remaining_days",
+  "remark"
+ ],
+ "fields": [
+  {
+   "fieldname": "project",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Project",
+   "options": "Project"
+  },
+  {
+   "fieldname": "bank",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Bank Issuing the Performance bond"
+  },
+  {
+   "fieldname": "amount",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Amount of the performance bond"
+  },
+  {
+   "fieldname": "issue_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Guarantee Issue On"
+  },
+  {
+   "fieldname": "original_duration",
+   "fieldtype": "Data",
+   "label": "Original Duration"
+  },
+  {
+   "fieldname": "extended_duration",
+   "fieldtype": "Data",
+   "label": "Extended Duration"
+  },
+  {
+   "fieldname": "column_break_expiry",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "expiry_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Guarantee Expired Date"
+  },
+  {
+   "fieldname": "remaining_days",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Remaining Day",
+   "read_only": 1
+  },
+  {
+   "fieldname": "remark",
+   "fieldtype": "Small Text",
+   "label": "Remark"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "modified": "2026-05-03 21:26:00.000000",
+ "modified_by": "Administrator",
+ "module": "Contract Administration",
+ "name": "Performance Bond Detail",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

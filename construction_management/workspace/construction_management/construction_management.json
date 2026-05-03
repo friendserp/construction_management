@@ -1,0 +1,22 @@
+{
+ "app": "construction_management",
+ "category": "Modules",
+ "content": "[{\"id\":\"header_main\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h3\\\"><b>Construction Management</b></span>\",\"col\":12}},{\"id\":\"spacer1\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"header_modules\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Sub-Workspaces</b></span>\",\"col\":12}},{\"id\":\"shortcut_bid\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Bid\",\"link_to\":\"Bid\",\"link_type\":\"Workspace\",\"col\":6}},{\"id\":\"shortcut_contract_admin\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Contract Administration\",\"link_to\":\"Contract Administration\",\"link_type\":\"Workspace\",\"col\":6}}]",
+ "creation": "2026-05-03 23:42:00.000000",
+ "doctype": "Workspace",
+ "icon": "package",
+ "is_hidden": 0,
+ "label": "Construction Management",
+ "links": [],
+ "modified": "2026-05-03 23:42:00.000000",
+ "module": "Construction Management",
+ "name": "Construction Management",
+ "public": 1,
+ "roles": [
+  {
+   "role": "System Manager"
+  }
+ ],
+ "sequence_id": 1.0,
+ "title": "Construction Management"
+}

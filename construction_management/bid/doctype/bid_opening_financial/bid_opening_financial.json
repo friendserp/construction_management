@@ -1,0 +1,174 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2026-04-23 11:50:50.191835",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_rhdk",
+  "bid_documentation_check_list",
+  "column_break_ouen",
+  "date",
+  "section_break_7hke",
+  "amended_from",
+  "project_name",
+  "name_of_client",
+  "column_break_flwe",
+  "naming_series",
+  "opening_date",
+  "opening_place",
+  "section_break_olfs",
+  "financial",
+  "section_break_kzoz",
+  "prepare_by",
+  "column_break_dwpb",
+  "approved_by"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_rhdk",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "bid_documentation_check_list",
+   "fieldtype": "Link",
+   "label": "Bid Documentation Check list",
+   "options": "Bid Documentation Checklist"
+  },
+  {
+   "fieldname": "section_break_7hke",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Bid Opening Financial",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "project_name",
+   "fieldtype": "Small Text",
+   "in_list_view": 1,
+   "label": "Project Name ",
+   "reqd": 1
+  },
+  {
+   "fieldname": "name_of_client",
+   "fieldtype": "Data",
+   "label": "Name of Client",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_flwe",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Naming Series",
+   "options": "KLC-CBOF-",
+   "read_only": 1
+  },
+  {
+   "fieldname": "opening_date",
+   "fieldtype": "Datetime",
+   "in_list_view": 1,
+   "label": "Opening Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "opening_place",
+   "fieldtype": "Data",
+   "label": "Opening Place",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_olfs",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "section_break_kzoz",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "prepare_by",
+   "fieldtype": "Link",
+   "label": "Prepare By",
+   "options": "User"
+  },
+  {
+   "fieldname": "column_break_dwpb",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "approved_by",
+   "fieldtype": "Link",
+   "label": "Approved By",
+   "options": "User"
+  },
+  {
+   "fieldname": "column_break_ouen",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Today",
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "financial",
+   "fieldtype": "Table",
+   "label": "Financial",
+   "options": "Bid Opening Financial Detail"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2026-04-23 11:55:19.993122",
+ "modified_by": "Administrator",
+ "module": "Bid",
+ "name": "Bid Opening Financial",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Projects User",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

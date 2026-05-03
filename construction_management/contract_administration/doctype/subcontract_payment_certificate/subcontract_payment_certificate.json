@@ -1,0 +1,309 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2026-04-26 18:19:41.133812",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_zx8n",
+  "amended_from",
+  "contract_agreement",
+  "project",
+  "client",
+  "consultant",
+  "sub_contractor",
+  "location",
+  "column_break_zhof",
+  "naming_series",
+  "date",
+  "contract_details",
+  "total",
+  "vat",
+  "total_with_vat",
+  "section_break_hxap",
+  "takeoff",
+  "boq",
+  "amount_executed",
+  "section_break_iscy",
+  "advance_payments_column",
+  "advances",
+  "ad_total",
+  "ad_vat",
+  "ad_total_vat",
+  "interim_payments",
+  "interims",
+  "column_break_bvkj",
+  "deductions",
+  "sub_total",
+  "net_sum",
+  "vat_payments",
+  "vat_net",
+  "vat_ret",
+  "vat_total",
+  "net_payment",
+  "net_payment_words",
+  "flow_chart_tab",
+  "flow_html"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_zx8n",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Subcontract Payment Certificate",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fetch_from": "contract_agreement.project",
+   "fieldname": "project",
+   "fieldtype": "Link",
+   "label": "Project",
+   "options": "Project",
+   "reqd": 1
+  },
+  {
+   "fieldname": "location",
+   "fieldtype": "Data",
+   "label": "Location"
+  },
+  {
+   "fetch_from": "contract_agreement.g_entity",
+   "fieldname": "client",
+   "fieldtype": "Link",
+   "label": "Client",
+   "options": "Customer"
+  },
+  {
+   "fieldname": "column_break_zhof",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "consultant",
+   "fieldtype": "Link",
+   "label": "Consultant",
+   "options": "Consultant"
+  },
+  {
+   "fetch_from": "contract_agreement.r_entity",
+   "fieldname": "sub_contractor",
+   "fieldtype": "Link",
+   "label": "Sub Contractor",
+   "options": "Subcontractor",
+   "reqd": 1
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "hidden": 1,
+   "label": "Naming Series",
+   "options": "KLC-CSPC",
+   "read_only": 1
+  },
+  {
+   "fieldname": "contract_agreement",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Contract Agreement",
+   "options": "Subcontract Agreement",
+   "reqd": 1
+  },
+  {
+   "default": "Today",
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "contract_details",
+   "fieldtype": "Table",
+   "options": "SPC Contract Details"
+  },
+  {
+   "fieldname": "total",
+   "fieldtype": "Float",
+   "label": "Total",
+   "read_only": 1
+  },
+  {
+   "fieldname": "vat",
+   "fieldtype": "Float",
+   "label": "Vat",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_with_vat",
+   "fieldtype": "Float",
+   "label": "Total with Vat",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_iscy",
+   "fieldtype": "Section Break",
+   "label": "Payments"
+  },
+  {
+   "fieldname": "column_break_bvkj",
+   "fieldtype": "Column Break",
+   "label": "Deductions"
+  },
+  {
+   "fieldname": "ad_total",
+   "fieldtype": "Float",
+   "label": "Total"
+  },
+  {
+   "fieldname": "ad_vat",
+   "fieldtype": "Float",
+   "label": "Total VAT"
+  },
+  {
+   "fieldname": "ad_total_vat",
+   "fieldtype": "Float",
+   "label": "Total with VAT"
+  },
+  {
+   "fieldname": "advance_payments_column",
+   "fieldtype": "Column Break",
+   "label": "Advance Payments"
+  },
+  {
+   "fieldname": "advances",
+   "fieldtype": "Table",
+   "options": "SPC Advance"
+  },
+  {
+   "fieldname": "section_break_hxap",
+   "fieldtype": "Section Break"
+  },
+  {
+   "description": "As per the attached statement, the value of work executed to date and material on site before rebate and VAT",
+   "fieldname": "amount_executed",
+   "fieldtype": "Float",
+   "label": "Amount Executed"
+  },
+  {
+   "fieldname": "takeoff",
+   "fieldtype": "Link",
+   "label": "Takeoff",
+   "options": "Takeoff"
+  },
+  {
+   "fieldname": "deductions",
+   "fieldtype": "Table",
+   "options": "SPC Deduction"
+  },
+  {
+   "fieldname": "sub_total",
+   "fieldtype": "Float",
+   "label": "Sub Total"
+  },
+  {
+   "description": "Net Sum Due to the Contractor",
+   "fieldname": "net_sum",
+   "fieldtype": "Float",
+   "label": "Net Sum"
+  },
+  {
+   "bold": 1,
+   "fieldname": "interim_payments",
+   "fieldtype": "Heading",
+   "label": "Interim Payments"
+  },
+  {
+   "fieldname": "interims",
+   "fieldtype": "Table",
+   "options": "SPC Advance"
+  },
+  {
+   "fieldname": "vat_payments",
+   "fieldtype": "Heading",
+   "label": "Vat Payments"
+  },
+  {
+   "fieldname": "vat_net",
+   "fieldtype": "Float",
+   "label": "15% VAT on Net Payment",
+   "read_only": 1
+  },
+  {
+   "fieldname": "vat_ret",
+   "fieldtype": "Float",
+   "label": "15% Vat for Retantion",
+   "read_only": 1
+  },
+  {
+   "fieldname": "vat_total",
+   "fieldtype": "Float",
+   "label": "Net Vat for this Crtification",
+   "read_only": 1
+  },
+  {
+   "fieldname": "net_payment",
+   "fieldtype": "Float",
+   "label": "Total Payment to the contractor",
+   "read_only": 1
+  },
+  {
+   "fieldname": "net_payment_words",
+   "fieldtype": "Data",
+   "label": "Total Payment in words",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "takeoff.boq",
+   "fieldname": "boq",
+   "fieldtype": "Link",
+   "label": "BOQ",
+   "options": "BOQ",
+   "read_only": 1
+  },
+  {
+   "fieldname": "flow_chart_tab",
+   "fieldtype": "Tab Break",
+   "label": "Flow Chart"
+  },
+  {
+   "fieldname": "flow_html",
+   "fieldtype": "HTML"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2026-05-03 20:28:30.916875",
+ "modified_by": "Administrator",
+ "module": "Contract Administration",
+ "name": "Subcontract Payment Certificate",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}

@@ -1,0 +1,182 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2026-04-22 12:09:41.943871",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "bid_name",
+  "client",
+  "bid_invitation_date",
+  "bid_purchase_amount",
+  "reasons_for_non_submission",
+  "column_break_ibdx",
+  "naming_series",
+  "date",
+  "bid_opening_followup_id",
+  "section_break_qdkk",
+  "qualification_requirement",
+  "section_break_ydkq",
+  "prepared_by",
+  "column_break_cggg",
+  "checked_by",
+  "column_break_ueet",
+  "approved_by",
+  "amended_from",
+  "flow_diagram_tab",
+  "flow_html"
+ ],
+ "fields": [
+  {
+   "fetch_from": "bid_opening_followup_id.project_name",
+   "fieldname": "bid_name",
+   "fieldtype": "Data",
+   "label": "Bid Name"
+  },
+  {
+   "fetch_from": "bid_opening_followup_id.name_of_client",
+   "fieldname": "client",
+   "fieldtype": "Data",
+   "label": "Client"
+  },
+  {
+   "fieldname": "bid_invitation_date",
+   "fieldtype": "Date",
+   "label": "Bid Invitation Date"
+  },
+  {
+   "fieldname": "bid_purchase_amount",
+   "fieldtype": "Float",
+   "label": "Bid Purchase amount"
+  },
+  {
+   "fieldname": "reasons_for_non_submission",
+   "fieldtype": "Data",
+   "label": "Reason/s for Non submission"
+  },
+  {
+   "fieldname": "column_break_ibdx",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Naming Series",
+   "options": "KLC-CUBD-",
+   "read_only": 1
+  },
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date"
+  },
+  {
+   "fieldname": "section_break_qdkk",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "qualification_requirement",
+   "fieldtype": "Table",
+   "label": "Qualification Requirement",
+   "options": "Bid Qualification Requirement"
+  },
+  {
+   "fieldname": "section_break_ydkq",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "prepared_by",
+   "fieldtype": "Link",
+   "label": "Prepared by",
+   "options": "User"
+  },
+  {
+   "fieldname": "column_break_cggg",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "checked_by",
+   "fieldtype": "Link",
+   "label": "Checked By",
+   "options": "User"
+  },
+  {
+   "fieldname": "column_break_ueet",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "approved_by",
+   "fieldtype": "Link",
+   "label": "Approved by",
+   "options": "User"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Unqualified Bid Purchased",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "bid_opening_followup_id",
+   "fieldtype": "Link",
+   "label": "Bid Opening Followup Id",
+   "options": "Bid Opening Followup"
+  },
+  {
+   "fieldname": "flow_diagram_tab",
+   "fieldtype": "Tab Break",
+   "label": "Flow Diagram"
+  },
+  {
+   "fieldname": "flow_html",
+   "fieldtype": "HTML",
+   "label": "Flow"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2026-04-23 09:21:09.078882",
+ "modified_by": "Administrator",
+ "module": "Bid",
+ "name": "Unqualified Bid Purchased",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Projects User",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

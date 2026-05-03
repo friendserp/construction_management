@@ -1,0 +1,158 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2026-04-28 11:50:14.149806",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "contract_details_section",
+  "task_group",
+  "item_work",
+  "description",
+  "unit",
+  "column_break_zguc",
+  "qty",
+  "rate",
+  "amount",
+  "previous_details_section",
+  "previous_column",
+  "p_qty",
+  "p_amount",
+  "column_break_lvao",
+  "c_qty",
+  "c_amount",
+  "column_break_cdfl",
+  "t_qty",
+  "t_amount"
+ ],
+ "fields": [
+  {
+   "columns": 2,
+   "fieldname": "item_work",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Item Work",
+   "link_filters": "[[\"Task\",\"is_group\",\"=\",0]]",
+   "options": "Task"
+  },
+  {
+   "columns": 3,
+   "fetch_from": "item_work.subject",
+   "fieldname": "description",
+   "fieldtype": "Small Text",
+   "in_list_view": 1,
+   "label": "Description"
+  },
+  {
+   "columns": 1,
+   "fieldname": "unit",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Unit",
+   "options": "UOM"
+  },
+  {
+   "columns": 1,
+   "fieldname": "qty",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Contract Qty"
+  },
+  {
+   "columns": 1,
+   "fieldname": "rate",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Contract Rate"
+  },
+  {
+   "columns": 2,
+   "fieldname": "amount",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Contract Amount"
+  },
+  {
+   "fieldname": "contract_details_section",
+   "fieldtype": "Section Break",
+   "label": "Contract Details"
+  },
+  {
+   "fieldname": "task_group",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Task Group",
+   "link_filters": "[[\"Task\",\"is_group\",\"=\",1]]",
+   "options": "Task"
+  },
+  {
+   "fieldname": "column_break_zguc",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "previous_details_section",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "p_qty",
+   "fieldtype": "Float",
+   "label": "Previous Executed Quantity"
+  },
+  {
+   "fieldname": "p_amount",
+   "fieldtype": "Float",
+   "label": "Previous Executed Amount"
+  },
+  {
+   "fieldname": "column_break_lvao",
+   "fieldtype": "Column Break",
+   "label": "Current"
+  },
+  {
+   "fieldname": "c_qty",
+   "fieldtype": "Float",
+   "label": "This Period Executed Quantity"
+  },
+  {
+   "fieldname": "c_amount",
+   "fieldtype": "Float",
+   "label": "This Period Executed Amount"
+  },
+  {
+   "fieldname": "column_break_cdfl",
+   "fieldtype": "Column Break",
+   "label": "Todate"
+  },
+  {
+   "fieldname": "t_qty",
+   "fieldtype": "Float",
+   "label": "Total Todate Executed Quantity"
+  },
+  {
+   "fieldname": "t_amount",
+   "fieldtype": "Float",
+   "label": "Total Todate Executed Amount"
+  },
+  {
+   "fieldname": "previous_column",
+   "fieldtype": "Column Break",
+   "label": "Previous"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2026-04-28 15:14:43.328012",
+ "modified_by": "Administrator",
+ "module": "Contract Administration",
+ "name": "BOQ Items",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}

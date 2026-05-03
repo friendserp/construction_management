@@ -1,0 +1,57 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2026-04-22 09:34:09.541220",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "type",
+  "no",
+  "hourly_rental",
+  "hourly_cost"
+ ],
+ "fields": [
+  {
+   "fieldname": "type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Type",
+   "options": "Tools"
+  },
+  {
+   "fieldname": "no",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "No"
+  },
+  {
+   "fieldname": "hourly_rental",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Hourly rental"
+  },
+  {
+   "fieldname": "hourly_cost",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Hourly cost"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2026-04-22 09:39:55.157857",
+ "modified_by": "Administrator",
+ "module": "Bid",
+ "name": "CBD Machinery",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
