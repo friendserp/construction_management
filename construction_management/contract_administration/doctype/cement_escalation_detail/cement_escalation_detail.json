@@ -1,0 +1,108 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2026-05-07 10:42:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "date_arrival",
+  "date_purchased",
+  "cement_type",
+  "unit",
+  "total_work_qty",
+  "prev_qty",
+  "net_qty",
+  "qty_per_unit",
+  "total_escalation_qty",
+  "current_price",
+  "initial_price",
+  "cost_variation"
+ ],
+ "fields": [
+  {
+   "fieldname": "date_arrival",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Date of Arrival at Project"
+  },
+  {
+   "fieldname": "date_purchased",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Date of Purchased"
+  },
+  {
+   "fieldname": "cement_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Type of Cement",
+   "options": "OPC\nPPC"
+  },
+  {
+   "fieldname": "unit",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Unit"
+  },
+  {
+   "fieldname": "total_work_qty",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Total Quantity of Work"
+  },
+  {
+   "fieldname": "prev_qty",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Previous Quantity"
+  },
+  {
+   "fieldname": "net_qty",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Net Quantity"
+  },
+  {
+   "fieldname": "qty_per_unit",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Quantity per Unit"
+  },
+  {
+   "fieldname": "total_escalation_qty",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Total Quantity for Escalation"
+  },
+  {
+   "fieldname": "current_price",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Current Price"
+  },
+  {
+   "fieldname": "initial_price",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Initial Price"
+  },
+  {
+   "fieldname": "cost_variation",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Cost Variation (Birr)"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "modified": "2026-05-07 10:42:00.000000",
+ "modified_by": "Administrator",
+ "module": "Contract Administration",
+ "name": "Cement Escalation Detail",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

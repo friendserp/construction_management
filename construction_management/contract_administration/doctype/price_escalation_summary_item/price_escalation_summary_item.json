@@ -1,0 +1,53 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2026-05-07 10:40:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "material",
+  "total_quantity",
+  "unit",
+  "total_amount"
+ ],
+ "fields": [
+  {
+   "fieldname": "material",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Material",
+   "options": "Reinforcement bar\nCement\nFuel\nAsphalt",
+   "reqd": 1
+  },
+  {
+   "fieldname": "total_quantity",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Total Quantity"
+  },
+  {
+   "fieldname": "unit",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Unit"
+  },
+  {
+   "fieldname": "total_amount",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Total Amount (Birr)"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "modified": "2026-05-07 10:40:00.000000",
+ "modified_by": "Administrator",
+ "module": "Contract Administration",
+ "name": "Price Escalation Summary Item",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

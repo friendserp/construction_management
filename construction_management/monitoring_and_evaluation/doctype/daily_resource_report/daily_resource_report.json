@@ -1,0 +1,303 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2026-05-22 23:44:32.453321",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_1",
+  "naming_series",
+  "project",
+  "project_name",
+  "weekly_action_plan",
+  "date",
+  "column_break_1",
+  "section_break_labor",
+  "direct_salary",
+  "direct_overtime",
+  "direct_incentive",
+  "column_break_labor_1",
+  "indirect_salary",
+  "indirect_overtime",
+  "indirect_incentive",
+  "section_break_material",
+  "material_fuel_cost",
+  "material_lubricant_cost",
+  "column_break_material_1",
+  "material_spare_parts_cost",
+  "material_construction_cost",
+  "section_break_equipment",
+  "equipment_own_direct",
+  "equipment_own_indirect",
+  "equipment_fuel_own",
+  "column_break_equipment_1",
+  "equipment_rental_direct",
+  "equipment_rental_indirect",
+  "equipment_fuel_rental",
+  "section_break_totals",
+  "total_cost",
+  "column_break_totals_1",
+  "revenue",
+  "profit_loss",
+  "status",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_1",
+   "fieldtype": "Section Break",
+   "label": "Details"
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Naming Series",
+   "options": "KLC-DRR-.YYYY.-.####."
+  },
+  {
+   "fieldname": "project",
+   "fieldtype": "Link",
+   "label": "Project",
+   "options": "Project"
+  },
+  {
+   "fetch_from": "project.project_name",
+   "fieldname": "project_name",
+   "fieldtype": "Data",
+   "label": "Project Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "weekly_action_plan",
+   "fieldtype": "Link",
+   "label": "Weekly Action Plan",
+   "options": "Weekly Action Plan"
+  },
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date"
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_labor",
+   "fieldtype": "Section Break",
+   "label": "Labor Cost Breakdown"
+  },
+  {
+   "default": "0",
+   "fieldname": "direct_salary",
+   "fieldtype": "Currency",
+   "label": "Direct Salary",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "direct_overtime",
+   "fieldtype": "Currency",
+   "label": "Direct Overtime",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "direct_incentive",
+   "fieldtype": "Currency",
+   "label": "Direct Incentive",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_labor_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "indirect_salary",
+   "fieldtype": "Currency",
+   "label": "Indirect Salary",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "indirect_overtime",
+   "fieldtype": "Currency",
+   "label": "Indirect Overtime",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "indirect_incentive",
+   "fieldtype": "Currency",
+   "label": "Indirect Incentive",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_material",
+   "fieldtype": "Section Break",
+   "label": "Material Cost Breakdown"
+  },
+  {
+   "default": "0",
+   "fieldname": "material_fuel_cost",
+   "fieldtype": "Currency",
+   "label": "Material Fuel Cost",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "material_lubricant_cost",
+   "fieldtype": "Currency",
+   "label": "Material Lubricant Cost",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_material_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "material_spare_parts_cost",
+   "fieldtype": "Currency",
+   "label": "Material Spare Parts Cost",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "material_construction_cost",
+   "fieldtype": "Currency",
+   "label": "Material Construction Cost",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_equipment",
+   "fieldtype": "Section Break",
+   "label": "Equipment Cost Breakdown"
+  },
+  {
+   "default": "0",
+   "fieldname": "equipment_own_direct",
+   "fieldtype": "Currency",
+   "label": "Equipment Own Direct",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "equipment_own_indirect",
+   "fieldtype": "Currency",
+   "label": "Equipment Own Indirect",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "equipment_fuel_own",
+   "fieldtype": "Currency",
+   "label": "Equipment Fuel Own",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_equipment_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "equipment_rental_direct",
+   "fieldtype": "Currency",
+   "label": "Equipment Rental Direct",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "equipment_rental_indirect",
+   "fieldtype": "Currency",
+   "label": "Equipment Rental Indirect",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "equipment_fuel_rental",
+   "fieldtype": "Currency",
+   "label": "Equipment Fuel Rental",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_totals",
+   "fieldtype": "Section Break",
+   "label": "Financial Totals"
+  },
+  {
+   "default": "0",
+   "fieldname": "total_cost",
+   "fieldtype": "Currency",
+   "label": "Total Cost",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_totals_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "revenue",
+   "fieldtype": "Currency",
+   "label": "Revenue",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "profit_loss",
+   "fieldtype": "Currency",
+   "label": "Net Profit / Loss",
+   "read_only": 1
+  },
+  {
+   "default": "Draft",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Draft\nSubmitted\nCancelled"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Daily Resource Report",
+   "print_hide": 1,
+   "read_only": 1
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2026-05-22 23:44:32.453321",
+ "modified_by": "Administrator",
+ "module": "Monitoring and Evaluation",
+ "name": "Daily Resource Report",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

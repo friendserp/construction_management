@@ -9,10 +9,11 @@
   "section_break_0lgf",
   "amended_from",
   "date",
-  "agreement_date",
-  "project",
-  "column_break_mlzr",
   "naming_series",
+  "project",
+  "agreement_date",
+  "duration",
+  "column_break_mlzr",
   "type_of_work",
   "type_of_work_amharic",
   "entity_details_section",
@@ -63,6 +64,11 @@
    "in_list_view": 1,
    "label": "Date",
    "reqd": 1
+  },
+  {
+   "fieldname": "duration",
+   "fieldtype": "Int",
+   "label": "Duration (Days)"
   },
   {
    "fieldname": "agreement_date",
@@ -239,7 +245,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-04-28 12:02:24.811839",
+ "modified": "2026-05-04 11:46:13.670198",
  "modified_by": "Administrator",
  "module": "Contract Administration",
  "name": "Subcontract Agreement",

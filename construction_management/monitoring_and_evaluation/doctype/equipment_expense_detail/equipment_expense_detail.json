@@ -1,0 +1,250 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2026-05-22 23:44:31.165369",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "equipment_detail_column",
+  "plate_number",
+  "equipment_type",
+  "equipment_name",
+  "rental_rate_op",
+  "rental_rate_idle",
+  "remark",
+  "previous_column",
+  "prev_op_hr",
+  "prev_id_hr",
+  "prev_d_hr",
+  "prev_mob_hr",
+  "prev_op_expense",
+  "prev_idle_expense",
+  "prev_total_expense",
+  "section_break_hqvn",
+  "current_column",
+  "current_op_hr",
+  "current_id_hr",
+  "current_d_hr",
+  "current_mob_hr",
+  "current_op_expense",
+  "current_idle_expense",
+  "current_total_expense",
+  "todate_column",
+  "todate_op_hr",
+  "todate_id_hr",
+  "todate_d_hr",
+  "todate_mob_hr",
+  "todate_idle_expense",
+  "todate_op_expense",
+  "todate_total_expense"
+ ],
+ "fields": [
+  {
+   "fieldname": "equipment_type",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Equipment Type",
+   "options": "Asset Category"
+  },
+  {
+   "fieldname": "equipment_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Equipment Name"
+  },
+  {
+   "fieldname": "plate_number",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Plate Number",
+   "options": "Equipment Master"
+  },
+  {
+   "default": "0",
+   "fieldname": "prev_op_hr",
+   "fieldtype": "Float",
+   "label": "Prev Op. Hr"
+  },
+  {
+   "default": "0",
+   "fieldname": "prev_id_hr",
+   "fieldtype": "Float",
+   "label": "Prev Id. Hr"
+  },
+  {
+   "default": "0",
+   "fieldname": "prev_d_hr",
+   "fieldtype": "Float",
+   "label": "Prev D. Hr"
+  },
+  {
+   "default": "0",
+   "fieldname": "prev_mob_hr",
+   "fieldtype": "Float",
+   "label": "Prev Mob. Hr"
+  },
+  {
+   "default": "0",
+   "fieldname": "current_op_hr",
+   "fieldtype": "Float",
+   "label": "Current Op. Hr"
+  },
+  {
+   "default": "0",
+   "fieldname": "current_id_hr",
+   "fieldtype": "Float",
+   "label": "Current Id. Hr"
+  },
+  {
+   "default": "0",
+   "fieldname": "current_d_hr",
+   "fieldtype": "Float",
+   "label": "Current D. Hr"
+  },
+  {
+   "default": "0",
+   "fieldname": "current_mob_hr",
+   "fieldtype": "Float",
+   "label": "Current Mob. Hr"
+  },
+  {
+   "fieldname": "todate_op_hr",
+   "fieldtype": "Float",
+   "label": "To Date Op. Hr",
+   "read_only": 1
+  },
+  {
+   "fieldname": "todate_id_hr",
+   "fieldtype": "Float",
+   "label": "To Date Id. Hr",
+   "read_only": 1
+  },
+  {
+   "fieldname": "todate_d_hr",
+   "fieldtype": "Float",
+   "label": "To Date D. Hr",
+   "read_only": 1
+  },
+  {
+   "fieldname": "todate_mob_hr",
+   "fieldtype": "Float",
+   "label": "To Date Mob. Hr",
+   "read_only": 1
+  },
+  {
+   "fieldname": "rental_rate_op",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Rental Rate Op (Birr/Hr)"
+  },
+  {
+   "fieldname": "rental_rate_idle",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Rental Rate Idle (Birr/Hr)"
+  },
+  {
+   "fieldname": "prev_op_expense",
+   "fieldtype": "Currency",
+   "label": "Prev Op Expense",
+   "read_only": 1
+  },
+  {
+   "fieldname": "prev_idle_expense",
+   "fieldtype": "Currency",
+   "label": "Prev Idle Expense",
+   "read_only": 1
+  },
+  {
+   "fieldname": "prev_total_expense",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Prev Total Expense",
+   "read_only": 1
+  },
+  {
+   "fieldname": "current_op_expense",
+   "fieldtype": "Currency",
+   "label": "Current Op Expense",
+   "read_only": 1
+  },
+  {
+   "fieldname": "current_idle_expense",
+   "fieldtype": "Currency",
+   "label": "Current Idle Expense",
+   "read_only": 1
+  },
+  {
+   "fieldname": "current_total_expense",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Current Total Expense",
+   "read_only": 1
+  },
+  {
+   "fieldname": "todate_op_expense",
+   "fieldtype": "Currency",
+   "label": "To Date Op Expense",
+   "read_only": 1
+  },
+  {
+   "fieldname": "todate_idle_expense",
+   "fieldtype": "Currency",
+   "label": "To Date Idle Expense",
+   "read_only": 1
+  },
+  {
+   "fieldname": "todate_total_expense",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "To Date Total Expense",
+   "read_only": 1
+  },
+  {
+   "fieldname": "remark",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Remark"
+  },
+  {
+   "fieldname": "equipment_detail_column",
+   "fieldtype": "Column Break",
+   "label": "Equipment Detail"
+  },
+  {
+   "fieldname": "previous_column",
+   "fieldtype": "Column Break",
+   "label": "Previous"
+  },
+  {
+   "fieldname": "section_break_hqvn",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "current_column",
+   "fieldtype": "Column Break",
+   "label": "Current"
+  },
+  {
+   "fieldname": "todate_column",
+   "fieldtype": "Column Break",
+   "label": "Todate"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2026-05-23 11:24:56.313005",
+ "modified_by": "Administrator",
+ "module": "Monitoring and Evaluation",
+ "name": "Equipment Expense Detail",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

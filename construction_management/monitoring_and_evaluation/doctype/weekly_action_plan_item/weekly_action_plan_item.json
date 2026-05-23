@@ -1,0 +1,125 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2026-05-11 12:00:00",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "section_no",
+  "crew_no",
+  "activity",
+  "from_km",
+  "to_km",
+  "offset_km",
+  "unit",
+  "output",
+  "planned_hr",
+  "available_hr",
+  "qty",
+  "unit_price_share",
+  "expected_amount",
+  "responsible_person"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_no",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Section No"
+  },
+  {
+   "fieldname": "crew_no",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Cr. No."
+  },
+  {
+   "fieldname": "activity",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Activity",
+   "options": "Task"
+  },
+  {
+   "fieldname": "from_km",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "From (KM)"
+  },
+  {
+   "fieldname": "to_km",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "To (KM)"
+  },
+  {
+   "fieldname": "offset_km",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Offset (KM)"
+  },
+  {
+   "fieldname": "unit",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Unit",
+   "options": "UOM"
+  },
+  {
+   "fieldname": "output",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Output"
+  },
+  {
+   "fieldname": "planned_hr",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Planned hr."
+  },
+  {
+   "fieldname": "available_hr",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Available hr"
+  },
+  {
+   "fieldname": "qty",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Qty"
+  },
+  {
+   "fieldname": "unit_price_share",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Unit Price Share"
+  },
+  {
+   "fieldname": "expected_amount",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Expected Amount"
+  },
+  {
+   "fieldname": "responsible_person",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Responsible Person",
+   "options": "Employee"
+  }
+ ],
+ "istable": 1,
+ "links": [],
+ "modified": "2026-05-11 17:27:18.834358",
+ "modified_by": "Administrator",
+ "module": "Monitoring and Evaluation",
+ "name": "Weekly Action Plan Item",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

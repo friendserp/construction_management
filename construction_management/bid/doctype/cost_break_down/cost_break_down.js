@@ -1,103 +1,106 @@
 // Copyright (c) 2026, Friends ERP and contributors
 // For license information, please see license.txt
 
-frappe.ui.form.on('CBD', {
-    productivity(frm) {
-        calculate_total_unit_cost(frm)
-    },
-    validate(frm) {
-        calculate_total_unit_cost(frm);
-    }
+frappe.ui.form.on('Cost Break Down', {
+	productivity: function(frm) {
+		calculate_all(frm);
+	},
+	overhead_cost: function(frm) {
+		calculate_all(frm);
+	},
+	profit_cost: function(frm) {
+		calculate_all(frm);
+	},
+	validate: function(frm) {
+		calculate_all(frm);
+	}
 });
 
 frappe.ui.form.on('CBD Material', {
-    qty(frm, cdt, cdn) {
-        calculate_unit_cost(frm, cdt, cdn);
-    },
-    rate(frm, cdt, cdn) {
-        calculate_unit_cost(frm, cdt, cdn);
-    }
+	qty: function(frm, cdt, cdn) {
+		let row = locals[cdt][cdn];
+		frappe.model.set_value(cdt, cdn, 'cost_per_unit', flt(row.qty) * flt(row.rate));
+		calculate_all(frm);
+	},
+	rate: function(frm, cdt, cdn) {
+		let row = locals[cdt][cdn];
+		frappe.model.set_value(cdt, cdn, 'cost_per_unit', flt(row.qty) * flt(row.rate));
+		calculate_all(frm);
+	},
+	materials_remove: function(frm) {
+		calculate_all(frm);
+	}
 });
 
 frappe.ui.form.on('CBD Manpower', {
-    no(frm, cdt, cdn) {
-        calculate_unit_cost(frm, cdt, cdn);
-    },
-    uf(frm, cdt, cdn) {
-        calculate_unit_cost(frm, cdt, cdn);
-    },
-    indexed_hourly_cost(frm, cdt, cdn) {
-        calculate_unit_cost(frm, cdt, cdn);
-    }
+	no: function(frm, cdt, cdn) {
+		calculate_manpower_row(frm, cdt, cdn);
+	},
+	uf: function(frm, cdt, cdn) {
+		calculate_manpower_row(frm, cdt, cdn);
+	},
+	indexed_hourly_cost: function(frm, cdt, cdn) {
+		calculate_manpower_row(frm, cdt, cdn);
+	},
+	manpowers_remove: function(frm) {
+		calculate_all(frm);
+	}
 });
 
 frappe.ui.form.on('CBD Machinery', {
-    no(frm, cdt, cdn) {
-        calculate_unit_cost(frm, cdt, cdn);
-    },
-    hourly_rental(frm, cdt, cdn) {
-        calculate_unit_cost(frm, cdt, cdn);
-    }
+	no: function(frm, cdt, cdn) {
+		calculate_machinery_row(frm, cdt, cdn);
+	},
+	hourly_rental: function(frm, cdt, cdn) {
+		calculate_machinery_row(frm, cdt, cdn);
+	},
+	machineries_remove: function(frm) {
+		calculate_all(frm);
+	}
 });
 
-function calculate_unit_cost(frm, cdt, cdn) {
-    let child = locals[cdt][cdn];
+var calculate_manpower_row = function(frm, cdt, cdn) {
+	let row = locals[cdt][cdn];
+	frappe.model.set_value(cdt, cdn, 'hourly_cost', flt(row.no) * flt(row.uf) * flt(row.indexed_hourly_cost));
+	calculate_all(frm);
+};
 
-    if (child.doctype === "CBD Material") {
-        child.cost_per_unit = (child.qty || 0) * (child.rate || 0);
-    } 
-    else if (child.doctype === "CBD Manpower") {
-        child.hourly_cost = (child.no || 0) * (child.uf || 0) * (child.indexed_hourly_cost || 0);
-    } 
-    else if (child.doctype === "CBD Machinery") {
-        child.hourly_cost = (child.no || 0) * (child.hourly_rental || 0);
-    }
+var calculate_machinery_row = function(frm, cdt, cdn) {
+	let row = locals[cdt][cdn];
+	frappe.model.set_value(cdt, cdn, 'hourly_cost', flt(row.no) * flt(row.hourly_rental));
+	calculate_all(frm);
+};
 
-    frm.refresh_field("materials");
-    frm.refresh_field("manpowers");
-    frm.refresh_field("machineries");
+var calculate_all = function(frm) {
+	let material_total = 0;
+	let manpower_hourly_total = 0;
+	let machinery_hourly_total = 0;
+	let productivity = flt(frm.doc.productivity) || 1;
 
-    // Calculate total unit cost
-    calculate_total_unit_cost(frm);
-}
+	// Material is usually per unit, so no division by productivity needed
+	(frm.doc.materials || []).forEach(row => {
+		material_total += flt(row.cost_per_unit);
+	});
 
-function calculate_total_unit_cost(frm) {
-    let material_unit_cost = 0;
-    let manpower_unit_cost = 0;
-    let machinery_unit_cost = 0;
-    let productivity = frm.doc.productivity || 1; // Ensure productivity is a valid number
+	// Manpower and Machinery are per hour, so divide by units per hour (productivity)
+	(frm.doc.manpowers || []).forEach(row => {
+		manpower_hourly_total += flt(row.hourly_cost);
+	});
 
-    // Sum up Material costs
-    if (frm.doc.materials) {
-        frm.doc.materials.forEach(row => {
-            material_unit_cost += (row.cost_per_unit || 0) / productivity;
-        });
-    }
+	(frm.doc.machineries || []).forEach(row => {
+		machinery_hourly_total += flt(row.hourly_cost);
+	});
 
-    // Sum up Manpower costs
-    if (frm.doc.manpowers) {
-        frm.doc.manpowers.forEach(row => {
-            manpower_unit_cost += (row.hourly_cost || 0) / productivity;
-        });
-    }
+	let manpower_unit_cost = manpower_hourly_total / productivity;
+	let machinery_unit_cost = machinery_hourly_total / productivity;
 
-    // Sum up Machinery costs
-    if (frm.doc.machineries) {
-        frm.doc.machineries.forEach(row => {
-            machinery_unit_cost += (row.hourly_cost || 0) / productivity;
-        });
-    }
+	frm.set_value('material_unit_cost', material_total);
+	frm.set_value('manpower_unit_cost', manpower_unit_cost);
+	frm.set_value('machinery_unit_cost', machinery_unit_cost);
 
-    // Compute total unit cost
-    frm.set_value("material_unit_cost", material_unit_cost);
-    frm.set_value("manpower_unit_cost", manpower_unit_cost);
-    frm.set_value("machinery_unit_cost", machinery_unit_cost);
-    frm.set_value("direct_cost", material_unit_cost + manpower_unit_cost + machinery_unit_cost);
-    frm.set_value("total_unit_cost", material_unit_cost + manpower_unit_cost + machinery_unit_cost);
+	let direct_cost = material_total + manpower_unit_cost + machinery_unit_cost;
+	frm.set_value('direct_cost', direct_cost);
 
-    frm.refresh_field("material_unit_cost");
-    frm.refresh_field("manpower_unit_cost");
-    frm.refresh_field("machinery_unit_cost");
-    frm.refresh_field("total_unit_cost");
-}
-
+	let total_unit_cost = direct_cost + flt(frm.doc.overhead_cost) + flt(frm.doc.profit_cost);
+	frm.set_value('total_unit_cost', total_unit_cost);
+};

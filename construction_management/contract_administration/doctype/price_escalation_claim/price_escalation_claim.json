@@ -1,0 +1,188 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2026-05-07 10:45:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "project",
+  "location",
+  "client",
+  "contractor",
+  "consultant",
+  "column_break_1",
+  "date_of_agreement",
+  "claim_number",
+  "amended_from",
+  "summary_section",
+  "summary_items",
+  "totals_section",
+  "grand_total",
+  "vat_amount",
+  "total_with_vat",
+  "reinf_section",
+  "reinf_details",
+  "cement_section",
+  "cement_details",
+  "fuel_section",
+  "fuel_details"
+ ],
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Series",
+   "options": "PEC-.YYYY.-"
+  },
+  {
+   "fieldname": "project",
+   "fieldtype": "Link",
+   "label": "Project",
+   "options": "Project",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "project.location",
+   "fieldname": "location",
+   "fieldtype": "Data",
+   "label": "Location",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "project.client",
+   "fieldname": "client",
+   "fieldtype": "Data",
+   "label": "Client",
+   "read_only": 1
+  },
+  {
+   "fieldname": "contractor",
+   "fieldtype": "Data",
+   "label": "Contractor"
+  },
+  {
+   "fieldname": "consultant",
+   "fieldtype": "Data",
+   "label": "Consultant"
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "date_of_agreement",
+   "fieldtype": "Date",
+   "label": "Date of Agreement"
+  },
+  {
+   "fieldname": "claim_number",
+   "fieldtype": "Data",
+   "label": "Claim Number"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Price Escalation Claim",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "summary_section",
+   "fieldtype": "Section Break",
+   "label": "Claim Summary"
+  },
+  {
+   "fieldname": "summary_items",
+   "fieldtype": "Table",
+   "label": "Summary Items",
+   "options": "Price Escalation Summary Item"
+  },
+  {
+   "fieldname": "totals_section",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "grand_total",
+   "fieldtype": "Currency",
+   "label": "Grand Total",
+   "read_only": 1
+  },
+  {
+   "fieldname": "vat_amount",
+   "fieldtype": "Currency",
+   "label": "VAT (15%)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_with_vat",
+   "fieldtype": "Currency",
+   "label": "Total with VAT",
+   "read_only": 1
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "reinf_section",
+   "fieldtype": "Section Break",
+   "label": "Reinforcement Details"
+  },
+  {
+   "fieldname": "reinf_details",
+   "fieldtype": "Table",
+   "label": "Reinforcement Details",
+   "options": "Reinf Escalation Detail"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "cement_section",
+   "fieldtype": "Section Break",
+   "label": "Cement Details"
+  },
+  {
+   "fieldname": "cement_details",
+   "fieldtype": "Table",
+   "label": "Cement Details",
+   "options": "Cement Escalation Detail"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "fuel_section",
+   "fieldtype": "Section Break",
+   "label": "Fuel Details"
+  },
+  {
+   "fieldname": "fuel_details",
+   "fieldtype": "Table",
+   "label": "Fuel Details",
+   "options": "Fuel Escalation Detail"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "modified": "2026-05-07 10:45:00.000000",
+ "modified_by": "Administrator",
+ "module": "Contract Administration",
+ "name": "Price Escalation Claim",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

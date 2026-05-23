@@ -1,0 +1,83 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2026-05-11 12:10:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "activity",
+  "title",
+  "no_of_workers",
+  "hours",
+  "total_hours",
+  "cost_rate",
+  "amount",
+  "action_plan_item_name"
+ ],
+ "fields": [
+  {
+   "fieldname": "activity",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Activity",
+   "options": "Task"
+  },
+  {
+   "fieldname": "title",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Designation",
+   "options": "DL\nMason\nCarpenter\nG.Chief\nForman\nEquipment opra I\nTruck driver"
+  },
+  {
+   "fieldname": "no_of_workers",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "No. of Workers"
+  },
+  {
+   "fieldname": "hours",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Hours"
+  },
+  {
+   "fieldname": "total_hours",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Total Hours",
+   "read_only": 1
+  },
+  {
+   "fieldname": "cost_rate",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Cost Rate"
+  },
+  {
+   "fieldname": "amount",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Amount",
+   "read_only": 1
+  },
+  {
+   "fieldname": "action_plan_item_name",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Action Plan Item Name",
+   "read_only": 1
+  }
+ ],
+ "istable": 1,
+ "modified": "2026-05-11 14:23:00.000000",
+ "modified_by": "Administrator",
+ "module": "Monitoring and Evaluation",
+ "name": "Weekly Action Plan Manpower",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

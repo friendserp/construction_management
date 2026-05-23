@@ -73,6 +73,12 @@
    "link_type": "DocType",
    "label": "Takeoff",
    "type": "Link"
+  },
+  {
+   "link_to": "Subcontractor Tracking Report",
+   "link_type": "Report",
+   "label": "Subcontractor Tracking Report",
+   "type": "Link"
   }
  ],
  "modified": "2026-05-03 23:42:00.000000",

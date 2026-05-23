@@ -1,0 +1,67 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2026-05-11 13:20:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "activity",
+  "subcontractor",
+  "work_description",
+  "unit_rate",
+  "qty",
+  "amount"
+ ],
+ "fields": [
+  {
+   "fieldname": "activity",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Activity",
+   "options": "Task"
+  },
+  {
+   "fieldname": "subcontractor",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Subcontractor",
+   "options": "Supplier"
+  },
+  {
+   "fieldname": "work_description",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Work Description"
+  },
+  {
+   "fieldname": "unit_rate",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Unit Rate"
+  },
+  {
+   "fieldname": "qty",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Qty"
+  },
+  {
+   "fieldname": "amount",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Amount",
+   "read_only": 1
+  }
+ ],
+ "istable": 1,
+ "modified": "2026-05-11 13:20:00.000000",
+ "modified_by": "Administrator",
+ "module": "Monitoring and Evaluation",
+ "name": "Weekly Action Plan Subcontractor",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

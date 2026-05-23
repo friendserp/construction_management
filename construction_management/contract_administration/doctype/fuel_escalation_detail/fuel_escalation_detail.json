@@ -1,0 +1,102 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2026-05-07 10:43:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "type",
+  "description",
+  "trip_distance",
+  "fuel_per_km",
+  "consumption_per_hr",
+  "quantity",
+  "unit",
+  "total_fuel_consumed",
+  "current_price",
+  "initial_price",
+  "cost_variation"
+ ],
+ "fields": [
+  {
+   "fieldname": "type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Type",
+   "options": "Truck\nMachinery",
+   "reqd": 1
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Description"
+  },
+  {
+   "depends_on": "eval:doc.type=='Truck'",
+   "fieldname": "trip_distance",
+   "fieldtype": "Float",
+   "label": "Round Trip Distance (km)"
+  },
+  {
+   "depends_on": "eval:doc.type=='Truck'",
+   "fieldname": "fuel_per_km",
+   "fieldtype": "Float",
+   "label": "Fuel Consumed per km"
+  },
+  {
+   "depends_on": "eval:doc.type=='Machinery'",
+   "fieldname": "consumption_per_hr",
+   "fieldtype": "Float",
+   "label": "Fuel Consumption Per hr"
+  },
+  {
+   "fieldname": "quantity",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Quantity (Trips/Hours)"
+  },
+  {
+   "fieldname": "unit",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Unit"
+  },
+  {
+   "fieldname": "total_fuel_consumed",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Total Fuel Consumed (Liters)"
+  },
+  {
+   "fieldname": "current_price",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Current Price"
+  },
+  {
+   "fieldname": "initial_price",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Initial Price"
+  },
+  {
+   "fieldname": "cost_variation",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Cost Variation (Birr)"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "modified": "2026-05-07 10:43:00.000000",
+ "modified_by": "Administrator",
+ "module": "Contract Administration",
+ "name": "Fuel Escalation Detail",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
