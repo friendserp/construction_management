@@ -1,5 +1,4 @@
 {
- "app": "construction_management",
  "charts": [
   {
    "chart_name": "Bid Followup Trend",
@@ -199,7 +198,7 @@
    "type": "Link"
   }
  ],
- "modified": "2026-05-24 23:04:11.497870",
+ "modified": "2026-05-24 23:26:27.885367",
  "modified_by": "Administrator",
  "module": "Bid",
  "name": "Bid",
@@ -281,6 +280,5 @@
    "type": "Dashboard"
   }
  ],
- "title": "Bid",
- "type": "Workspace"
+ "title": "Bid"
 }

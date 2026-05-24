@@ -1,5 +1,4 @@
 {
- "app": "construction_management",
  "charts": [
   {
    "chart_name": "Construction Project Trend",
@@ -154,7 +153,7 @@
    "type": "Link"
   }
  ],
- "modified": "2026-05-24 23:04:11.390192",
+ "modified": "2026-05-24 23:26:27.799875",
  "modified_by": "Administrator",
  "module": "Construction Management",
  "name": "Construction Management",
@@ -258,6 +257,5 @@
    "type": "Dashboard"
   }
  ],
- "title": "Construction Management",
- "type": "Workspace"
+ "title": "Construction Management"
 }

@@ -1,7 +1,7 @@
 {
  "aggregate_function_based_on": "profit_loss",
  "color": "#28a745",
- "creation": "2026-05-24 22:40:22.909239",
+ "creation": "2026-05-24 23:26:27.445996",
  "currency": "ETB",
  "docstatus": 0,
  "doctype": "Number Card",
@@ -13,7 +13,7 @@
  "is_public": 1,
  "is_standard": 1,
  "label": "Daily Report Profit",
- "modified": "2026-05-24 23:04:10.999703",
+ "modified": "2026-05-24 23:26:27.445996",
  "modified_by": "Administrator",
  "module": "Monitoring and Evaluation",
  "name": "Daily Report Profit",

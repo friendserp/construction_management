@@ -1,5 +1,4 @@
 {
- "app": "construction_management",
  "charts": [
   {
    "chart_name": "Agreement Value by Project",
@@ -229,7 +228,7 @@
    "type": "Link"
   }
  ],
- "modified": "2026-05-24 23:04:11.556728",
+ "modified": "2026-05-24 23:26:27.951215",
  "modified_by": "Administrator",
  "module": "Contract Administration",
  "name": "Contract Administration",
@@ -320,6 +319,5 @@
    "type": "Dashboard"
   }
  ],
- "title": "Contract Administration",
- "type": "Workspace"
+ "title": "Contract Administration"
 }

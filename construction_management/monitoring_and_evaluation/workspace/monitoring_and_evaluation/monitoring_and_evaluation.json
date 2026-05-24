@@ -1,5 +1,4 @@
 {
- "app": "construction_management",
  "charts": [
   {
    "chart_name": "Daily Resource Reports Trend",
@@ -134,7 +133,7 @@
    "type": "Link"
   }
  ],
- "modified": "2026-05-24 23:04:11.613100",
+ "modified": "2026-05-24 23:26:28.020461",
  "modified_by": "Administrator",
  "module": "Monitoring and Evaluation",
  "name": "Monitoring and Evaluation",
@@ -220,6 +219,5 @@
    "type": "Dashboard"
   }
  ],
- "title": "Monitoring and Evaluation",
- "type": "Workspace"
+ "title": "Monitoring and Evaluation"
 }

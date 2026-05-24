@@ -1,6 +1,6 @@
 {
  "color": "#2490ef",
- "creation": "2026-05-24 22:40:22.818206",
+ "creation": "2026-05-24 23:26:27.276425",
  "currency": "ETB",
  "docstatus": 0,
  "doctype": "Number Card",
@@ -12,7 +12,7 @@
  "is_public": 1,
  "is_standard": 1,
  "label": "Construction Projects",
- "modified": "2026-05-24 23:04:10.743749",
+ "modified": "2026-05-24 23:26:27.276425",
  "modified_by": "Administrator",
  "module": "Construction Management",
  "name": "Construction Projects",

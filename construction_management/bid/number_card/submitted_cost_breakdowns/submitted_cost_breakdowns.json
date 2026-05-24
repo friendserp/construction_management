@@ -1,6 +1,6 @@
 {
  "color": "#ffa00a",
- "creation": "2026-05-24 22:40:22.851859",
+ "creation": "2026-05-24 23:26:27.317249",
  "currency": "ETB",
  "docstatus": 0,
  "doctype": "Number Card",
@@ -12,7 +12,7 @@
  "is_public": 1,
  "is_standard": 1,
  "label": "Submitted Cost Breakdowns",
- "modified": "2026-05-24 23:04:10.811108",
+ "modified": "2026-05-24 23:26:27.317249",
  "modified_by": "Administrator",
  "module": "Bid",
  "name": "Submitted Cost Breakdowns",

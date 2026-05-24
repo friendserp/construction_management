@@ -1,6 +1,6 @@
 {
  "color": "#e86c13",
- "creation": "2026-05-24 22:40:22.858943",
+ "creation": "2026-05-24 23:26:27.338983",
  "currency": "ETB",
  "docstatus": 0,
  "doctype": "Number Card",
@@ -12,7 +12,7 @@
  "is_public": 1,
  "is_standard": 1,
  "label": "Active Subcontract Agreements",
- "modified": "2026-05-24 23:04:10.833479",
+ "modified": "2026-05-24 23:26:27.338983",
  "modified_by": "Administrator",
  "module": "Contract Administration",
  "name": "Active Subcontract Agreements",
