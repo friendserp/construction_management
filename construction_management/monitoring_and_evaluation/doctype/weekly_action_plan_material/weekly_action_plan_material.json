@@ -1,7 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
- "creation": "2026-05-11 12:10:00.000000",
+ "creation": "2026-05-11 12:10:00",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
@@ -31,6 +31,7 @@
    "options": "Item"
   },
   {
+   "fetch_from": "item.stock_uom",
    "fieldname": "unit",
    "fieldtype": "Link",
    "in_list_view": 1,
@@ -47,8 +48,7 @@
    "fieldname": "total_qty",
    "fieldtype": "Float",
    "in_list_view": 1,
-   "label": "Total Qty",
-   "read_only": 1
+   "label": "Total Qty"
   },
   {
    "fieldname": "unit_price",
@@ -72,12 +72,14 @@
   }
  ],
  "istable": 1,
- "modified": "2026-05-11 14:23:00.000000",
+ "links": [],
+ "modified": "2026-05-24 12:44:34.049653",
  "modified_by": "Administrator",
  "module": "Monitoring and Evaluation",
  "name": "Weekly Action Plan Material",
  "owner": "Administrator",
  "permissions": [],
+ "row_format": "Dynamic",
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": []

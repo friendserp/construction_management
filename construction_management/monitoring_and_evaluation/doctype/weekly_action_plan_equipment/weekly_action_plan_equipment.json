@@ -1,7 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
- "creation": "2026-05-11 12:10:00.000000",
+ "creation": "2026-05-11 12:10:00",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
@@ -28,7 +28,7 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Equipment",
-   "options": "Asset"
+   "options": "Equipment Master"
   },
   {
    "default": "0",
@@ -72,12 +72,14 @@
   }
  ],
  "istable": 1,
- "modified": "2026-05-11 14:23:00.000000",
+ "links": [],
+ "modified": "2026-05-24 13:09:34.289646",
  "modified_by": "Administrator",
  "module": "Monitoring and Evaluation",
  "name": "Weekly Action Plan Equipment",
  "owner": "Administrator",
  "permissions": [],
+ "row_format": "Dynamic",
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": []

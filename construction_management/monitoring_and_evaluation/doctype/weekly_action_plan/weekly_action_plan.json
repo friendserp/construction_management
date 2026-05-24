@@ -34,6 +34,18 @@
   "subcontractor_items",
   "section_break_misc",
   "miscellaneous_items",
+  "section_break_timesheets",
+  "timesheet_entries",
+  "section_break_monitoring",
+  "daily_summaries",
+  "section_break_week_variance",
+  "actual_revenue",
+  "actual_cost",
+  "actual_profit",
+  "column_break_week_variance",
+  "variance_revenue",
+  "variance_cost",
+  "variance_profit",
   "section_break_summary",
   "total_revenue",
   "total_cost",
@@ -197,9 +209,84 @@
    "options": "Weekly Action Plan Miscellaneous"
   },
   {
+   "fieldname": "section_break_timesheets",
+   "fieldtype": "Section Break",
+   "label": "Timesheets (Revenue Source)"
+  },
+  {
+   "fieldname": "timesheet_entries",
+   "fieldtype": "Table",
+   "label": "Timesheet Lines",
+   "options": "WAP Timesheet Plan",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_monitoring",
+   "fieldtype": "Section Break",
+   "label": "Daily Monitoring (Actuals from Daily Reports)"
+  },
+  {
+   "fieldname": "daily_summaries",
+   "fieldtype": "Table",
+   "label": "Daily Reports",
+   "options": "WAP Daily Summary",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_week_variance",
+   "fieldtype": "Section Break",
+   "label": "Week Plan vs Actual"
+  },
+  {
+   "default": "0",
+   "fieldname": "actual_revenue",
+   "fieldtype": "Currency",
+   "label": "Actual Revenue (Week)",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "actual_cost",
+   "fieldtype": "Currency",
+   "label": "Actual Cost (Week)",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "actual_profit",
+   "fieldtype": "Currency",
+   "label": "Actual Profit (Week)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_week_variance",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "variance_revenue",
+   "fieldtype": "Currency",
+   "label": "Revenue Variance",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "variance_cost",
+   "fieldtype": "Currency",
+   "label": "Cost Variance",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "variance_profit",
+   "fieldtype": "Currency",
+   "label": "Profit Variance",
+   "read_only": 1
+  },
+  {
    "fieldname": "section_break_summary",
    "fieldtype": "Section Break",
-   "label": "Financial Summary"
+   "label": "Financial Summary (Plan)"
   },
   {
    "fieldname": "total_revenue",
@@ -246,6 +333,7 @@
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
+ "links": [],
  "modified": "2026-05-11 13:22:00.000000",
  "modified_by": "Administrator",
  "module": "Monitoring and Evaluation",

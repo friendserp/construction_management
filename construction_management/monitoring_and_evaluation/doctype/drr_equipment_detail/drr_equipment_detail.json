@@ -1,0 +1,80 @@
+{
+ "actions": [],
+ "creation": "2026-05-24 12:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "source_document",
+  "plate_number",
+  "equipment_name",
+  "ownership_type",
+  "operating_expense",
+  "idle_expense",
+  "total_expense"
+ ],
+ "fields": [
+  {
+   "fieldname": "source_document",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Equipment Expense Report",
+   "options": "Equipment Expense Report",
+   "read_only": 1
+  },
+  {
+   "fieldname": "plate_number",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Plate Number",
+   "options": "Equipment Master",
+   "read_only": 1
+  },
+  {
+   "fieldname": "equipment_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Equipment",
+   "read_only": 1
+  },
+  {
+   "fieldname": "ownership_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Ownership",
+   "options": "Own\nRental",
+   "read_only": 1
+  },
+  {
+   "fieldname": "operating_expense",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Operating Expense",
+   "read_only": 1
+  },
+  {
+   "fieldname": "idle_expense",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Idle Expense",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_expense",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Total",
+   "read_only": 1
+  }
+ ],
+ "istable": 1,
+ "modified": "2026-05-24 12:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Monitoring and Evaluation",
+ "name": "DRR Equipment Detail",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

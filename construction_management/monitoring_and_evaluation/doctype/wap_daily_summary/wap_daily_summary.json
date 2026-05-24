@@ -1,0 +1,86 @@
+{
+ "actions": [],
+ "creation": "2026-05-24 12:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "daily_resource_report",
+  "report_date",
+  "labor_cost",
+  "material_cost",
+  "equipment_cost",
+  "total_cost",
+  "revenue",
+  "profit_loss"
+ ],
+ "fields": [
+  {
+   "fieldname": "daily_resource_report",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Daily Report",
+   "options": "Daily Resource Report",
+   "read_only": 1
+  },
+  {
+   "fieldname": "report_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Date",
+   "read_only": 1
+  },
+  {
+   "fieldname": "labor_cost",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Labor Cost",
+   "read_only": 1
+  },
+  {
+   "fieldname": "material_cost",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Material Cost",
+   "read_only": 1
+  },
+  {
+   "fieldname": "equipment_cost",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Equipment Cost",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_cost",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Total Cost",
+   "read_only": 1
+  },
+  {
+   "fieldname": "revenue",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Revenue",
+   "read_only": 1
+  },
+  {
+   "fieldname": "profit_loss",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Profit / Loss",
+   "read_only": 1
+  }
+ ],
+ "istable": 1,
+ "modified": "2026-05-24 12:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Monitoring and Evaluation",
+ "name": "WAP Daily Summary",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
