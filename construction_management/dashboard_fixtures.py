@@ -491,6 +491,9 @@ def sync_workspaces():
 
 
 def export_workspaces():
+	if not frappe.conf.developer_mode:
+		return
+
 	for name in (
 		"Construction Management",
 		"Bid",
@@ -517,6 +520,9 @@ def _upsert_number_card(card):
 def _upsert_dashboard_chart(chart):
 	name = chart["chart_name"]
 	if frappe.db.exists("Dashboard Chart", name):
+		# Standard charts cannot be updated on production sites (non-developer mode).
+		if not frappe.conf.developer_mode:
+			return
 		doc = frappe.get_doc("Dashboard Chart", name)
 		for key, value in chart.items():
 			setattr(doc, key, value)

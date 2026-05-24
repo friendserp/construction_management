@@ -8,7 +8,9 @@ app_license = "mit"
 # Apps
 # ------------------
 
-required_apps = ["erpnext", "klc_custom"]
+# # Only list apps bench can resolve from GitHub. klc_custom is a private/local app —
+# install it manually on the server; see install/before_install.py for a reminder.
+required_apps = ["erpnext"]
 
 # Each item in the list will be shown as an app in the apps page
 # add_to_apps_screen = [
@@ -88,7 +90,7 @@ doctype_js = {
 # Installation
 # ------------
 
-# before_install = "construction_management.install.before_install"
+before_install = "construction_management.install.before_install.execute"
 after_install = "construction_management.install.setup_workspaces.execute"
 
 after_migrate = [
