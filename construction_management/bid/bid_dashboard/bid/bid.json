@@ -1,0 +1,31 @@
+{
+ "cards": [
+  {
+   "card": "Purchased Bids"
+  },
+  {
+   "card": "Open Bid Followups"
+  },
+  {
+   "card": "Submitted Cost Breakdowns"
+  }
+ ],
+ "charts": [
+  {
+   "chart": "Bid Followup Trend",
+   "width": "Full"
+  }
+ ],
+ "creation": "2026-05-24 22:31:21.540506",
+ "dashboard_name": "Bid",
+ "docstatus": 0,
+ "doctype": "Dashboard",
+ "idx": 0,
+ "is_default": 0,
+ "is_standard": 1,
+ "modified": "2026-05-24 23:04:11.238442",
+ "modified_by": "Administrator",
+ "module": "Bid",
+ "name": "Bid",
+ "owner": "Administrator"
+}

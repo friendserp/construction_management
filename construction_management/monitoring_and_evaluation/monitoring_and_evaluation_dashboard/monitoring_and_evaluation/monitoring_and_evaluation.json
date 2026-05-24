@@ -1,0 +1,38 @@
+{
+ "cards": [
+  {
+   "card": "Weekly Action Plans"
+  },
+  {
+   "card": "Daily Resource Reports"
+  },
+  {
+   "card": "Daily Report Profit"
+  },
+  {
+   "card": "Daily Report Cost"
+  }
+ ],
+ "charts": [
+  {
+   "chart": "Daily Resource Reports Trend",
+   "width": "Half"
+  },
+  {
+   "chart": "Profit vs Cost Trend",
+   "width": "Half"
+  }
+ ],
+ "creation": "2026-05-24 22:31:21.566448",
+ "dashboard_name": "Monitoring and Evaluation",
+ "docstatus": 0,
+ "doctype": "Dashboard",
+ "idx": 0,
+ "is_default": 0,
+ "is_standard": 1,
+ "modified": "2026-05-24 23:04:11.271978",
+ "modified_by": "Administrator",
+ "module": "Monitoring and Evaluation",
+ "name": "Monitoring and Evaluation",
+ "owner": "Administrator"
+}

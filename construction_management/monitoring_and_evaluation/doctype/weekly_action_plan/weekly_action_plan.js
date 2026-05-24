@@ -46,6 +46,8 @@ frappe.ui.form.on('Weekly Action Plan', {
 				});
 			}, __("Actions"));
 
+			setup_wap_source_link_buttons(frm);
+
 			frm.add_custom_button(__('Refresh Daily Reports'), function() {
 				frappe.call({
 					method: 'construction_management.monitoring_and_evaluation.doctype.weekly_action_plan.weekly_action_plan.refresh_daily_summaries',
@@ -310,3 +312,22 @@ var calculate_summary = function (frm) {
 	frm.set_value('overhead_amount', overhead_amount);
 	frm.set_value('projected_profit', projected_profit);
 };
+
+function setup_wap_source_link_buttons(frm) {
+	const configs = [
+		{ table: 'timesheet_entries', field: 'timesheet', doctype: 'Timesheet', group: __('Timesheets') },
+		{ table: 'daily_summaries', field: 'daily_resource_report', doctype: 'Daily Resource Report', group: __('Daily Reports') },
+	];
+
+	configs.forEach((cfg) => {
+		const seen = new Set();
+		(frm.doc[cfg.table] || []).forEach((row) => {
+			const docname = row[cfg.field];
+			if (!docname || seen.has(docname)) return;
+			seen.add(docname);
+			frm.add_custom_button(`${cfg.doctype}: ${docname}`, () => {
+				frappe.set_route('Form', cfg.doctype, docname);
+			}, cfg.group);
+		});
+	});
+}

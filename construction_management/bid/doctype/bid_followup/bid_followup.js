@@ -95,19 +95,46 @@ frappe.ui.form.on('Bid Followup', {
 
         // If status is purchased then add a button that redirects to the site visit assessment page
         if (frm.doc.status === "Purchased") {
-            frm.add_custom_button(__("Create Site Visit Assessment"), function() {
-                // Create a new Site Visit Assessment document with reference to this Bid Followup
+            if (!frm.doc.project) {
+                frm.add_custom_button(__("Create ERPNext Project"), function () {
+                    frappe.call({
+                        method:
+                            "construction_management.bid.doctype.bid_followup.bid_followup.create_project_from_bid_followup",
+                        args: { bid_followup: frm.doc.name },
+                        freeze: true,
+                        callback(r) {
+                            if (r.message && r.message.project) {
+                                frm.set_value("project", r.message.project);
+                                frappe.show_alert({
+                                    message: __("Project {0} created", [r.message.project]),
+                                    indicator: "green",
+                                });
+                                frm.reload_doc();
+                            }
+                        },
+                    });
+                }, __("Actions"));
+            } else {
+                frm.add_custom_button(__("Open Project"), function () {
+                    frappe.set_route("Form", "Project", frm.doc.project);
+                }, __("Actions"));
+            }
+
+            frm.add_custom_button(__("Create Site Visit Assessment"), function () {
                 frappe.new_doc("Site Visit Assessment", {
-                    "bid_followup_id": frm.doc.name
+                    bid_followup_id: frm.doc.name,
                 });
-            }).addClass("btn-primary");
-            
-            // Add icon to the button
-            setTimeout(function() {
-                $(".btn-primary").filter(function() {
-                    return $(this).text().includes("Create Site Visit Assessment");
-                }).prepend('<i class="fa fa-plus" style="margin-right: 5px;"></i> ');
-            }, 100);
+            }, __("Actions"));
         }
-    }
+    },
+
+    project(frm) {
+        if (frm.doc.project && !frm.doc.project_name) {
+            frappe.db.get_value("Project", frm.doc.project, "project_name", (r) => {
+                if (r && r.project_name) {
+                    frm.set_value("project_name", r.project_name);
+                }
+            });
+        }
+    },
 });

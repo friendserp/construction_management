@@ -1,0 +1,286 @@
+{
+ "app": "construction_management",
+ "charts": [
+  {
+   "chart_name": "Bid Followup Trend",
+   "label": "Bid Followup Trend"
+  }
+ ],
+ "content": "[{\"id\": \"bid_management\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h3\\\"><b>Bid Management</b></span>\", \"col\": 12}}, {\"id\": \"bid_followup_trend\", \"type\": \"chart\", \"data\": {\"chart_name\": \"Bid Followup Trend\", \"col\": 12}}, {\"id\": \"s0\", \"type\": \"spacer\", \"data\": {\"col\": 12}}, {\"id\": \"bid_process_flow\", \"type\": \"custom_block\", \"data\": {\"custom_block_name\": \"Bid Process Flow\", \"col\": 12}}, {\"id\": \"s1\", \"type\": \"spacer\", \"data\": {\"col\": 12}}, {\"id\": \"purchased_bids\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Purchased Bids\", \"col\": 4}}, {\"id\": \"open_bid_followups\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Open Bid Followups\", \"col\": 4}}, {\"id\": \"submitted_cost_breakdowns\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Submitted Cost Breakdowns\", \"col\": 4}}, {\"id\": \"s2\", \"type\": \"spacer\", \"data\": {\"col\": 12}}, {\"id\": \"live_lists\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>Live Lists</b></span>\", \"col\": 12}}, {\"id\": \"purchased_bids\", \"type\": \"quick_list\", \"data\": {\"quick_list_name\": \"Purchased Bids\", \"col\": 4}}, {\"id\": \"pending_bid_checklists\", \"type\": \"quick_list\", \"data\": {\"quick_list_name\": \"Pending Bid Checklists\", \"col\": 4}}, {\"id\": \"submitted_cost_breakdowns\", \"type\": \"quick_list\", \"data\": {\"quick_list_name\": \"Submitted Cost Breakdowns\", \"col\": 4}}, {\"id\": \"s3\", \"type\": \"spacer\", \"data\": {\"col\": 12}}, {\"id\": \"quick_actions\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>Quick Actions</b></span>\", \"col\": 12}}, {\"id\": \"bid_followup\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Bid Followup\", \"col\": 3}}, {\"id\": \"cost_break_down\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Cost Break Down\", \"col\": 3}}, {\"id\": \"bid_result\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Bid Result\", \"col\": 3}}, {\"id\": \"construction_hub\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Construction Hub\", \"col\": 3}}, {\"id\": \"s4\", \"type\": \"spacer\", \"data\": {\"col\": 12}}, {\"id\": \"opportunity_&_followup\", \"type\": \"card\", \"data\": {\"card_name\": \"Opportunity & Followup\", \"col\": 4}}, {\"id\": \"pre_opening\", \"type\": \"card\", \"data\": {\"card_name\": \"Pre-Opening\", \"col\": 4}}, {\"id\": \"opening_&_results\", \"type\": \"card\", \"data\": {\"card_name\": \"Opening & Results\", \"col\": 4}}, {\"id\": \"estimating\", \"type\": \"card\", \"data\": {\"card_name\": \"Estimating\", \"col\": 4}}, {\"id\": \"masters_&_templates\", \"type\": \"card\", \"data\": {\"card_name\": \"Masters & Templates\", \"col\": 4}}]",
+ "creation": "2026-05-24 22:31:21.811772",
+ "custom_blocks": [
+  {
+   "custom_block_name": "Bid Process Flow",
+   "label": "Bid Process Flow"
+  }
+ ],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "hide_custom": 0,
+ "icon": "file-text",
+ "idx": 0,
+ "indicator_color": "blue",
+ "is_hidden": 0,
+ "label": "Bid",
+ "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Opportunity & Followup",
+   "link_count": 0,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Bid Followup",
+   "link_count": 0,
+   "link_to": "Bid Followup",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Detailed bid review",
+   "link_count": 0,
+   "link_to": "Detailed bid review",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Site Visit Assessment",
+   "link_count": 0,
+   "link_to": "Site Visit Assessment",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Pre-Opening",
+   "link_count": 0,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Bid Documentation Checklist",
+   "link_count": 0,
+   "link_to": "Bid Documentation Checklist",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Bid Opening Followup",
+   "link_count": 0,
+   "link_to": "Bid Opening Followup",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Opening & Results",
+   "link_count": 0,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Bid Opening Technical",
+   "link_count": 0,
+   "link_to": "Bid Opening Technical",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Bid Opening Financial",
+   "link_count": 0,
+   "link_to": "Bid Opening Financial",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Bid Result",
+   "link_count": 0,
+   "link_to": "Bid Result",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Unqualified Bid Purchased",
+   "link_count": 0,
+   "link_to": "Unqualified Bid Purchased",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "None Responsive Bid",
+   "link_count": 0,
+   "link_to": "None Responsive Bid",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Estimating",
+   "link_count": 0,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Cost Break Down",
+   "link_count": 0,
+   "link_to": "Cost Break Down",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Masters & Templates",
+   "link_count": 0,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Bid Check list",
+   "link_count": 0,
+   "link_to": "Bid Check list",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Contractor Category",
+   "link_count": 0,
+   "link_to": "Contractor Category",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2026-05-24 23:04:11.497870",
+ "modified_by": "Administrator",
+ "module": "Bid",
+ "name": "Bid",
+ "number_cards": [
+  {
+   "label": "Purchased Bids",
+   "number_card_name": "Purchased Bids"
+  },
+  {
+   "label": "Open Bid Followups",
+   "number_card_name": "Open Bid Followups"
+  },
+  {
+   "label": "Submitted Cost Breakdowns",
+   "number_card_name": "Submitted Cost Breakdowns"
+  }
+ ],
+ "owner": "Administrator",
+ "parent_page": "Construction Management",
+ "public": 1,
+ "quick_lists": [
+  {
+   "document_type": "Bid Followup",
+   "label": "Purchased Bids",
+   "quick_list_filter": "{\"status\": [\"=\", \"Purchased\"]}"
+  },
+  {
+   "document_type": "Bid Documentation Checklist",
+   "label": "Pending Bid Checklists",
+   "quick_list_filter": "{\"docstatus\": [\"=\", 0]}"
+  },
+  {
+   "document_type": "Cost Break Down",
+   "label": "Submitted Cost Breakdowns",
+   "quick_list_filter": "{\"docstatus\": [\"=\", 1]}"
+  }
+ ],
+ "roles": [
+  {
+   "role": "Projects User"
+  },
+  {
+   "role": "Projects Manager"
+  },
+  {
+   "role": "System Manager"
+  }
+ ],
+ "sequence_id": 11.0,
+ "shortcuts": [
+  {
+   "doc_view": "",
+   "label": "Bid Followup",
+   "link_to": "Bid Followup",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "",
+   "label": "Cost Break Down",
+   "link_to": "Cost Break Down",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "",
+   "label": "Bid Result",
+   "link_to": "Bid Result",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "",
+   "label": "Construction Hub",
+   "type": "URL",
+   "url": "/app/construction-management"
+  },
+  {
+   "doc_view": "",
+   "label": "Bid Dashboard",
+   "link_to": "Bid",
+   "type": "Dashboard"
+  }
+ ],
+ "title": "Bid",
+ "type": "Workspace"
+}

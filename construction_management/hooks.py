@@ -8,7 +8,7 @@ app_license = "mit"
 # Apps
 # ------------------
 
-# required_apps = []
+required_apps = ["erpnext", "klc_custom"]
 
 # Each item in the list will be shown as an app in the apps page
 # add_to_apps_screen = [
@@ -89,7 +89,11 @@ doctype_js = {
 # ------------
 
 # before_install = "construction_management.install.before_install"
-# after_install = "construction_management.install.after_install"
+after_install = "construction_management.install.setup_workspaces.execute"
+
+after_migrate = [
+	"construction_management.dashboard_fixtures.setup_all",
+]
 
 # Uninstallation
 # ------------
@@ -259,10 +263,10 @@ doc_events = {
 fixtures = [
     {
         "dt": "Custom Field",
-        "filters": [["dt", "in", ["Timesheet", "Project", "Task"]]]
+        "filters": [["dt", "in", ["Timesheet", "Project", "Task", "Timesheet Detail"]]]
     },
     {
         "dt": "Property Setter",
-        "filters": [["doc_type", "in", ["Timesheet", "Project", "Task"]]]
+        "filters": [["doc_type", "in", ["Timesheet", "Project", "Task", "Timesheet Detail"]]]
     }
 ]

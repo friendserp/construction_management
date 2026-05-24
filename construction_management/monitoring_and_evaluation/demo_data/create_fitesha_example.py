@@ -74,26 +74,35 @@ def create():
 
 
 def _cleanup_previous_example():
-	for wap in frappe.get_all(
+	wap_names = frappe.get_all(
 		"Weekly Action Plan",
 		filters={"project": PROJECT, "from_date": EXAMPLE_FROM, "to_date": EXAMPLE_TO},
 		pluck="name",
-	):
-		ts_names = frappe.get_all(
-			"WAP Timesheet Plan", filters={"parent": wap}, pluck="timesheet"
-		)
-		for ts in set(filter(None, ts_names)):
-			_cancel_delete("Timesheet", ts)
+	)
 
+	for wap in wap_names:
 		frappe.db.delete("WAP Daily Summary", {"parent": wap})
 		frappe.db.delete("WAP Timesheet Plan", {"parent": wap})
+		if frappe.db.has_column("Timesheet", "custom_weekly_action_plan"):
+			for ts in frappe.get_all(
+				"Timesheet",
+				filters={"custom_weekly_action_plan": wap},
+				pluck="name",
+			):
+				_cancel_delete("Timesheet", ts)
 
-		for drr in frappe.get_all(
-			"Daily Resource Report", filters={"weekly_action_plan": wap}, pluck="name"
-		):
-			frappe.db.set_value("Daily Resource Report", drr, "weekly_action_plan", None)
-			_cancel_delete("Daily Resource Report", drr)
+	drr_names = frappe.get_all(
+		"Daily Resource Report",
+		filters={"project": PROJECT, "date": ["between", [EXAMPLE_FROM, EXAMPLE_TO]]},
+		pluck="name",
+	)
+	for drr in drr_names:
+		frappe.db.delete("WAP Daily Summary", {"daily_resource_report": drr})
+		_clear_drr_child_tables(drr)
+		frappe.db.set_value("Daily Resource Report", drr, "weekly_action_plan", None)
+		_cancel_delete("Daily Resource Report", drr)
 
+	for wap in wap_names:
 		_cancel_delete("Weekly Action Plan", wap)
 
 	for dcr in frappe.get_all(
@@ -138,6 +147,16 @@ def _cleanup_previous_example():
 			doc.delete(ignore_permissions=True)
 
 
+def _clear_drr_child_tables(drr_name):
+	for table in (
+		"DRR Labor Detail",
+		"DRR Material Detail",
+		"DRR Equipment Detail",
+		"DRR Revenue Detail",
+	):
+		frappe.db.delete(table, {"parent": drr_name})
+
+
 def _cancel_delete(doctype, name):
 	if not name or not frappe.db.exists(doctype, name):
 		return
@@ -145,7 +164,7 @@ def _cancel_delete(doctype, name):
 	if doc.docstatus == 1:
 		doc.cancel()
 	if frappe.db.exists(doctype, name):
-		doc.delete(ignore_permissions=True)
+		frappe.delete_doc(doctype, name, force=True, ignore_permissions=True)
 
 
 def _get_project_tasks(limit=3):

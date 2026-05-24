@@ -1,0 +1,29 @@
+{
+ "chart_name": "Profit vs Cost",
+ "chart_type": "Group By",
+ "creation": "2026-05-24 11:00:00.000000",
+ "docstatus": 0,
+ "doctype": "Dashboard Chart",
+ "document_type": "Daily Resource Report",
+ "dynamic_filters_json": "{}",
+ "filters_json": "[]",
+ "group_by_based_on": "date",
+ "group_by_type": "Sum",
+ "idx": 0,
+ "is_public": 1,
+ "is_standard": 1,
+ "modified": "2026-05-24 11:00:00.000000",
+ "module": "Monitoring and Evaluation",
+ "name": "Profit vs Cost",
+ "number_of_groups": 10,
+ "owner": "Administrator",
+ "parent_doctype": "",
+ "source": "",
+ "time_interval": "Daily",
+ "timeseries": 1,
+ "type": "Line",
+ "y_axis": [
+  {"fieldname": "revenue", "label": "Revenue"},
+  {"fieldname": "total_cost", "label": "Cost"}
+ ]
+}

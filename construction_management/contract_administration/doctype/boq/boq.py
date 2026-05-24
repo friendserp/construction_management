@@ -1,8 +1,9 @@
 # Copyright (c) 2026, Friends ERP and contributors
 # For license information, please see license.txt
 
-# import frappe
+import frappe
 from frappe.model.document import Document
+from frappe.utils import flt
 
 
 class BOQ(Document):
@@ -24,15 +25,17 @@ class BOQ(Document):
 			total_amount = previous_amount + current_amount
 			contract_amount = flt(item.amount)
 
-			if task_group:
-				if task_group not in summary_map:
-					summary_map[task_group] = {
-						task_group: task_group,
-						previous_amount: 0,
-						current_amount: 0,
-						todate_amount: 0,
-						contract_amount: 0
-					}
+			if not task_group:
+				continue
+
+			if task_group not in summary_map:
+				summary_map[task_group] = {
+					"task_group": task_group,
+					"previous_amount": 0,
+					"current_amount": 0,
+					"todate_amount": 0,
+					"contract_amount": 0,
+				}
 
 			summary_map[task_group]["previous_amount"] += previous_amount
 			summary_map[task_group]["current_amount"] += current_amount

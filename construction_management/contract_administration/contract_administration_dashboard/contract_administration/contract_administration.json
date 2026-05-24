@@ -1,0 +1,31 @@
+{
+ "cards": [
+  {
+   "card": "Active Subcontract Agreements"
+  },
+  {
+   "card": "Submitted BOQs"
+  },
+  {
+   "card": "Payment Certificates"
+  }
+ ],
+ "charts": [
+  {
+   "chart": "Agreement Value by Project",
+   "width": "Full"
+  }
+ ],
+ "creation": "2026-05-24 22:31:21.550240",
+ "dashboard_name": "Contract Administration",
+ "docstatus": 0,
+ "doctype": "Dashboard",
+ "idx": 0,
+ "is_default": 0,
+ "is_standard": 1,
+ "modified": "2026-05-24 23:04:11.252695",
+ "modified_by": "Administrator",
+ "module": "Contract Administration",
+ "name": "Contract Administration",
+ "owner": "Administrator"
+}

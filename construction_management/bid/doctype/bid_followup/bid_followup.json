@@ -10,6 +10,7 @@
   "naming_series",
   "date",
   "project_name",
+  "project",
   "date_of_announcement",
   "client",
   "contractor_category",
@@ -147,8 +148,15 @@
   {
    "fieldname": "project_name",
    "fieldtype": "Data",
-   "label": "Project Name",
+   "label": "Tender / Project Name",
    "reqd": 1
+  },
+  {
+   "fieldname": "project",
+   "fieldtype": "Link",
+   "label": "ERPNext Project",
+   "options": "Project",
+   "read_only": 1
   }
  ],
  "grid_page_length": 50,

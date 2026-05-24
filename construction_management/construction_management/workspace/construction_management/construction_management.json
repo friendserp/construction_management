@@ -1,0 +1,263 @@
+{
+ "app": "construction_management",
+ "charts": [
+  {
+   "chart_name": "Construction Project Trend",
+   "label": "Construction Project Trend"
+  }
+ ],
+ "content": "[{\"id\": \"construction_managem\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h3\\\"><b>Construction Management</b></span>\", \"col\": 12}}, {\"id\": \"construction_project_trend\", \"type\": \"chart\", \"data\": {\"chart_name\": \"Construction Project Trend\", \"col\": 12}}, {\"id\": \"s0\", \"type\": \"spacer\", \"data\": {\"col\": 12}}, {\"id\": \"construction_home_guide\", \"type\": \"custom_block\", \"data\": {\"custom_block_name\": \"Construction Home Guide\", \"col\": 12}}, {\"id\": \"s1\", \"type\": \"spacer\", \"data\": {\"col\": 12}}, {\"id\": \"key_metrics\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>Key Metrics</b></span>\", \"col\": 12}}, {\"id\": \"construction_projects\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Construction Projects\", \"col\": 3}}, {\"id\": \"purchased_bids\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Purchased Bids\", \"col\": 3}}, {\"id\": \"active_subcontract_agreements\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Active Subcontract Agreements\", \"col\": 3}}, {\"id\": \"daily_report_profit\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Daily Report Profit\", \"col\": 3}}, {\"id\": \"s2\", \"type\": \"spacer\", \"data\": {\"col\": 12}}, {\"id\": \"live_lists\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>Live Lists</b></span>\", \"col\": 12}}, {\"id\": \"active_projects\", \"type\": \"quick_list\", \"data\": {\"quick_list_name\": \"Active Projects\", \"col\": 4}}, {\"id\": \"recent_bid_followups\", \"type\": \"quick_list\", \"data\": {\"quick_list_name\": \"Recent Bid Followups\", \"col\": 4}}, {\"id\": \"this_week_action_plans\", \"type\": \"quick_list\", \"data\": {\"quick_list_name\": \"This Week Action Plans\", \"col\": 4}}, {\"id\": \"s3\", \"type\": \"spacer\", \"data\": {\"col\": 12}}, {\"id\": \"module_workflows\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>Module Workflows</b></span>\", \"col\": 12}}, {\"id\": \"bid_process_flow\", \"type\": \"custom_block\", \"data\": {\"custom_block_name\": \"Bid Process Flow\", \"col\": 6}}, {\"id\": \"contract_process_flow\", \"type\": \"custom_block\", \"data\": {\"custom_block_name\": \"Contract Process Flow\", \"col\": 6}}, {\"id\": \"s4\", \"type\": \"spacer\", \"data\": {\"col\": 12}}, {\"id\": \"monitoring_process_flow\", \"type\": \"custom_block\", \"data\": {\"custom_block_name\": \"Monitoring Process Flow\", \"col\": 12}}, {\"id\": \"s5\", \"type\": \"spacer\", \"data\": {\"col\": 12}}, {\"id\": \"quick_access\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>Quick Access</b></span>\", \"col\": 12}}, {\"id\": \"bid_module\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Bid Module\", \"col\": 3}}, {\"id\": \"contract_module\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Contract Module\", \"col\": 3}}, {\"id\": \"monitoring_module\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Monitoring Module\", \"col\": 3}}, {\"id\": \"project\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Project\", \"col\": 3}}, {\"id\": \"s6\", \"type\": \"spacer\", \"data\": {\"col\": 12}}, {\"id\": \"dashboards\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>Dashboards</b></span>\", \"col\": 12}}, {\"id\": \"construction_management_dashbo\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Construction Management Dashboard\", \"col\": 3}}, {\"id\": \"bid_dashboard\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Bid Dashboard\", \"col\": 3}}, {\"id\": \"contract_administration_dashbo\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Contract Administration Dashboard\", \"col\": 3}}, {\"id\": \"monitoring_and_evaluation_dash\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Monitoring and Evaluation Dashboard\", \"col\": 3}}, {\"id\": \"s7\", \"type\": \"spacer\", \"data\": {\"col\": 12}}, {\"id\": \"masters\", \"type\": \"card\", \"data\": {\"card_name\": \"Masters\", \"col\": 4}}, {\"id\": \"projects_&_tasks\", \"type\": \"card\", \"data\": {\"card_name\": \"Projects & Tasks\", \"col\": 4}}, {\"id\": \"erpnext_links\", \"type\": \"card\", \"data\": {\"card_name\": \"ERPNext Links\", \"col\": 4}}]",
+ "creation": "2026-05-24 22:31:31.885903",
+ "custom_blocks": [
+  {
+   "custom_block_name": "Construction Home Guide",
+   "label": "Construction Home Guide"
+  },
+  {
+   "custom_block_name": "Bid Process Flow",
+   "label": "Bid Process Flow"
+  },
+  {
+   "custom_block_name": "Contract Process Flow",
+   "label": "Contract Process Flow"
+  },
+  {
+   "custom_block_name": "Monitoring Process Flow",
+   "label": "Monitoring Process Flow"
+  }
+ ],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "organization",
+ "idx": 0,
+ "indicator_color": "blue",
+ "is_hidden": 0,
+ "label": "Construction Management",
+ "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Masters",
+   "link_count": 0,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Consultant",
+   "link_count": 0,
+   "link_to": "Consultant",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Contractor Category",
+   "link_count": 0,
+   "link_to": "Contractor Category",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Subcontractor",
+   "link_count": 0,
+   "link_to": "Subcontractor",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Projects & Tasks",
+   "link_count": 0,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Project",
+   "link_count": 0,
+   "link_to": "Project",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Task",
+   "link_count": 0,
+   "link_to": "Task",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Customer",
+   "link_count": 0,
+   "link_to": "Customer",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "ERPNext Links",
+   "link_count": 0,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Timesheet",
+   "link_count": 0,
+   "link_to": "Timesheet",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Stock Entry",
+   "link_count": 0,
+   "link_to": "Stock Entry",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Equipment Master",
+   "link_count": 0,
+   "link_to": "Equipment Master",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2026-05-24 23:04:11.390192",
+ "modified_by": "Administrator",
+ "module": "Construction Management",
+ "name": "Construction Management",
+ "number_cards": [
+  {
+   "label": "Construction Projects",
+   "number_card_name": "Construction Projects"
+  },
+  {
+   "label": "Purchased Bids",
+   "number_card_name": "Purchased Bids"
+  },
+  {
+   "label": "Active Subcontract Agreements",
+   "number_card_name": "Active Subcontract Agreements"
+  },
+  {
+   "label": "Daily Report Profit",
+   "number_card_name": "Daily Report Profit"
+  }
+ ],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [
+  {
+   "document_type": "Project",
+   "label": "Active Projects",
+   "quick_list_filter": "{\"status\": [\"=\", \"Open\"]}"
+  },
+  {
+   "document_type": "Bid Followup",
+   "label": "Recent Bid Followups",
+   "quick_list_filter": "{\"modified\": [\"Timespan\", \"last month\"], \"docstatus\": [\"!=\", 2]}"
+  },
+  {
+   "document_type": "Weekly Action Plan",
+   "label": "This Week Action Plans",
+   "quick_list_filter": "{\"from_date\": [\"Timespan\", \"this week\"], \"docstatus\": [\"<\", 2]}"
+  }
+ ],
+ "roles": [
+  {
+   "role": "Projects User"
+  },
+  {
+   "role": "Projects Manager"
+  },
+  {
+   "role": "System Manager"
+  }
+ ],
+ "sequence_id": 10.0,
+ "shortcuts": [
+  {
+   "doc_view": "",
+   "label": "Project",
+   "link_to": "Project",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "",
+   "label": "Bid Module",
+   "type": "URL",
+   "url": "/app/bid"
+  },
+  {
+   "doc_view": "",
+   "label": "Contract Module",
+   "type": "URL",
+   "url": "/app/contract-administration"
+  },
+  {
+   "doc_view": "",
+   "label": "Monitoring Module",
+   "type": "URL",
+   "url": "/app/monitoring-and-evaluation"
+  },
+  {
+   "doc_view": "",
+   "label": "Construction Management Dashboard",
+   "link_to": "Construction Management",
+   "type": "Dashboard"
+  },
+  {
+   "doc_view": "",
+   "label": "Bid Dashboard",
+   "link_to": "Bid",
+   "type": "Dashboard"
+  },
+  {
+   "doc_view": "",
+   "label": "Contract Administration Dashboard",
+   "link_to": "Contract Administration",
+   "type": "Dashboard"
+  },
+  {
+   "doc_view": "",
+   "label": "Monitoring and Evaluation Dashboard",
+   "link_to": "Monitoring and Evaluation",
+   "type": "Dashboard"
+  }
+ ],
+ "title": "Construction Management",
+ "type": "Workspace"
+}

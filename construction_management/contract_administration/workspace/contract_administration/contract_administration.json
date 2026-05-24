@@ -1,0 +1,325 @@
+{
+ "app": "construction_management",
+ "charts": [
+  {
+   "chart_name": "Agreement Value by Project",
+   "label": "Agreement Value by Project"
+  }
+ ],
+ "content": "[{\"id\": \"contract_administrat\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h3\\\"><b>Contract Administration</b></span>\", \"col\": 12}}, {\"id\": \"agreement_value_by_project\", \"type\": \"chart\", \"data\": {\"chart_name\": \"Agreement Value by Project\", \"col\": 12}}, {\"id\": \"s0\", \"type\": \"spacer\", \"data\": {\"col\": 12}}, {\"id\": \"contract_process_flow\", \"type\": \"custom_block\", \"data\": {\"custom_block_name\": \"Contract Process Flow\", \"col\": 12}}, {\"id\": \"s1\", \"type\": \"spacer\", \"data\": {\"col\": 12}}, {\"id\": \"active_subcontract_agreements\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Active Subcontract Agreements\", \"col\": 3}}, {\"id\": \"submitted_boqs\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Submitted BOQs\", \"col\": 3}}, {\"id\": \"payment_certificates\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Payment Certificates\", \"col\": 3}}, {\"id\": \"open_weekly_followups\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Open Weekly Followups\", \"col\": 3}}, {\"id\": \"s2\", \"type\": \"spacer\", \"data\": {\"col\": 12}}, {\"id\": \"live_lists\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>Live Lists</b></span>\", \"col\": 12}}, {\"id\": \"submitted_boqs\", \"type\": \"quick_list\", \"data\": {\"quick_list_name\": \"Submitted BOQs\", \"col\": 3}}, {\"id\": \"active_agreements\", \"type\": \"quick_list\", \"data\": {\"quick_list_name\": \"Active Agreements\", \"col\": 3}}, {\"id\": \"recent_payment_certificates\", \"type\": \"quick_list\", \"data\": {\"quick_list_name\": \"Recent Payment Certificates\", \"col\": 3}}, {\"id\": \"open_weekly_followups\", \"type\": \"quick_list\", \"data\": {\"quick_list_name\": \"Open Weekly Followups\", \"col\": 3}}, {\"id\": \"s3\", \"type\": \"spacer\", \"data\": {\"col\": 12}}, {\"id\": \"quick_actions\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>Quick Actions</b></span>\", \"col\": 12}}, {\"id\": \"boq\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"BOQ\", \"col\": 3}}, {\"id\": \"subcontract_agreement\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Subcontract Agreement\", \"col\": 3}}, {\"id\": \"takeoff\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Takeoff\", \"col\": 3}}, {\"id\": \"construction_hub\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Construction Hub\", \"col\": 3}}, {\"id\": \"s4\", \"type\": \"spacer\", \"data\": {\"col\": 12}}, {\"id\": \"agreements_&_boq\", \"type\": \"card\", \"data\": {\"card_name\": \"Agreements & BOQ\", \"col\": 4}}, {\"id\": \"measurements_&_payments\", \"type\": \"card\", \"data\": {\"card_name\": \"Measurements & Payments\", \"col\": 4}}, {\"id\": \"followups_&_bonds\", \"type\": \"card\", \"data\": {\"card_name\": \"Followups & Bonds\", \"col\": 4}}, {\"id\": \"claims_&_extensions\", \"type\": \"card\", \"data\": {\"card_name\": \"Claims & Extensions\", \"col\": 4}}, {\"id\": \"variations_&_escalation\", \"type\": \"card\", \"data\": {\"card_name\": \"Variations & Escalation\", \"col\": 4}}]",
+ "creation": "2026-05-24 22:31:21.870719",
+ "custom_blocks": [
+  {
+   "custom_block_name": "Contract Process Flow",
+   "label": "Contract Process Flow"
+  }
+ ],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "hide_custom": 0,
+ "icon": "briefcase",
+ "idx": 0,
+ "indicator_color": "orange",
+ "is_hidden": 0,
+ "label": "Contract Administration",
+ "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Agreements & BOQ",
+   "link_count": 0,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "BOQ",
+   "link_count": 0,
+   "link_to": "BOQ",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Subcontract Agreement",
+   "link_count": 0,
+   "link_to": "Subcontract Agreement",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Takeoff",
+   "link_count": 0,
+   "link_to": "Takeoff",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Measurements & Payments",
+   "link_count": 0,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Subcontract Payment Certificate",
+   "link_count": 0,
+   "link_to": "Subcontract Payment Certificate",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "List of Work",
+   "link_count": 0,
+   "link_to": "List of Work",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Followups & Bonds",
+   "link_count": 0,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Weekly Contractual Followup",
+   "link_count": 0,
+   "link_to": "Weekly Contractual Followup",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Contractual Followup Summary",
+   "link_count": 0,
+   "link_to": "Contractual Followup Summary",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Performance Bond Followup",
+   "link_count": 0,
+   "link_to": "Performance Bond Followup",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Contract Time Followup",
+   "link_count": 0,
+   "link_to": "Contract Time Followup",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Claims & Extensions",
+   "link_count": 0,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Claim Event Detail",
+   "link_count": 0,
+   "link_to": "Claim Event Detail",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Time Extension Claim",
+   "link_count": 0,
+   "link_to": "Time Extension Claim",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Delay Justification",
+   "link_count": 0,
+   "link_to": "Delay Justification",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Price Escalation Claim",
+   "link_count": 0,
+   "link_to": "Price Escalation Claim",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Variations & Escalation",
+   "link_count": 0,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Project Variation",
+   "link_count": 0,
+   "link_to": "Project Variation",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Subcontractor Selection Criteria",
+   "link_count": 0,
+   "link_to": "Subcontractor Selection Criteria",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Subcontractor Criteria",
+   "link_count": 0,
+   "link_to": "Subcontractor Criteria",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2026-05-24 23:04:11.556728",
+ "modified_by": "Administrator",
+ "module": "Contract Administration",
+ "name": "Contract Administration",
+ "number_cards": [
+  {
+   "label": "Active Subcontract Agreements",
+   "number_card_name": "Active Subcontract Agreements"
+  },
+  {
+   "label": "Submitted BOQs",
+   "number_card_name": "Submitted BOQs"
+  },
+  {
+   "label": "Payment Certificates",
+   "number_card_name": "Payment Certificates"
+  },
+  {
+   "label": "Open Weekly Followups",
+   "number_card_name": "Open Weekly Followups"
+  }
+ ],
+ "owner": "Administrator",
+ "parent_page": "Construction Management",
+ "public": 1,
+ "quick_lists": [
+  {
+   "document_type": "BOQ",
+   "label": "Submitted BOQs",
+   "quick_list_filter": "{\"docstatus\": [\"=\", 1]}"
+  },
+  {
+   "document_type": "Subcontract Agreement",
+   "label": "Active Agreements",
+   "quick_list_filter": "{\"docstatus\": [\"=\", 1]}"
+  },
+  {
+   "document_type": "Subcontract Payment Certificate",
+   "label": "Recent Payment Certificates",
+   "quick_list_filter": "{\"modified\": [\"Timespan\", \"last month\"], \"docstatus\": [\"<\", 2]}"
+  },
+  {
+   "document_type": "Weekly Contractual Followup",
+   "label": "Open Weekly Followups",
+   "quick_list_filter": "{\"docstatus\": [\"=\", 0]}"
+  }
+ ],
+ "roles": [
+  {
+   "role": "Projects User"
+  },
+  {
+   "role": "Projects Manager"
+  },
+  {
+   "role": "System Manager"
+  }
+ ],
+ "sequence_id": 12.0,
+ "shortcuts": [
+  {
+   "doc_view": "",
+   "label": "BOQ",
+   "link_to": "BOQ",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "",
+   "label": "Subcontract Agreement",
+   "link_to": "Subcontract Agreement",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "",
+   "label": "Takeoff",
+   "link_to": "Takeoff",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "",
+   "label": "Construction Hub",
+   "type": "URL",
+   "url": "/app/construction-management"
+  },
+  {
+   "doc_view": "",
+   "label": "Contract Administration Dashboard",
+   "link_to": "Contract Administration",
+   "type": "Dashboard"
+  }
+ ],
+ "title": "Contract Administration",
+ "type": "Workspace"
+}

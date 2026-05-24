@@ -24,27 +24,35 @@ def create_timesheets_from_weekly_plan(wap_name):
 
 	report_date = getdate(wap.from_date)
 	end_date = getdate(wap.to_date)
-	hour_offset = 0
 
 	while report_date <= end_date:
-		ts = _get_or_create_timesheet_for_date(wap, company, employee, report_date)
-		row_idx = 0
+		ts = _get_timesheet_for_date(wap, employee, report_date)
+		hour_offset = 0
+		added_rows = 0
 
 		for item in wap.action_plan_items:
 			if not item.activity or not flt(item.qty):
+				continue
+			if ts and _has_time_log(ts, item.activity, report_date):
 				continue
 
 			unit_rate = flt(item.unit_price_share) or (
 				flt(item.expected_amount) / flt(item.qty) if flt(item.qty) else 0
 			)
 			daily_qty = flt(item.qty) / working_days
-			if _has_time_log(ts, item.activity, report_date):
-				continue
+			hours = max(daily_qty, 0.5)
+
+			if not ts:
+				ts = frappe.new_doc("Timesheet")
+				ts.company = company
+				ts.employee = employee
+				ts.parent_project = wap.project
+				if frappe.db.has_column("Timesheet", "custom_weekly_action_plan"):
+					ts.custom_weekly_action_plan = wap.name
 
 			start_dt = datetime.combine(report_date, datetime.min.time()) + timedelta(
 				hours=8 + hour_offset
 			)
-			hours = max(daily_qty, 0.5)
 			end_dt = start_dt + timedelta(hours=hours)
 			hour_offset += hours + 0.5
 
@@ -63,15 +71,18 @@ def create_timesheets_from_weekly_plan(wap_name):
 					"is_billable": 1,
 				},
 			)
-			row_idx += 1
+			added_rows += 1
 
-		if row_idx:
-			ts.save(ignore_permissions=True)
+		if added_rows:
+			if ts.is_new():
+				ts.insert(ignore_permissions=True)
+			else:
+				ts.save(ignore_permissions=True)
 			if ts.docstatus == 0:
 				ts.submit()
-			created.append(ts.name)
+			if ts.name not in created:
+				created.append(ts.name)
 
-		hour_offset = 0
 		report_date = add_days(report_date, 1)
 
 	wap.refresh_timesheet_entries()
@@ -83,53 +94,44 @@ def create_timesheets_from_weekly_plan(wap_name):
 	return created
 
 
+def _get_timesheet_for_date(wap, employee, report_date):
+	"""Return draft/submitted timesheet for this WAP day if it exists."""
+	if frappe.db.has_column("Timesheet", "custom_weekly_action_plan"):
+		name = frappe.db.get_value(
+			"Timesheet",
+			{
+				"custom_weekly_action_plan": wap.name,
+				"employee": employee,
+				"docstatus": ["<", 2],
+			},
+			"name",
+		)
+		if name:
+			return frappe.get_doc("Timesheet", name)
+
+	rows = frappe.db.sql(
+		"""
+		SELECT DISTINCT ts.name
+		FROM `tabTimesheet` ts
+		INNER JOIN `tabTimesheet Detail` tsd ON tsd.parent = ts.name
+		WHERE ts.docstatus = 0
+			AND ts.employee = %s
+			AND tsd.project = %s
+			AND DATE(tsd.from_time) = %s
+		LIMIT 1
+		""",
+		(employee, wap.project, report_date),
+	)
+	if rows:
+		return frappe.get_doc("Timesheet", rows[0][0])
+	return None
+
+
 def _has_time_log(ts, task, report_date):
 	for row in ts.time_logs:
 		if row.task == task and getdate(row.from_time) == getdate(report_date):
 			return True
 	return False
-
-
-def _get_or_create_timesheet_for_date(wap, company, employee, report_date):
-	# Try to find timesheet specifically linked to this WAP first
-	existing = frappe.db.get_value(
-		"Timesheet",
-		{"custom_weekly_action_plan": wap.name, "employee": employee, "docstatus": ["<", 2]},
-		"name"
-	)
-	
-	if not existing:
-		# Fallback to project and date if no direct link exists (for legacy/manual)
-		existing = frappe.db.sql(
-			"""
-			SELECT DISTINCT ts.name
-			FROM `tabTimesheet` ts
-			INNER JOIN `tabTimesheet Detail` tsd ON tsd.parent = ts.name
-			WHERE ts.docstatus < 2
-				AND ts.employee = %s
-				AND tsd.project = %s
-				AND DATE(tsd.from_time) = %s
-			LIMIT 1
-			""",
-			(employee, wap.project, report_date),
-		)
-		existing = existing[0][0] if existing else None
-
-	if existing:
-		ts_doc = frappe.get_doc("Timesheet", existing)
-		# Update link if missing
-		if hasattr(ts_doc, "custom_weekly_action_plan") and not ts_doc.custom_weekly_action_plan:
-			ts_doc.db_set("custom_weekly_action_plan", wap.name)
-		return ts_doc
-
-	ts = frappe.new_doc("Timesheet")
-	ts.company = company
-	ts.employee = employee
-	ts.parent_project = wap.project
-	if hasattr(ts, "custom_weekly_action_plan") or frappe.db.has_column("Timesheet", "custom_weekly_action_plan"):
-		ts.custom_weekly_action_plan = wap.name
-	ts.insert(ignore_permissions=True)
-	return ts
 
 
 def _working_days(from_date, to_date):
@@ -152,7 +154,10 @@ def _save_wap_child_table(doc, fieldname):
 	parentfield = fieldname
 	child_doctype = doc.meta.get_field(fieldname).options
 
-	frappe.db.delete(child_doctype, {"parent": doc.name, "parenttype": doc.doctype, "parentfield": parentfield})
+	frappe.db.delete(
+		child_doctype,
+		{"parent": doc.name, "parenttype": doc.doctype, "parentfield": parentfield},
+	)
 	for row in doc.get(fieldname) or []:
 		row.parent = doc.name
 		row.parenttype = doc.doctype
