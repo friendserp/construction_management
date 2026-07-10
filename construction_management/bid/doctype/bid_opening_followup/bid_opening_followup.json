@@ -10,6 +10,9 @@
   "bid_documentation_check_list",
   "technical_opening",
   "financial_opening",
+  "column_break_mpyq",
+  "date",
+  "bid_followup_id",
   "section_break_7hke",
   "amended_from",
   "project_name",
@@ -27,7 +30,7 @@
   "financial",
   "technical",
   "section_break_kzoz",
-  "prepare_by",
+  "prepared_by",
   "column_break_dwpb",
   "approved_by"
  ],
@@ -57,6 +60,7 @@
    "search_index": 1
   },
   {
+   "fetch_from": "bid_followup_id.project_name",
    "fieldname": "project_name",
    "fieldtype": "Data",
    "in_list_view": 1,
@@ -64,12 +68,14 @@
    "reqd": 1
   },
   {
+   "fetch_from": "bid_followup_id.date_of_announcement",
    "fieldname": "announcement_date",
    "fieldtype": "Date",
    "label": "Announcement Date ",
    "reqd": 1
   },
   {
+   "fetch_from": "bid_followup_id.opening_time",
    "fieldname": "opening_date",
    "fieldtype": "Datetime",
    "in_list_view": 1,
@@ -111,12 +117,6 @@
    "fieldtype": "Section Break"
   },
   {
-   "fieldname": "prepare_by",
-   "fieldtype": "Link",
-   "label": "Prepare By",
-   "options": "User"
-  },
-  {
    "fieldname": "column_break_dwpb",
    "fieldtype": "Column Break"
   },
@@ -127,6 +127,7 @@
    "options": "User"
   },
   {
+   "fetch_from": "bid_followup_id.client",
    "fieldname": "name_of_client",
    "fieldtype": "Data",
    "label": "Name of Client",
@@ -169,13 +170,36 @@
    "fieldtype": "Table",
    "label": "Technical",
    "options": "Bid Opening Technical Detail"
+  },
+  {
+   "fieldname": "column_break_mpyq",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "bid_documentation_check_list.bid_followup_id",
+   "fieldname": "bid_followup_id",
+   "fieldtype": "Link",
+   "label": "Bid Followup Id",
+   "options": "Bid Followup"
+  },
+  {
+   "fieldname": "prepared_by",
+   "fieldtype": "Link",
+   "label": "Prepared By",
+   "options": "User"
+  },
+  {
+   "default": "Today",
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-04-22 16:32:09.977965",
+ "modified": "2026-06-08 10:59:52.216666",
  "modified_by": "Administrator",
  "module": "Bid",
  "name": "Bid Opening Followup",

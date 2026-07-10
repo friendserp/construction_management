@@ -1,4 +1,28 @@
 frappe.ui.form.on('BOQ', {
+    refresh(frm) {
+        frm.set_query("task_group", "items", function() {
+            return {
+                filters: {
+                    project: frm.doc.project,
+                    is_group: 1
+                }
+            };
+        });
+
+        frm.set_query("item_work", "items", function(doc, cdt, cdn) {
+            let row = locals[cdt][cdn];
+            let filters = {
+                project: frm.doc.project,
+                is_group: 0
+            };
+            if (row.task_group) {
+                filters.parent_task = row.task_group;
+            }
+            return {
+                filters: filters
+            };
+        });
+    },
     validate(frm) {
         update_summary(frm);
         calculate_totals(frm);

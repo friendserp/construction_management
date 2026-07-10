@@ -19,6 +19,7 @@
  ],
  "docstatus": 0,
  "doctype": "Workspace",
+ "for_user": "",
  "hide_custom": 0,
  "icon": "trending-up",
  "idx": 0,
@@ -133,7 +134,7 @@
    "type": "Link"
   }
  ],
- "modified": "2026-05-24 23:26:28.020461",
+ "modified": "2026-06-22 12:11:33.881093",
  "modified_by": "Administrator",
  "module": "Monitoring and Evaluation",
  "name": "Monitoring and Evaluation",

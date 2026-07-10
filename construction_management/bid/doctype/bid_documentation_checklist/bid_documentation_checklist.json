@@ -13,6 +13,7 @@
   "naming_series",
   "column_break_rgai",
   "bid_followup_id",
+  "bid_reveiw_id",
   "site_visit_assessment_id",
   "status",
   "other_check_lists_section",
@@ -22,7 +23,7 @@
   "section_break_dzbx",
   "items",
   "section_break_ueja",
-  "prepare_by",
+  "prepared_by",
   "column_break_jzis",
   "approved_by"
  ],
@@ -52,12 +53,6 @@
    "fieldtype": "Section Break"
   },
   {
-   "fieldname": "prepare_by",
-   "fieldtype": "Link",
-   "label": "Prepare By",
-   "options": "User"
-  },
-  {
    "fieldname": "column_break_jzis",
    "fieldtype": "Column Break"
   },
@@ -72,10 +67,11 @@
    "fieldtype": "Column Break"
   },
   {
+   "fetch_from": "bid_reveiw_id.bid_followup_id",
    "fieldname": "bid_followup_id",
    "fieldtype": "Link",
-   "label": "Bid Review Id",
-   "options": "Detailed bid review"
+   "label": "Bid Followup Id",
+   "options": "Bid Followup"
   },
   {
    "fieldname": "site_visit_assessment_id",
@@ -123,8 +119,7 @@
    "in_list_view": 1,
    "label": "Template",
    "options": "Bid Template",
-   "reqd": 1,
-   "unique": 1
+   "reqd": 1
   },
   {
    "fieldname": "naming_series",
@@ -137,13 +132,26 @@
    "fieldname": "date",
    "fieldtype": "Date",
    "label": "Date"
+  },
+  {
+   "fieldname": "prepared_by",
+   "fieldtype": "Link",
+   "label": "Prepared By",
+   "options": "User"
+  },
+  {
+   "fetch_from": "site_visit_assessment_id.detailed_bid_review_id",
+   "fieldname": "bid_reveiw_id",
+   "fieldtype": "Link",
+   "label": "Bid Reveiw Id",
+   "options": "Detailed bid review"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-04-23 11:25:03.043562",
+ "modified": "2026-06-08 10:48:54.194223",
  "modified_by": "Administrator",
  "module": "Bid",
  "name": "Bid Documentation Checklist",

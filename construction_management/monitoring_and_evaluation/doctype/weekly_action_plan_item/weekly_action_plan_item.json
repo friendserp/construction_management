@@ -9,32 +9,33 @@
   "section_no",
   "crew_no",
   "activity",
+  "description",
   "from_km",
   "to_km",
   "offset_km",
-  "unit",
   "output",
-  "planned_hr",
-  "available_hr",
-  "qty",
-  "unit_price_share",
+  "responsible_person",
+  "column_break_aqds",
+  "unit",
   "expected_amount",
-  "responsible_person"
+  "available_hr",
+  "planned_hr",
+  "qty",
+  "unit_price_share"
  ],
  "fields": [
   {
    "fieldname": "section_no",
    "fieldtype": "Data",
-   "in_list_view": 1,
    "label": "Section No"
   },
   {
    "fieldname": "crew_no",
    "fieldtype": "Data",
-   "in_list_view": 1,
    "label": "Cr. No."
   },
   {
+   "columns": 2,
    "fieldname": "activity",
    "fieldtype": "Link",
    "in_list_view": 1,
@@ -44,22 +45,21 @@
   {
    "fieldname": "from_km",
    "fieldtype": "Float",
-   "in_list_view": 1,
    "label": "From (KM)"
   },
   {
    "fieldname": "to_km",
    "fieldtype": "Float",
-   "in_list_view": 1,
    "label": "To (KM)"
   },
   {
    "fieldname": "offset_km",
    "fieldtype": "Float",
-   "in_list_view": 1,
    "label": "Offset (KM)"
   },
   {
+   "columns": 1,
+   "fetch_from": "activity.custom_unit",
    "fieldname": "unit",
    "fieldtype": "Link",
    "in_list_view": 1,
@@ -69,34 +69,34 @@
   {
    "fieldname": "output",
    "fieldtype": "Float",
-   "in_list_view": 1,
    "label": "Output"
   },
   {
    "fieldname": "planned_hr",
    "fieldtype": "Float",
-   "in_list_view": 1,
    "label": "Planned hr."
   },
   {
    "fieldname": "available_hr",
    "fieldtype": "Float",
-   "in_list_view": 1,
    "label": "Available hr"
   },
   {
+   "columns": 1,
    "fieldname": "qty",
    "fieldtype": "Float",
    "in_list_view": 1,
    "label": "Qty"
   },
   {
+   "columns": 1,
    "fieldname": "unit_price_share",
    "fieldtype": "Float",
    "in_list_view": 1,
    "label": "Unit Price Share"
   },
   {
+   "columns": 2,
    "fieldname": "expected_amount",
    "fieldtype": "Currency",
    "in_list_view": 1,
@@ -105,14 +105,25 @@
   {
    "fieldname": "responsible_person",
    "fieldtype": "Link",
-   "in_list_view": 1,
    "label": "Responsible Person",
    "options": "Employee"
+  },
+  {
+   "columns": 2,
+   "fetch_from": "activity.subject",
+   "fieldname": "description",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Description"
+  },
+  {
+   "fieldname": "column_break_aqds",
+   "fieldtype": "Column Break"
   }
  ],
  "istable": 1,
  "links": [],
- "modified": "2026-05-11 17:27:18.834358",
+ "modified": "2026-06-02 12:32:13.240869",
  "modified_by": "Administrator",
  "module": "Monitoring and Evaluation",
  "name": "Weekly Action Plan Item",

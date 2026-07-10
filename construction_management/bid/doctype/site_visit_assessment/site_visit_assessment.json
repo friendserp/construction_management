@@ -8,6 +8,8 @@
  "field_order": [
   "naming_series",
   "bid_followup_id",
+  "column_break_fdwk",
+  "detailed_bid_review_id",
   "section_break_yldg",
   "distance_from_addis_column",
   "asphalt_road",
@@ -528,12 +530,27 @@
    "fieldtype": "Link",
    "label": "Bid Followup Id",
    "options": "Bid Followup"
+  },
+  {
+   "fieldname": "column_break_fdwk",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "detailed_bid_review_id",
+   "fieldtype": "Link",
+   "label": "Detailed Bid Review Id",
+   "options": "Detailed bid review"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
- "links": [],
- "modified": "2026-04-22 15:01:40.252647",
+ "links": [
+  {
+   "link_doctype": "Bid Documentation Checklist",
+   "link_fieldname": "site_visit_assessment_id"
+  }
+ ],
+ "modified": "2026-06-08 10:18:29.268330",
  "modified_by": "Administrator",
  "module": "Bid",
  "name": "Site Visit Assessment",

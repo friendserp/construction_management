@@ -75,7 +75,6 @@
    "label": "Location"
   },
   {
-   "fetch_from": "contract_agreement.g_entity",
    "fieldname": "client",
    "fieldtype": "Link",
    "label": "Client",
@@ -280,7 +279,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-05-03 20:28:30.916875",
+ "modified": "2026-06-08 16:25:14.268184",
  "modified_by": "Administrator",
  "module": "Contract Administration",
  "name": "Subcontract Payment Certificate",

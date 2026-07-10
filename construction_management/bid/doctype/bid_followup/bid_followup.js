@@ -125,6 +125,12 @@ frappe.ui.form.on('Bid Followup', {
                     bid_followup_id: frm.doc.name,
                 });
             }, __("Actions"));
+
+            frm.add_custom_button(__("Create Detailed Bid Review"), function () {
+                frappe.new_doc("Detailed bid review", {
+                    bid_followup_id: frm.doc.name,
+                });
+            }, __("Actions"));
         }
     },
 

@@ -15,6 +15,7 @@
  ],
  "docstatus": 0,
  "doctype": "Workspace",
+ "for_user": "",
  "hide_custom": 0,
  "icon": "briefcase",
  "idx": 0,
@@ -228,7 +229,7 @@
    "type": "Link"
   }
  ],
- "modified": "2026-05-24 23:26:27.951215",
+ "modified": "2026-06-22 12:11:33.777903",
  "modified_by": "Administrator",
  "module": "Contract Administration",
  "name": "Contract Administration",

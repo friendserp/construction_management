@@ -15,6 +15,7 @@
  ],
  "docstatus": 0,
  "doctype": "Workspace",
+ "for_user": "",
  "hide_custom": 0,
  "icon": "file-text",
  "idx": 0,
@@ -198,7 +199,7 @@
    "type": "Link"
   }
  ],
- "modified": "2026-05-24 23:26:27.885367",
+ "modified": "2026-06-22 12:11:33.672107",
  "modified_by": "Administrator",
  "module": "Bid",
  "name": "Bid",

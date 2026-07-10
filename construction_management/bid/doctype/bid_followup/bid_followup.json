@@ -24,7 +24,8 @@
   "opening_time",
   "opening_place",
   "security_amount",
-  "status"
+  "status",
+  "connections_tab"
  ],
  "fields": [
   {
@@ -157,31 +158,40 @@
    "label": "ERPNext Project",
    "options": "Project",
    "read_only": 1
+  },
+  {
+   "fieldname": "connections_tab",
+   "fieldtype": "Tab Break",
+   "label": "Connections"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
- "links": [],
- "modified": "2026-04-23 10:25:13.985850",
+ "links": [
+  {
+   "link_doctype": "Detailed bid review",
+   "link_fieldname": "bid_followup_id"
+  },
+  {
+   "link_doctype": "Site Visit Assessment",
+   "link_fieldname": "bid_followup_id"
+  },
+  {
+   "link_doctype": "Bid Documentation Checklist",
+   "link_fieldname": "bid_followup_id"
+  },
+  {
+   "link_doctype": "Bid Opening Followup",
+   "link_fieldname": "bid_followup_id"
+  }
+ ],
+ "modified": "2026-06-08 10:58:01.982511",
  "modified_by": "Administrator",
  "module": "Bid",
  "name": "Bid Followup",
  "naming_rule": "By \"Naming Series\" field",
  "owner": "Administrator",
- "permissions": [
-  {
-   "create": 1,
-   "delete": 1,
-   "email": 1,
-   "export": 1,
-   "print": 1,
-   "read": 1,
-   "report": 1,
-   "role": "System Manager",
-   "share": 1,
-   "write": 1
-  }
- ],
+ "permissions": [],
  "row_format": "Dynamic",
  "rows_threshold_for_grid_search": 20,
  "sort_field": "creation",

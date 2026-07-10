@@ -7,6 +7,15 @@ frappe.ui.form.on("Subcontract Agreement", {
             frm.set_value("advance_amount", frm.doc.total_price_with_vat * frm.doc.advance_percent / 100);
             frm.refresh_field("advance_amount");
         }
+    },
+    refresh(frm){
+	frm.set_query("type_of_work", "items", function() {
+    	   return {
+        	filters: {
+            		project: frm.doc.project
+        	}
+    	   };
+	});
     }
 });
 

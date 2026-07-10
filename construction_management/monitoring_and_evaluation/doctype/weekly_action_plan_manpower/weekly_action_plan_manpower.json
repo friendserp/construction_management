@@ -1,7 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
- "creation": "2026-05-11 12:10:00.000000",
+ "creation": "2026-05-11 12:10:00",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
@@ -25,10 +25,10 @@
   },
   {
    "fieldname": "title",
-   "fieldtype": "Select",
+   "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Designation",
-   "options": "DL\nMason\nCarpenter\nG.Chief\nForman\nEquipment opra I\nTruck driver"
+   "options": "Labour Title"
   },
   {
    "fieldname": "no_of_workers",
@@ -71,12 +71,14 @@
   }
  ],
  "istable": 1,
- "modified": "2026-05-11 14:23:00.000000",
+ "links": [],
+ "modified": "2026-06-02 13:09:38.232353",
  "modified_by": "Administrator",
  "module": "Monitoring and Evaluation",
  "name": "Weekly Action Plan Manpower",
  "owner": "Administrator",
  "permissions": [],
+ "row_format": "Dynamic",
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": []

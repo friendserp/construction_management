@@ -93,8 +93,9 @@
   },
   {
    "fieldname": "language",
-   "fieldtype": "Data",
+   "fieldtype": "Select",
    "label": "Language of Bid",
+   "options": "English\nAmharic\nOromiffaa\nTigrinya",
    "reqd": 1
   },
   {
@@ -244,8 +245,13 @@
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
- "links": [],
- "modified": "2026-04-23 11:57:17.051515",
+ "links": [
+  {
+   "link_doctype": "Bid Documentation Checklist",
+   "link_fieldname": "bid_followup_id"
+  }
+ ],
+ "modified": "2026-06-08 10:16:47.996353",
  "modified_by": "Administrator",
  "module": "Bid",
  "name": "Detailed bid review",
