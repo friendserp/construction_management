@@ -153,7 +153,7 @@
    "type": "Link"
   }
  ],
- "modified": "2026-06-22 12:11:33.532316",
+ "modified": "2026-07-27 11:37:37.033675",
  "modified_by": "Administrator",
  "module": "Construction Management",
  "name": "Construction Management",
@@ -206,7 +206,7 @@
    "role": "System Manager"
   }
  ],
- "sequence_id": 10.0,
+ "sequence_id": 17.0,
  "shortcuts": [
   {
    "doc_view": "",

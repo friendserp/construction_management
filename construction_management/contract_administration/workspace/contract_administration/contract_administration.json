@@ -229,7 +229,7 @@
    "type": "Link"
   }
  ],
- "modified": "2026-06-22 12:11:33.777903",
+ "modified": "2026-07-27 11:37:37.141561",
  "modified_by": "Administrator",
  "module": "Contract Administration",
  "name": "Contract Administration",
@@ -287,7 +287,7 @@
    "role": "System Manager"
   }
  ],
- "sequence_id": 12.0,
+ "sequence_id": 19.0,
  "shortcuts": [
   {
    "doc_view": "",
