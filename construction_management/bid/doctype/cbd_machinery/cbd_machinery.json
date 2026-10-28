@@ -9,16 +9,17 @@
  "field_order": [
   "type",
   "no",
+  "uf",
   "hourly_rental",
   "hourly_cost"
  ],
  "fields": [
   {
    "fieldname": "type",
-   "fieldtype": "Select",
+   "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Type",
-   "options": "Tools"
+   "options": "Machinery"
   },
   {
    "fieldname": "no",
@@ -37,13 +38,19 @@
    "fieldtype": "Float",
    "in_list_view": 1,
    "label": "Hourly cost"
+  },
+  {
+   "fieldname": "uf",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "UF"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2026-04-22 09:39:55.157857",
+ "modified": "2026-10-16 15:56:00.394661",
  "modified_by": "Administrator",
  "module": "Bid",
  "name": "CBD Machinery",

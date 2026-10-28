@@ -1,0 +1,540 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:name1",
+ "creation": "2026-10-15 02:32:32.946997",
+ "doctype": "DocType",
+ "document_type": "Document",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "name1",
+  "project",
+  "contractor",
+  "consultant",
+  "client",
+  "column_break_4",
+  "start_date",
+  "end_date",
+  "duration",
+  "duration_in_days",
+  "column_break_19",
+  "date",
+  "responsible_project_manager_name",
+  "work_breakdown_structurewbs_section",
+  "wbs",
+  "calendar_tab",
+  "list_of_holidays_section",
+  "working_days_html",
+  "holiday_country",
+  "holiday_list",
+  "weekly_off",
+  "add_to_holidays",
+  "holiday",
+  "section_break_22",
+  "get_calender",
+  "no_of_working_days_section",
+  "no",
+  "distribution_tab",
+  "monthly_workload_section",
+  "season_length_months",
+  "get_monthly_distribution",
+  "monthly_distribution_html",
+  "distribution",
+  "machinary_tab",
+  "project_resource_list_section",
+  "project_machinery_list",
+  "manpower_tab",
+  "project_manpower_list_section",
+  "project_manpower_list",
+  "material_tab",
+  "project_material_list_section",
+  "project_material_list",
+  "sequencing_tab",
+  "activity_scheduling_section",
+  "project_yearly_task_list",
+  "act_sequencing_section",
+  "start_date_of_first_task",
+  "activity_sequencing",
+  "get_critical_path",
+  "critical_path_table",
+  "tasks_on_the_critical_path",
+  "critical_path_duration_in_days",
+  "critical_path_duration_in_day",
+  "gantt_chart",
+  "amended_from",
+  "task_schedling_list",
+  "get_task_resources",
+  "get_task",
+  "task_machinery_scheduling",
+  "task_machinery_list",
+  "task_manpower_scheduling",
+  "task_manpower_list",
+  "task_material_scheduling",
+  "task_material_list"
+ ],
+ "fields": [
+  {
+   "fieldname": "name1",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Master Plan Name",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "project",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Project Name",
+   "options": "Project",
+   "reqd": 1
+  },
+  {
+   "fieldname": "contractor",
+   "fieldtype": "Data",
+   "label": "Contractor Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "consultant",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Consultant Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "client",
+   "fieldtype": "Data",
+   "label": "Client Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "project.project_commencement_date",
+   "fetch_if_empty": 1,
+   "fieldname": "start_date",
+   "fieldtype": "Date",
+   "label": "Project Start Date",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "project.revised_completion_date",
+   "fetch_if_empty": 1,
+   "fieldname": "end_date",
+   "fieldtype": "Date",
+   "label": "Project End Date",
+   "read_only": 1
+  },
+  {
+   "fieldname": "duration",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Contract Period in years"
+  },
+  {
+   "fetch_from": "project.contract_period_in_days",
+   "fetch_if_empty": 1,
+   "fieldname": "duration_in_days",
+   "fieldtype": "Float",
+   "label": "Contract Period In days",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_19",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Today",
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "responsible_project_manager_name",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Responsible Project Manager Name",
+   "options": "Employee"
+  },
+  {
+   "fieldname": "work_breakdown_structurewbs_section",
+   "fieldtype": "Section Break",
+   "label": "Task List"
+  },
+  {
+   "fieldname": "wbs",
+   "fieldtype": "Table",
+   "label": "WBS",
+   "options": "WBS"
+  },
+  {
+   "fieldname": "project_resource_list_section",
+   "fieldtype": "Section Break",
+   "label": "Machinery Resource List"
+  },
+  {
+   "fieldname": "project_machinery_list",
+   "fieldtype": "Table",
+   "label": "Project Machinery List",
+   "options": "Project Machinery List"
+  },
+  {
+   "fieldname": "project_manpower_list_section",
+   "fieldtype": "Section Break",
+   "label": "Manpower Resource List"
+  },
+  {
+   "fieldname": "project_manpower_list",
+   "fieldtype": "Table",
+   "label": "Project Manpower List",
+   "options": "Project Manpower List"
+  },
+  {
+   "fieldname": "project_material_list_section",
+   "fieldtype": "Section Break",
+   "label": "Material Resource List"
+  },
+  {
+   "fieldname": "project_material_list",
+   "fieldtype": "Table",
+   "label": "Project Material List",
+   "options": "Project Material List"
+  },
+  {
+   "description": "This critical Path is work based on Forward Pass to find (ES & EF ) Using Project Start Date and Backward Pass to Find (LS & LF )Using Project End date.",
+   "fieldname": "act_sequencing_section",
+   "fieldtype": "Section Break",
+   "label": "Task Sequencing"
+  },
+  {
+   "fieldname": "start_date_of_first_task",
+   "fieldtype": "Date",
+   "hidden": 1,
+   "label": "Start Date of First Task(Project Start Date) Milestone"
+  },
+  {
+   "fieldname": "activity_sequencing",
+   "fieldtype": "Table",
+   "label": "Activity Sequencing",
+   "options": "Activity Sequencing"
+  },
+  {
+   "fieldname": "get_critical_path",
+   "fieldtype": "Button",
+   "hidden": 1,
+   "label": "Get Critical Path"
+  },
+  {
+   "fieldname": "critical_path_table",
+   "fieldtype": "Table",
+   "hidden": 1,
+   "label": "Critical Path Table",
+   "options": "Critical Path Table"
+  },
+  {
+   "fieldname": "tasks_on_the_critical_path",
+   "fieldtype": "Small Text",
+   "hidden": 1,
+   "label": "Tasks on the Critical Path"
+  },
+  {
+   "fieldname": "critical_path_duration_in_days",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Critical Path Duration in Days"
+  },
+  {
+   "fieldname": "critical_path_duration_in_day",
+   "fieldtype": "Float",
+   "hidden": 1,
+   "label": "Critical Path Duration in Day",
+   "read_only": 1
+  },
+  {
+   "fieldname": "gantt_chart",
+   "fieldtype": "Text Editor",
+   "hidden": 1,
+   "label": "gantt_chart",
+   "read_only": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Master Plan",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "task_schedling_list",
+   "fieldtype": "Section Break",
+   "hidden": 1,
+   "label": "Task Scheduling List"
+  },
+  {
+   "fieldname": "get_task_resources",
+   "fieldtype": "Button",
+   "label": "Get Task Resources"
+  },
+  {
+   "fieldname": "get_task",
+   "fieldtype": "Button",
+   "label": "Get Task"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "activity_scheduling_section",
+   "fieldtype": "Section Break",
+   "hidden": 1,
+   "label": "Activity Scheduling"
+  },
+  {
+   "fieldname": "project_yearly_task_list",
+   "fieldtype": "Table",
+   "label": "Project Yearly Task List",
+   "options": "Project Yearly Task List"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "task_machinery_scheduling",
+   "fieldtype": "Section Break",
+   "label": "Machinery Resource Scheduling"
+  },
+  {
+   "fieldname": "task_machinery_list",
+   "fieldtype": "Table",
+   "label": "Task Machinery Scheduling",
+   "options": "Task Machinery Scheduling"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "task_manpower_scheduling",
+   "fieldtype": "Section Break",
+   "label": "Manpower Resource Scheduling"
+  },
+  {
+   "fieldname": "task_manpower_list",
+   "fieldtype": "Table",
+   "label": "Task Manpower Scheduling",
+   "options": "Task Manpower Scheduling"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "task_material_scheduling",
+   "fieldtype": "Section Break",
+   "label": "Material Resource Scheduling"
+  },
+  {
+   "fieldname": "task_material_list",
+   "fieldtype": "Table",
+   "label": "Task Material Scheduling",
+   "options": "Task Material Scheduling"
+  },
+  {
+   "fieldname": "calendar_tab",
+   "fieldtype": "Tab Break",
+   "label": "Calendar"
+  },
+  {
+   "description": "Holidays are taken automatically from the Ethiopian (ET) holiday list for the project start and end date when the project is selected. Add a row and pick a Type (Sunday / Holiday / Rainy Day / Holiday Leave) with a From and To date; Total Days is calculated for you. The calendar above updates automatically.",
+   "fieldname": "list_of_holidays_section",
+   "fieldtype": "Section Break",
+   "label": "List Of Holidays(Non Working Days)"
+  },
+  {
+   "fieldname": "working_days_html",
+   "fieldtype": "HTML",
+   "label": "Working Days Calendar"
+  },
+  {
+   "default": "ET",
+   "description": "ISO country code (e.g. ET). Used to auto-build the holiday calendar from the standard Holiday List when no Holiday List is selected below.",
+   "fieldname": "holiday_country",
+   "fieldtype": "Autocomplete",
+   "hidden": 1,
+   "label": "Holiday Country"
+  },
+  {
+   "description": "Optional. Standard ERPNext Holiday List. Leave blank to auto-select every Holiday List for the Holiday Country that overlaps the project dates.",
+   "fieldname": "holiday_list",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Holiday List",
+   "options": "Holiday List"
+  },
+  {
+   "fieldname": "weekly_off",
+   "fieldtype": "Select",
+   "hidden": 1,
+   "label": "Weekly Off",
+   "options": "\nSunday\nMonday\nTuesday\nWednesday\nThursday\nFriday\nSaturday",
+   "read_only": 1
+  },
+  {
+   "fieldname": "add_to_holidays",
+   "fieldtype": "Button",
+   "hidden": 1,
+   "label": "Add to Holidays",
+   "read_only": 1
+  },
+  {
+   "fieldname": "holiday",
+   "fieldtype": "Table",
+   "label": "Holiday",
+   "options": "Holidayss"
+  },
+  {
+   "fieldname": "section_break_22",
+   "fieldtype": "Section Break",
+   "hidden": 1
+  },
+  {
+   "fieldname": "get_calender",
+   "fieldtype": "Button",
+   "label": "Build Calendar, Holidays & Working Days"
+  },
+  {
+   "fieldname": "no_of_working_days_section",
+   "fieldtype": "Section Break",
+   "hidden": 1,
+   "label": "No of working days"
+  },
+  {
+   "fieldname": "no",
+   "fieldtype": "Table",
+   "label": "No",
+   "options": "Master No of working days"
+  },
+  {
+   "fieldname": "distribution_tab",
+   "fieldtype": "Tab Break",
+   "label": "Workload Distribution"
+  },
+  {
+   "fieldname": "monthly_workload_section",
+   "fieldtype": "Section Break",
+   "label": "Monthly / Seasonal Workload Distribution"
+  },
+  {
+   "default": "4",
+   "description": "Number of months per season. Used only to label the monthly distribution rows into seasons (works for any project length).",
+   "fieldname": "season_length_months",
+   "fieldtype": "Int",
+   "label": "Season Length (Months)"
+  },
+  {
+   "fieldname": "get_monthly_distribution",
+   "fieldtype": "Button",
+   "label": "Get Monthly Distribution"
+  },
+  {
+   "fieldname": "monthly_distribution_html",
+   "fieldtype": "HTML",
+   "label": "Monthly Workload Distribution"
+  },
+  {
+   "description": "Only the cells you typed by hand. Empty values fall back to the working day weighted split.",
+   "fieldname": "distribution",
+   "fieldtype": "Table",
+   "label": "Manual Distribution Overrides",
+   "options": "Master Plan Distribution"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Master Plan",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "machinary_tab",
+   "fieldtype": "Tab Break",
+   "label": "Machinary"
+  },
+  {
+   "fieldname": "manpower_tab",
+   "fieldtype": "Tab Break",
+   "label": "Manpower"
+  },
+  {
+   "fieldname": "material_tab",
+   "fieldtype": "Tab Break",
+   "label": "Material"
+  },
+  {
+   "fieldname": "sequencing_tab",
+   "fieldtype": "Tab Break",
+   "label": "Sequencing"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2026-10-16 02:57:22.780779",
+ "modified_by": "Administrator",
+ "module": "Construction Management",
+ "name": "Master Plan",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Projects User",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Projects Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "search_fields": "project",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "name1"
+}

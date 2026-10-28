@@ -1,0 +1,558 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2026-10-15 02:10:56.202764",
+ "doctype": "DocType",
+ "document_type": "Document",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "name1",
+  "project",
+  "consultant",
+  "client",
+  "master_plan_name",
+  "column_break_4",
+  "start_date",
+  "end_date",
+  "duration_in_days",
+  "year",
+  "column_break_14",
+  "budget_year",
+  "date_ec",
+  "date",
+  "project_calendar",
+  "responsible_project_manager_name",
+  "phone_no",
+  "email_address",
+  "list_of_holidays_section",
+  "weekly_off",
+  "add_to_holidays",
+  "holiday",
+  "get_calender",
+  "no_of_working_days_section",
+  "no",
+  "list_of_task_section",
+  "operational_plan_detail",
+  "section_break_30",
+  "get_task_monthly_distribution",
+  "monthly_workload_distribution_section",
+  "tasks_workload_distribution",
+  "monthly_cashflow_distribution_section",
+  "tasks_cashflow_distribution",
+  "act_sequencing_section",
+  "start_date_of_first_task",
+  "activity_sequencing",
+  "get_critical_path",
+  "critical_path_table",
+  "tasks_on_the_critical_path",
+  "critical_path_duration_in_days",
+  "critical_path_duration_in_day",
+  "gantt_chart",
+  "section_break_39",
+  "get_resources",
+  "equipment_section",
+  "machinery_detail",
+  "h1",
+  "machinery_workload_distribution",
+  "h2",
+  "machinery_cashflow_distribution",
+  "manpower_detail_section",
+  "task_manpower_scheduling",
+  "h3",
+  "manpower_workload_distribution",
+  "h4",
+  "manpower_cashflow_distribution",
+  "material_section",
+  "task_material_scheduling",
+  "h5",
+  "material_workload_distribution",
+  "h6",
+  "material_cashflow_distribution",
+  "amended_from",
+  "calendar_tab",
+  "op_calendar_html",
+  "distribution_tab",
+  "op_distribution_html",
+  "scheduling_tab",
+  "resource_tab",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "hidden": 1,
+   "label": "ID",
+   "options": "OP-"
+  },
+  {
+   "fieldname": "name1",
+   "fieldtype": "Data",
+   "label": "OP Name"
+  },
+  {
+   "fieldname": "project",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Project",
+   "options": "Project",
+   "read_only": 1
+  },
+  {
+   "fieldname": "consultant",
+   "fieldtype": "Data",
+   "label": "Consultant",
+   "read_only": 1
+  },
+  {
+   "fieldname": "client",
+   "fieldtype": "Data",
+   "label": "Client",
+   "read_only": 1
+  },
+  {
+   "fieldname": "master_plan_name",
+   "fieldtype": "Link",
+   "label": "Master Plan Name",
+   "options": "Master Plan",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "start_date",
+   "fieldtype": "Date",
+   "label": "Start Date"
+  },
+  {
+   "fieldname": "end_date",
+   "fieldtype": "Date",
+   "label": "End Date"
+  },
+  {
+   "fieldname": "duration_in_days",
+   "fieldtype": "Float",
+   "label": "Duration In days",
+   "read_only": 1
+  },
+  {
+   "description": "Year of the Master Plan to plan for this operation. Selecting it fills the Start / End dates.",
+   "fieldname": "year",
+   "fieldtype": "Select",
+   "label": "Year",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_14",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "budget_year",
+   "fieldtype": "Link",
+   "label": "Budget Year (E.C)",
+   "options": "Budget Year"
+  },
+  {
+   "fieldname": "date_ec",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Date (E.C.)"
+  },
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date"
+  },
+  {
+   "fieldname": "project_calendar",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Project Calendar",
+   "options": "Master Plan"
+  },
+  {
+   "fieldname": "responsible_project_manager_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Responsible Project Manager Name"
+  },
+  {
+   "fieldname": "phone_no",
+   "fieldtype": "Data",
+   "label": "Phone No"
+  },
+  {
+   "fieldname": "email_address",
+   "fieldtype": "Data",
+   "label": "Email Address"
+  },
+  {
+   "fieldname": "list_of_holidays_section",
+   "fieldtype": "Section Break",
+   "label": "List Of Holidays(Non Working Days)"
+  },
+  {
+   "fieldname": "weekly_off",
+   "fieldtype": "Select",
+   "hidden": 1,
+   "label": "Weekly Off",
+   "options": "\nSunday\nMonday\nTuesday\nWednesday\nThursday\nFriday\nSaturday",
+   "read_only": 1
+  },
+  {
+   "fieldname": "add_to_holidays",
+   "fieldtype": "Button",
+   "hidden": 1,
+   "label": "Add to Holidays",
+   "read_only": 1
+  },
+  {
+   "fieldname": "holiday",
+   "fieldtype": "Table",
+   "label": "Holiday",
+   "options": "Holidayss"
+  },
+  {
+   "fieldname": "get_calender",
+   "fieldtype": "Button",
+   "label": "Get Calender &  Working Days"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "no_of_working_days_section",
+   "fieldtype": "Section Break",
+   "hidden": 1,
+   "label": "No of working days"
+  },
+  {
+   "fieldname": "no",
+   "fieldtype": "Table",
+   "label": "No",
+   "options": "Operational no working Days"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "list_of_task_section",
+   "fieldtype": "Section Break",
+   "label": "Yearly Task List"
+  },
+  {
+   "fieldname": "operational_plan_detail",
+   "fieldtype": "Table",
+   "label": "Task List",
+   "options": "Operational Plan Detail"
+  },
+  {
+   "fieldname": "section_break_30",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "get_task_monthly_distribution",
+   "fieldtype": "Button",
+   "label": "Get Task Monthly Distribution"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "monthly_workload_distribution_section",
+   "fieldtype": "Section Break",
+   "label": "Monthly Workload Distribution"
+  },
+  {
+   "fieldname": "tasks_workload_distribution",
+   "fieldtype": "Table",
+   "label": "Task Workload Distribution",
+   "options": "Tasks Workload Distribution"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "monthly_cashflow_distribution_section",
+   "fieldtype": "Section Break",
+   "label": "Monthly Cashflow Distribution"
+  },
+  {
+   "fieldname": "tasks_cashflow_distribution",
+   "fieldtype": "Table",
+   "label": "Task Cashflow Distribution",
+   "options": "Tasks Cashflow Distribution"
+  },
+  {
+   "collapsible": 1,
+   "description": "This critical Path is work based on Forward Pass to find (ES & EF ) Using Year Start Date and Backward Pass to Find (LS & LF )Using Year End date.",
+   "fieldname": "act_sequencing_section",
+   "fieldtype": "Section Break",
+   "label": "Task Sequencing"
+  },
+  {
+   "fieldname": "start_date_of_first_task",
+   "fieldtype": "Date",
+   "hidden": 1,
+   "label": "Start Date of First Task"
+  },
+  {
+   "fieldname": "activity_sequencing",
+   "fieldtype": "Table",
+   "label": "Activity Sequencing",
+   "options": "Activity Sequencing"
+  },
+  {
+   "fieldname": "get_critical_path",
+   "fieldtype": "Button",
+   "label": "Get Critical Path"
+  },
+  {
+   "fieldname": "critical_path_table",
+   "fieldtype": "Table",
+   "label": "Critical Path Table",
+   "options": "Critical Path Table"
+  },
+  {
+   "fieldname": "tasks_on_the_critical_path",
+   "fieldtype": "Small Text",
+   "label": "Tasks on the Critical Path"
+  },
+  {
+   "fieldname": "critical_path_duration_in_days",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Critical Path Duration in Days"
+  },
+  {
+   "fieldname": "critical_path_duration_in_day",
+   "fieldtype": "Data",
+   "label": "Critical Path Duration in Day",
+   "read_only": 1
+  },
+  {
+   "fieldname": "gantt_chart",
+   "fieldtype": "HTML",
+   "label": "Gantt Chart"
+  },
+  {
+   "fieldname": "section_break_39",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "get_resources",
+   "fieldtype": "Button",
+   "label": "Get resources"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "equipment_section",
+   "fieldtype": "Section Break",
+   "label": "Machinery Detail"
+  },
+  {
+   "fieldname": "machinery_detail",
+   "fieldtype": "Table",
+   "label": "Machinery Detail",
+   "options": "Task Machinery Scheduling"
+  },
+  {
+   "fieldname": "h1",
+   "fieldtype": "Heading",
+   "label": "Machinery Requirement"
+  },
+  {
+   "fieldname": "machinery_workload_distribution",
+   "fieldtype": "Table",
+   "label": "Machinery Workload Distribution",
+   "options": "Machinery Workload Distribution"
+  },
+  {
+   "fieldname": "h2",
+   "fieldtype": "Heading",
+   "label": "Machinery Cost"
+  },
+  {
+   "fieldname": "machinery_cashflow_distribution",
+   "fieldtype": "Table",
+   "label": "Machinery Workload Distribution",
+   "options": "Machinery Cashflow Distribution"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "manpower_detail_section",
+   "fieldtype": "Section Break",
+   "label": "Manpower Detail"
+  },
+  {
+   "fieldname": "task_manpower_scheduling",
+   "fieldtype": "Table",
+   "label": "Task Manpower Scheduling",
+   "options": "Task Manpower Scheduling"
+  },
+  {
+   "fieldname": "h3",
+   "fieldtype": "Heading",
+   "label": "Manpower Requirement"
+  },
+  {
+   "fieldname": "manpower_workload_distribution",
+   "fieldtype": "Table",
+   "label": "Manpower Workload Distribution",
+   "options": "Manpower Workload Distribution"
+  },
+  {
+   "fieldname": "h4",
+   "fieldtype": "Heading",
+   "label": "Manpower Cost"
+  },
+  {
+   "fieldname": "manpower_cashflow_distribution",
+   "fieldtype": "Table",
+   "label": "Manpower Cashflow Distribution",
+   "options": "Manpower Cashflow Distribution"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "material_section",
+   "fieldtype": "Section Break",
+   "label": "Material Detail"
+  },
+  {
+   "fieldname": "task_material_scheduling",
+   "fieldtype": "Table",
+   "label": "Task Material Scheduling",
+   "options": "Task Material Scheduling"
+  },
+  {
+   "fieldname": "h5",
+   "fieldtype": "Heading",
+   "label": "Material Requirement "
+  },
+  {
+   "fieldname": "material_workload_distribution",
+   "fieldtype": "Table",
+   "label": "Material Workload Distribution",
+   "options": "Material Workload Distribution"
+  },
+  {
+   "fieldname": "h6",
+   "fieldtype": "Heading",
+   "label": "Material Cost"
+  },
+  {
+   "fieldname": "material_cashflow_distribution",
+   "fieldtype": "Table",
+   "label": "Material Cashflow Distribution",
+   "options": "Material Cashflow Distribution"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Operational Plan",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "calendar_tab",
+   "fieldtype": "Tab Break",
+   "label": "Calendar"
+  },
+  {
+   "fieldname": "op_calendar_html",
+   "fieldtype": "HTML",
+   "label": "Working Days Calendar"
+  },
+  {
+   "fieldname": "distribution_tab",
+   "fieldtype": "Tab Break",
+   "label": "Workload Distribution"
+  },
+  {
+   "fieldname": "op_distribution_html",
+   "fieldtype": "HTML",
+   "label": "Monthly Workload Distribution"
+  },
+  {
+   "fieldname": "scheduling_tab",
+   "fieldtype": "Tab Break",
+   "label": "Scheduling"
+  },
+  {
+   "fieldname": "resource_tab",
+   "fieldtype": "Tab Break",
+   "label": "Resources"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Operational Plan",
+   "print_hide": 1,
+   "read_only": 1
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2026-10-15 02:10:56.202764",
+ "modified_by": "Administrator",
+ "module": "Construction Management",
+ "name": "Operational Plan",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Projects User",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Projects Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "search_fields": "year, project",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

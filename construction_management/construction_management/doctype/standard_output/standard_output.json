@@ -1,0 +1,260 @@
+{
+ "actions": [],
+ "autoname": "{type_of_model}.-.{machinery_name}.-.{activity_name}.-.##",
+ "creation": "2026-10-15 02:10:57.014693",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "leading_resource",
+  "machinery_id",
+  "manpower_id",
+  "material_id",
+  "machinery_name",
+  "material_name",
+  "manpower_name",
+  "activity_name",
+  "activity_id",
+  "unit",
+  "column_break_4",
+  "project",
+  "type_of_model",
+  "hourly_output",
+  "standard_fuel_consumption",
+  "standard_manhr_perunit",
+  "material_character_section",
+  "swell",
+  "shrinkage",
+  "column_break_11",
+  "lf",
+  "sf",
+  "wastage"
+ ],
+ "fields": [
+  {
+   "fieldname": "leading_resource",
+   "fieldtype": "Select",
+   "label": "Leading Resource",
+   "options": "Manpower\nMachinery\nMaterial"
+  },
+  {
+   "depends_on": "eval:doc.leading_resource == \"Machinery\"",
+   "fieldname": "machinery_id",
+   "fieldtype": "Link",
+   "label": "Machinery Id",
+   "options": "Machinery"
+  },
+  {
+   "depends_on": "eval:doc.leading_resource == \"Manpower\"",
+   "fieldname": "manpower_id",
+   "fieldtype": "Link",
+   "label": "Manpower Id",
+   "options": "Manpower"
+  },
+  {
+   "depends_on": "eval:doc.leading_resource == \"Material\"",
+   "fieldname": "material_id",
+   "fieldtype": "Link",
+   "label": "Material ID",
+   "options": "Material"
+  },
+  {
+   "depends_on": "eval:doc.leading_resource == \"Machinery\"",
+   "fetch_from": "machinery_id.machinery_name",
+   "fieldname": "machinery_name",
+   "fieldtype": "Data",
+   "label": "Machinery Name",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval:doc.leading_resource == \"Material\"",
+   "fieldname": "material_name",
+   "fieldtype": "Data",
+   "label": "Material Name"
+  },
+  {
+   "depends_on": "eval:doc.leading_resource == \"Manpower\"",
+   "fetch_from": "manpower_id.job_title",
+   "fetch_if_empty": 1,
+   "fieldname": "manpower_name",
+   "fieldtype": "Data",
+   "label": "Manpower Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "activity_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Activity / Sub Activity Name"
+  },
+  {
+   "fieldname": "activity_id",
+   "fieldtype": "Data",
+   "label": "Activity / Sub Activity Id"
+  },
+  {
+   "columns": 1,
+   "fieldname": "unit",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Unit",
+   "options": "UOM"
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "project",
+   "fieldtype": "Link",
+   "label": "Project",
+   "options": "Project",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval:doc.leading_resource == \"Machinery\"",
+   "fieldname": "type_of_model",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Type of Model",
+   "options": "Type of model"
+  },
+  {
+   "columns": 1,
+   "fieldname": "hourly_output",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Hourly Output"
+  },
+  {
+   "depends_on": "eval:doc.leading_resource == \"Machinery\"",
+   "fieldname": "standard_fuel_consumption",
+   "fieldtype": "Float",
+   "label": "Standard Fuel Consumption"
+  },
+  {
+   "depends_on": "eval:doc.leading_resource == \"Manpower\"",
+   "fieldname": "standard_manhr_perunit",
+   "fieldtype": "Float",
+   "label": "Standard Manhr perunit"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "material_character_section",
+   "fieldtype": "Section Break",
+   "hidden": 1,
+   "label": "Material character"
+  },
+  {
+   "fieldname": "swell",
+   "fieldtype": "Percent",
+   "label": "Swell%"
+  },
+  {
+   "fieldname": "shrinkage",
+   "fieldtype": "Percent",
+   "label": "Shrinkage%"
+  },
+  {
+   "fieldname": "column_break_11",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "lf",
+   "fieldtype": "Float",
+   "label": "LF"
+  },
+  {
+   "fieldname": "sf",
+   "fieldtype": "Float",
+   "label": "SF"
+  },
+  {
+   "fieldname": "wastage",
+   "fieldtype": "Percent",
+   "label": "Wastage%"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-10-15 02:10:57.014693",
+ "modified_by": "Administrator",
+ "module": "Construction Management",
+ "name": "Standard Output",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Contract Admin",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Projects User",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Project Team Leader",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Projects Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "search_fields": "project,machinery_name, activity_name,type_of_model",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

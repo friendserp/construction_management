@@ -1,0 +1,501 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "format:{name1}-{####}",
+ "creation": "2026-10-13 15:00:00.000000",
+ "doctype": "DocType",
+ "document_type": "Document",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "project",
+  "name1",
+  "task_specific_name",
+  "parent_task",
+  "is_group",
+  "revised_contract_amount",
+  "contract_period_in_days",
+  "length_of_project",
+  "financial_weight",
+  "financial_percent",
+  "financial_factor",
+  "project_type",
+  "series",
+  "column_break_16",
+  "task_master_name",
+  "hour_output",
+  "availability",
+  "efficency",
+  "productivity",
+  "working_hour_per_day",
+  "duration_weights",
+  "duration_percents",
+  "duration_factor",
+  "conversion",
+  "column_break_21",
+  "machine_type",
+  "quantity",
+  "no_of_crew",
+  "unit",
+  "task_duration_in_hour",
+  "activity_physical_weight",
+  "machine_detail",
+  "machinery",
+  "equipment_total_cost",
+  "equipment_unit_rate",
+  "manpower",
+  "manpower1",
+  "man_power_total_cost",
+  "manpower_unit_rate",
+  "material_with_out_productivity",
+  "material1",
+  "material_total_cost",
+  "material_unit_rate",
+  "direct_cost",
+  "activity_total_cost",
+  "total_cost_",
+  "indirectcost",
+  "indirect_cost_total",
+  "column_break_103",
+  "profitmargin",
+  "total_with_profit_margin",
+  "column_break_106",
+  "percent_of_small_unit_cost",
+  "small_unit_cost",
+  "section_break_109",
+  "activity_unit_rate",
+  "task_amount",
+  "total_cost_collective"
+ ],
+ "fields": [
+  {
+   "fieldname": "project",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Project",
+   "options": "Project",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "task_master_name.name1",
+   "fetch_if_empty": 1,
+   "fieldname": "name1",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Item No",
+   "reqd": 1
+  },
+  {
+   "allow_in_quick_entry": 1,
+   "bold": 1,
+   "fetch_from": "task_master_name.task_specific_name",
+   "fetch_if_empty": 1,
+   "fieldname": "task_specific_name",
+   "fieldtype": "Data",
+   "in_global_search": 1,
+   "in_standard_filter": 1,
+   "label": "Item Name"
+  },
+  {
+   "bold": 1,
+   "fieldname": "parent_task",
+   "fieldtype": "Link",
+   "ignore_user_permissions": 1,
+   "label": "Parent Task",
+   "options": "Bid Task"
+  },
+  {
+   "bold": 1,
+   "fieldname": "is_group",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Is Group"
+  },
+  {
+   "fetch_from": "project.revised_contract_amount",
+   "fetch_if_empty": 1,
+   "fieldname": "revised_contract_amount",
+   "fieldtype": "Float",
+   "hidden": 1,
+   "label": "revised_contract_amount",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "project.contract_period_in_days",
+   "fetch_if_empty": 1,
+   "fieldname": "contract_period_in_days",
+   "fieldtype": "Float",
+   "hidden": 1,
+   "label": "contract_period_in_days",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "project.length_of_project",
+   "fetch_if_empty": 1,
+   "fieldname": "length_of_project",
+   "fieldtype": "Float",
+   "hidden": 1,
+   "label": "Length of Project"
+  },
+  {
+   "fieldname": "financial_weight",
+   "fieldtype": "Float",
+   "hidden": 1,
+   "label": "financial_weight",
+   "read_only": 1
+  },
+  {
+   "fieldname": "financial_percent",
+   "fieldtype": "Float",
+   "hidden": 1,
+   "label": "financial_percent ",
+   "read_only": 1
+  },
+  {
+   "default": "0.5",
+   "fieldname": "financial_factor",
+   "fieldtype": "Float",
+   "hidden": 1,
+   "label": "Financial Factor"
+  },
+  {
+   "fieldname": "project_type",
+   "fieldtype": "Select",
+   "label": "Spec Type",
+   "options": "ERA\nACCRA"
+  },
+  {
+   "fieldname": "series",
+   "fieldtype": "Select",
+   "label": "Series",
+   "options": "1000 General Items\n2000 Site Clearing\n3000 Drainage Structure\n4000 Earthwork\n5000 Sub-Base Works and B. Course and W. Course\n6000 Bituminous works\n7000 Rigid Pavements\n8000 Structure\n9000 Ancillary Works\n11000 Day Works\n100 General Requirements of Provisions\n200 Earthwork\n300 Sub Base and Base\n400 Bituminous Pavements\n600 Structure\n700 Incidental Works\nDay Work Schedule (Provisional sum)"
+  },
+  {
+   "fieldname": "column_break_16",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "linkage from standard CBD",
+   "fieldname": "task_master_name",
+   "fieldtype": "Link",
+   "label": "Task Master Pay Item",
+   "options": "Task Master"
+  },
+  {
+   "fieldname": "hour_output",
+   "fieldtype": "Float",
+   "label": "Hourly Output",
+   "read_only": 1
+  },
+  {
+   "fieldname": "availability",
+   "fieldtype": "Float",
+   "label": "Availability",
+   "read_only": 1
+  },
+  {
+   "fieldname": "efficency",
+   "fieldtype": "Float",
+   "label": "Efficency",
+   "read_only": 1
+  },
+  {
+   "fieldname": "productivity",
+   "fieldtype": "Float",
+   "label": "Productivity per hour",
+   "read_only": 1
+  },
+  {
+   "default": "8.0",
+   "fieldname": "working_hour_per_day",
+   "fieldtype": "Float",
+   "label": "Working Hour per Day"
+  },
+  {
+   "fieldname": "duration_weights",
+   "fieldtype": "Float",
+   "hidden": 1,
+   "label": "Duration Weights",
+   "read_only": 1
+  },
+  {
+   "fieldname": "duration_percents",
+   "fieldtype": "Float",
+   "hidden": 1,
+   "label": "Duration Percents",
+   "read_only": 1
+  },
+  {
+   "default": "0.5",
+   "fieldname": "duration_factor",
+   "fieldtype": "Float",
+   "hidden": 1,
+   "label": "Duration Factor"
+  },
+  {
+   "fieldname": "conversion",
+   "fieldtype": "Float",
+   "label": "Conversion"
+  },
+  {
+   "fieldname": "column_break_21",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "machine_type",
+   "fieldtype": "Link",
+   "label": "Leading Resources",
+   "options": "Machine Type"
+  },
+  {
+   "bold": 1,
+   "fieldname": "quantity",
+   "fieldtype": "Float",
+   "label": "Bill Item Quantity of Work",
+   "precision": "2"
+  },
+  {
+   "fieldname": "no_of_crew",
+   "fieldtype": "Float",
+   "label": "No Of Crew",
+   "precision": "2"
+  },
+  {
+   "fieldname": "unit",
+   "fieldtype": "Link",
+   "label": "Unit",
+   "options": "UOM"
+  },
+  {
+   "fieldname": "task_duration_in_hour",
+   "fieldtype": "Float",
+   "label": "Task Duration in Days",
+   "precision": "2",
+   "read_only": 1
+  },
+  {
+   "fieldname": "activity_physical_weight",
+   "fieldtype": "Float",
+   "label": "Activity Physical Weight",
+   "read_only": 1
+  },
+  {
+   "fieldname": "machine_detail",
+   "fieldtype": "Section Break",
+   "label": "Equipment"
+  },
+  {
+   "fieldname": "machinery",
+   "fieldtype": "Table",
+   "label": "Machinery",
+   "options": "Task Machinery Table"
+  },
+  {
+   "fieldname": "equipment_total_cost",
+   "fieldtype": "Float",
+   "label": "Total Equipment Cost",
+   "read_only": 1
+  },
+  {
+   "fieldname": "equipment_unit_rate",
+   "fieldtype": "Float",
+   "label": "Equipment Unit Cost(Birr/Unit)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "manpower",
+   "fieldtype": "Section Break",
+   "label": "Manpower"
+  },
+  {
+   "fieldname": "manpower1",
+   "fieldtype": "Table",
+   "label": "Manpower1",
+   "options": "Task Manpower Table"
+  },
+  {
+   "fieldname": "man_power_total_cost",
+   "fieldtype": "Float",
+   "label": "Total Manpower cost",
+   "read_only": 1
+  },
+  {
+   "fieldname": "manpower_unit_rate",
+   "fieldtype": "Float",
+   "label": "Manpower Unit Rate",
+   "read_only": 1
+  },
+  {
+   "fieldname": "material_with_out_productivity",
+   "fieldtype": "Section Break",
+   "label": "Material "
+  },
+  {
+   "fieldname": "material1",
+   "fieldtype": "Table",
+   "label": "Material1",
+   "options": "Task Material Table"
+  },
+  {
+   "fieldname": "material_total_cost",
+   "fieldtype": "Float",
+   "label": "Total Material  Cost",
+   "read_only": 1
+  },
+  {
+   "fieldname": "material_unit_rate",
+   "fieldtype": "Float",
+   "label": "Material Unit Rate",
+   "read_only": 1
+  },
+  {
+   "fieldname": "direct_cost",
+   "fieldtype": "Section Break",
+   "label": "Direct Cost"
+  },
+  {
+   "fieldname": "activity_total_cost",
+   "fieldtype": "Float",
+   "label": "Total Direct Unit Cost",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_cost_",
+   "fieldtype": "Section Break",
+   "label": "InDirect cost "
+  },
+  {
+   "default": "20",
+   "fieldname": "indirectcost",
+   "fieldtype": "Percent",
+   "label": "Percent of Overhead Cost"
+  },
+  {
+   "fieldname": "indirect_cost_total",
+   "fieldtype": "Float",
+   "label": "Total Overhead Cost",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_103",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "15",
+   "fieldname": "profitmargin",
+   "fieldtype": "Float",
+   "label": "Percent of profit margin"
+  },
+  {
+   "fieldname": "total_with_profit_margin",
+   "fieldtype": "Float",
+   "label": "Profit",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_106",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "percent_of_small_unit_cost",
+   "fieldtype": "Float",
+   "label": "Percent of small unit cost"
+  },
+  {
+   "fieldname": "small_unit_cost",
+   "fieldtype": "Float",
+   "label": "small unit cost",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_109",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "activity_unit_rate",
+   "fieldtype": "Float",
+   "label": "Task Unit Cost",
+   "read_only": 1
+  },
+  {
+   "fieldname": "task_amount",
+   "fieldtype": "Float",
+   "label": "Task Amount",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_cost_collective",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "total_cost_collective"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-10-13 15:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Construction Management",
+ "name": "Bid Task",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Projects Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Projects User",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Contract Admin",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "search_fields": "name1, task_specific_name",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

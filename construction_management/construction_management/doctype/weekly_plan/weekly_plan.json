@@ -1,0 +1,393 @@
+{
+ "actions": [],
+ "autoname": "naming_series:",
+ "creation": "2026-10-15 02:10:57.762379",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "project",
+  "consultant",
+  "client",
+  "column_break_4",
+  "week",
+  "monthly_plan",
+  "op_name",
+  "start_date",
+  "end_date",
+  "list_of_holidaysnon_working_days_section",
+  "holiday",
+  "wp_calendar_html",
+  "section_break_14",
+  "get_daily_distribution",
+  "list_of_tasks_section",
+  "weekly_plan_detail",
+  "task_weekly_workload_distribution",
+  "daily_task_workload",
+  "task_cashflow_distribution",
+  "daily_task_cashflow",
+  "wp_distribution_html",
+  "equipment_section",
+  "daily_task_machinery_scheduling",
+  "machinery_workload_distribution",
+  "daily_machinery_workload",
+  "machinery_cashflow_distribution",
+  "daily_machinery_cashflow",
+  "manpower_section",
+  "daily_task_manpower_scheduling",
+  "manpower_workload_distribution",
+  "daily_manpower_workload",
+  "manpower_cashflow_distribution",
+  "daily_manpower_cashflow",
+  "material_section",
+  "daily_task_material_scheduling",
+  "material_workload_distribution",
+  "daily_material_workload",
+  "material_cashflow_distribution",
+  "daily_material_cashflow",
+  "amended_from",
+  "calendar_tab",
+  "distribution_tab",
+  "equipment_tab",
+  "manpower_tab",
+  "material_tab",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "hidden": 1,
+   "label": "Series",
+   "options": "WP-"
+  },
+  {
+   "fieldname": "project",
+   "fieldtype": "Link",
+   "label": "Project",
+   "options": "Project",
+   "read_only": 1
+  },
+  {
+   "fieldname": "consultant",
+   "fieldtype": "Data",
+   "label": "Consultant",
+   "read_only": 1
+  },
+  {
+   "fieldname": "client",
+   "fieldtype": "Data",
+   "label": "Client",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "week",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Week",
+   "options": "\nWeek 1\nWeek 2\nWeek 3\nWeek 4\nWeek 5\nWeek 6",
+   "reqd": 1
+  },
+  {
+   "fieldname": "monthly_plan",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Monthly Plan",
+   "options": "Monthly Plan",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "monthly_plan.operational_plan",
+   "fetch_if_empty": 1,
+   "fieldname": "op_name",
+   "fieldtype": "Data",
+   "label": "Op Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "start_date",
+   "fieldtype": "Date",
+   "label": "Start Date"
+  },
+  {
+   "fieldname": "end_date",
+   "fieldtype": "Date",
+   "label": "End Date"
+  },
+  {
+   "fieldname": "list_of_holidaysnon_working_days_section",
+   "fieldtype": "Section Break",
+   "label": "List Of Holidays(Non Working Days)"
+  },
+  {
+   "fieldname": "holiday",
+   "fieldtype": "Table",
+   "label": "Holiday",
+   "options": "Holidayss"
+  },
+  {
+   "fieldname": "wp_calendar_html",
+   "fieldtype": "HTML",
+   "label": "Working Days Calendar"
+  },
+  {
+   "fieldname": "section_break_14",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "get_daily_distribution",
+   "fieldtype": "Button",
+   "label": "Get Daily Distribution"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "list_of_tasks_section",
+   "fieldtype": "Section Break",
+   "label": "List of Tasks"
+  },
+  {
+   "fieldname": "weekly_plan_detail",
+   "fieldtype": "Table",
+   "label": "Weekly Plan Detail",
+   "options": "Weekly Plan Detail"
+  },
+  {
+   "fieldname": "task_weekly_workload_distribution",
+   "fieldtype": "Heading",
+   "label": "Task Daily Workload Distribution"
+  },
+  {
+   "fieldname": "daily_task_workload",
+   "fieldtype": "Table",
+   "label": "Daily Task Workload",
+   "options": "Daily Task Workload"
+  },
+  {
+   "fieldname": "task_cashflow_distribution",
+   "fieldtype": "Heading",
+   "label": "Task Daily Cashflow Distribution"
+  },
+  {
+   "fieldname": "daily_task_cashflow",
+   "fieldtype": "Table",
+   "label": "Daily Task Cashflow",
+   "options": "Daily Task Cashflow"
+  },
+  {
+   "fieldname": "wp_distribution_html",
+   "fieldtype": "HTML",
+   "label": "Daily Workload Distribution"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "equipment_section",
+   "fieldtype": "Section Break",
+   "label": "Equipment"
+  },
+  {
+   "fieldname": "daily_task_machinery_scheduling",
+   "fieldtype": "Table",
+   "label": "Daily Task Machinery Scheduling",
+   "options": "Daily Task Machinery Scheduling"
+  },
+  {
+   "fieldname": "machinery_workload_distribution",
+   "fieldtype": "Heading",
+   "label": "Machinery Workload Distribution"
+  },
+  {
+   "fieldname": "daily_machinery_workload",
+   "fieldtype": "Table",
+   "label": "Daily Machinery Workload",
+   "options": "Daily Machinery Workload"
+  },
+  {
+   "fieldname": "machinery_cashflow_distribution",
+   "fieldtype": "Heading",
+   "label": "Machinery Cashflow Distribution"
+  },
+  {
+   "fieldname": "daily_machinery_cashflow",
+   "fieldtype": "Table",
+   "label": "Daily Machinery Cashflow",
+   "options": "Daily Machinery Cashflow"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "manpower_section",
+   "fieldtype": "Section Break",
+   "label": "Manpower Detail"
+  },
+  {
+   "fieldname": "daily_task_manpower_scheduling",
+   "fieldtype": "Table",
+   "label": "Daily Task Manpower Scheduling",
+   "options": "Daily Task Manpower Scheduling"
+  },
+  {
+   "fieldname": "manpower_workload_distribution",
+   "fieldtype": "Heading",
+   "label": "Manpower Workload Distribution"
+  },
+  {
+   "fieldname": "daily_manpower_workload",
+   "fieldtype": "Table",
+   "label": "Daily Manpower Workload",
+   "options": "Daily Manpower Workload"
+  },
+  {
+   "fieldname": "manpower_cashflow_distribution",
+   "fieldtype": "Heading",
+   "label": "Manpower Cashflow Distribution"
+  },
+  {
+   "fieldname": "daily_manpower_cashflow",
+   "fieldtype": "Table",
+   "label": "Daily Manpower Cashflow",
+   "options": "Daily Manpower Cashflow"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "material_section",
+   "fieldtype": "Section Break",
+   "label": "Material Detail"
+  },
+  {
+   "fieldname": "daily_task_material_scheduling",
+   "fieldtype": "Table",
+   "label": "Daily Task Material Scheduling",
+   "options": "Daily Task Material Scheduling"
+  },
+  {
+   "fieldname": "material_workload_distribution",
+   "fieldtype": "Heading",
+   "label": "Material Workload Distribution"
+  },
+  {
+   "fieldname": "daily_material_workload",
+   "fieldtype": "Table",
+   "label": "Daily Material Workload",
+   "options": "Daily Material Workload"
+  },
+  {
+   "fieldname": "material_cashflow_distribution",
+   "fieldtype": "Heading",
+   "label": "Material Cashflow Distribution"
+  },
+  {
+   "fieldname": "daily_material_cashflow",
+   "fieldtype": "Table",
+   "label": "Daily Material Cashflow",
+   "options": "Daily Material Cashflow"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Weekly Plan",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "calendar_tab",
+   "fieldtype": "Tab Break",
+   "label": "Calendar"
+  },
+  {
+   "fieldname": "distribution_tab",
+   "fieldtype": "Tab Break",
+   "label": "Distribution"
+  },
+  {
+   "fieldname": "equipment_tab",
+   "fieldtype": "Tab Break",
+   "label": "Equipment"
+  },
+  {
+   "fieldname": "manpower_tab",
+   "fieldtype": "Tab Break",
+   "label": "Manpower"
+  },
+  {
+   "fieldname": "material_tab",
+   "fieldtype": "Tab Break",
+   "label": "Material"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Weekly Plan",
+   "print_hide": 1,
+   "read_only": 1
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2026-10-15 02:10:57.762379",
+ "modified_by": "Administrator",
+ "module": "Construction Management",
+ "name": "Weekly Plan",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Projects User",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Projects Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "search_fields": "project, monthly_plan,op_name",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

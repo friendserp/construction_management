@@ -1,0 +1,176 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "{machinery_name}.-.{type_of_model}.-.{activity_name}.-.##",
+ "creation": "2026-10-13 15:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "standard_output",
+  "project",
+  "machinery_name",
+  "activity_name",
+  "uom",
+  "column_break_4",
+  "hourly_output",
+  "availability",
+  "efficiency",
+  "column_break_8",
+  "effective_productivity",
+  "type_of_model",
+  "remark"
+ ],
+ "fields": [
+  {
+   "fieldname": "standard_output",
+   "fieldtype": "Link",
+   "label": "Standard Output",
+   "options": "Standard Output",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "standard_output.project",
+   "fetch_if_empty": 1,
+   "fieldname": "project",
+   "fieldtype": "Data",
+   "label": "Project",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "standard_output.machinery_name",
+   "fetch_if_empty": 1,
+   "fieldname": "machinery_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Machinery Name",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "standard_output.activity_name",
+   "fetch_if_empty": 1,
+   "fieldname": "activity_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Activity Name",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "standard_output.unit",
+   "fetch_if_empty": 1,
+   "fieldname": "uom",
+   "fieldtype": "Link",
+   "label": "UOM",
+   "options": "UOM",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "allow_in_quick_entry": 1,
+   "fetch_from": "standard_output.hourly_output",
+   "fieldname": "hourly_output",
+   "fieldtype": "Float",
+   "label": "Hourly Output",
+   "read_only": 1
+  },
+  {
+   "allow_in_quick_entry": 1,
+   "fieldname": "availability",
+   "fieldtype": "Float",
+   "label": "Availability",
+   "reqd": 1
+  },
+  {
+   "allow_in_quick_entry": 1,
+   "fieldname": "efficiency",
+   "fieldtype": "Float",
+   "label": "Efficiency",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_8",
+   "fieldtype": "Column Break"
+  },
+  {
+   "allow_in_quick_entry": 1,
+   "fieldname": "effective_productivity",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Effective Productivity",
+   "precision": "2",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "standard_output.type_of_model",
+   "fieldname": "type_of_model",
+   "fieldtype": "Data",
+   "label": "Type of Model",
+   "read_only": 1
+  },
+  {
+   "fieldname": "remark",
+   "fieldtype": "Data",
+   "label": "Remark"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-10-13 15:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Construction Management",
+ "name": "Effective Productivity",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Projects Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Projects User",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "search_fields": "project, standard_output, effective_productivity",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

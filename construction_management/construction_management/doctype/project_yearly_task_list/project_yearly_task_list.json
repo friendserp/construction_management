@@ -1,0 +1,173 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "creation": "2026-10-13 15:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "year",
+  "task_id",
+  "task_name",
+  "task_names",
+  "series",
+  "uom",
+  "activity_physical_weight",
+  "column_break_5",
+  "contract_qty",
+  "planned_qty",
+  "task_unit_rate",
+  "amount",
+  "column_break_10",
+  "start_date",
+  "end_date",
+  "task_duration_in_hour",
+  "productivity"
+ ],
+ "fields": [
+  {
+   "columns": 1,
+   "fieldname": "year",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Year"
+  },
+  {
+   "columns": 2,
+   "fieldname": "task_id",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Task Link",
+   "options": "Task"
+  },
+  {
+   "columns": 1,
+   "fieldname": "task_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Task ID",
+   "read_only": 1
+  },
+  {
+   "fieldname": "task_names",
+   "fieldtype": "Data",
+   "label": "Task Names",
+   "read_only": 1
+  },
+  {
+   "fieldname": "series",
+   "fieldtype": "Data",
+   "label": "Series",
+   "read_only": 1
+  },
+  {
+   "columns": 1,
+   "fieldname": "uom",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "UOM",
+   "options": "UOM",
+   "read_only": 1
+  },
+  {
+   "fieldname": "activity_physical_weight",
+   "fieldtype": "Percent",
+   "label": "activity_physical_weight",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_5",
+   "fieldtype": "Column Break"
+  },
+  {
+   "columns": 1,
+   "fieldname": "contract_qty",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Contract Qty",
+   "read_only": 1
+  },
+  {
+   "columns": 1,
+   "fieldname": "planned_qty",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Planned Qty of Task the Year",
+   "read_only": 1
+  },
+  {
+   "fieldname": "task_unit_rate",
+   "fieldtype": "Float",
+   "label": "Task Unit Rate",
+   "read_only": 1
+  },
+  {
+   "fieldname": "amount",
+   "fieldtype": "Float",
+   "label": "Amount",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_10",
+   "fieldtype": "Column Break"
+  },
+  {
+   "columns": 1,
+   "fieldname": "start_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Start date"
+  },
+  {
+   "columns": 1,
+   "fieldname": "end_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "End date"
+  },
+  {
+   "columns": 1,
+   "fieldname": "task_duration_in_hour",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Duration in Days",
+   "read_only": 1
+  },
+  {
+   "fieldname": "productivity",
+   "fieldtype": "Float",
+   "label": "Productivity",
+   "read_only": 1
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2026-10-13 15:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Construction Management",
+ "name": "Project Yearly Task List",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

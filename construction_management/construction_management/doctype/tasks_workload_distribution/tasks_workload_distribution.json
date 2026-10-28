@@ -1,0 +1,413 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "creation": "2026-10-13 15:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "activity",
+  "activity_name",
+  "task_name",
+  "series",
+  "uom",
+  "start_date",
+  "end_date",
+  "activity_physical_weight",
+  "column_break_4",
+  "productivity",
+  "contract_qty",
+  "to_date_excuted_qty",
+  "total_remaining_qty",
+  "planned_qty",
+  "rate",
+  "section_break_10",
+  "jan",
+  "feb",
+  "mar",
+  "apr",
+  "column_break_15",
+  "may",
+  "jun",
+  "jul",
+  "aug",
+  "column_break_20",
+  "sep",
+  "oct",
+  "nov",
+  "dec",
+  "section_break_27",
+  "jan_1",
+  "feb_1",
+  "mar_1",
+  "apr_1",
+  "column_break_32",
+  "may_1",
+  "jun_1",
+  "jul_1",
+  "aug_1",
+  "column_break_37",
+  "sep_1",
+  "oct_1",
+  "nov_1",
+  "dec_1"
+ ],
+ "fields": [
+  {
+   "columns": 2,
+   "fieldname": "activity",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Task Link",
+   "options": "Task",
+   "idx": 0
+  },
+  {
+   "columns": 1,
+   "fieldname": "activity_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Task ID",
+   "read_only": 1,
+   "idx": 1
+  },
+  {
+   "fieldname": "task_name",
+   "fieldtype": "Data",
+   "label": "Task Name",
+   "read_only": 1,
+   "idx": 2
+  },
+  {
+   "fieldname": "series",
+   "fieldtype": "Data",
+   "label": "series",
+   "read_only": 1,
+   "idx": 3
+  },
+  {
+   "columns": 1,
+   "fieldname": "uom",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "UOM",
+   "options": "UOM",
+   "read_only": 1,
+   "idx": 4
+  },
+  {
+   "fieldname": "start_date",
+   "fieldtype": "Date",
+   "label": "Start Date",
+   "idx": 5
+  },
+  {
+   "fieldname": "end_date",
+   "fieldtype": "Date",
+   "label": "End Date",
+   "idx": 6
+  },
+  {
+   "fieldname": "activity_physical_weight",
+   "fieldtype": "Percent",
+   "label": "activity_physical_weight",
+   "read_only": 1,
+   "idx": 7
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break",
+   "idx": 8
+  },
+  {
+   "fieldname": "productivity",
+   "fieldtype": "Float",
+   "label": "Productivity",
+   "read_only": 1,
+   "idx": 9
+  },
+  {
+   "columns": 1,
+   "fieldname": "contract_qty",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Contract Qty",
+   "read_only": 1,
+   "idx": 10
+  },
+  {
+   "columns": 1,
+   "fieldname": "to_date_excuted_qty",
+   "fieldtype": "Float",
+   "label": "To date Excuted Qty",
+   "read_only": 1,
+   "idx": 11
+  },
+  {
+   "fieldname": "total_remaining_qty",
+   "fieldtype": "Float",
+   "label": "Total remaining Qty",
+   "read_only": 1,
+   "idx": 12
+  },
+  {
+   "columns": 1,
+   "fieldname": "planned_qty",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Planned Qty",
+   "read_only": 1,
+   "idx": 13
+  },
+  {
+   "fieldname": "rate",
+   "fieldtype": "Float",
+   "label": "Rate",
+   "read_only": 1,
+   "idx": 14
+  },
+  {
+   "fieldname": "section_break_10",
+   "fieldtype": "Section Break",
+   "idx": 15
+  },
+  {
+   "columns": 1,
+   "fieldname": "jul",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Jul",
+   "read_only": 1,
+   "idx": 23
+  },
+  {
+   "columns": 1,
+   "fieldname": "aug",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Aug",
+   "read_only": 1,
+   "idx": 24
+  },
+  {
+   "columns": 1,
+   "fieldname": "sep",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Sep",
+   "read_only": 1,
+   "idx": 26
+  },
+  {
+   "columns": 1,
+   "fieldname": "oct",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Oct",
+   "read_only": 1,
+   "idx": 27
+  },
+  {
+   "fieldname": "column_break_15",
+   "fieldtype": "Column Break",
+   "idx": 20
+  },
+  {
+   "columns": 1,
+   "fieldname": "nov",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Nov",
+   "read_only": 1,
+   "idx": 28
+  },
+  {
+   "columns": 1,
+   "fieldname": "dec",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Dec",
+   "read_only": 1,
+   "idx": 29
+  },
+  {
+   "columns": 1,
+   "fieldname": "jan",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Jan",
+   "read_only": 1,
+   "idx": 16
+  },
+  {
+   "columns": 1,
+   "fieldname": "feb",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Feb",
+   "read_only": 1,
+   "idx": 17
+  },
+  {
+   "fieldname": "column_break_20",
+   "fieldtype": "Column Break",
+   "idx": 25
+  },
+  {
+   "fieldname": "mar",
+   "fieldtype": "Float",
+   "label": "Mar",
+   "read_only": 1,
+   "idx": 18
+  },
+  {
+   "fieldname": "apr",
+   "fieldtype": "Float",
+   "label": "Apr",
+   "read_only": 1,
+   "idx": 19
+  },
+  {
+   "fieldname": "may",
+   "fieldtype": "Float",
+   "label": "May",
+   "read_only": 1,
+   "idx": 21
+  },
+  {
+   "fieldname": "jun",
+   "fieldtype": "Float",
+   "label": "Jun",
+   "read_only": 1,
+   "idx": 22
+  },
+  {
+   "fieldname": "section_break_27",
+   "fieldtype": "Section Break",
+   "idx": 30
+  },
+  {
+   "fieldname": "jul_1",
+   "fieldtype": "Percent",
+   "label": "Jul",
+   "idx": 38
+  },
+  {
+   "fieldname": "aug_1",
+   "fieldtype": "Percent",
+   "label": "Aug",
+   "read_only": 1,
+   "idx": 39
+  },
+  {
+   "fieldname": "sep_1",
+   "fieldtype": "Percent",
+   "label": "Sep",
+   "read_only": 1,
+   "idx": 41
+  },
+  {
+   "fieldname": "oct_1",
+   "fieldtype": "Percent",
+   "label": "Oct",
+   "read_only": 1,
+   "idx": 42
+  },
+  {
+   "fieldname": "column_break_32",
+   "fieldtype": "Column Break",
+   "idx": 35
+  },
+  {
+   "fieldname": "nov_1",
+   "fieldtype": "Percent",
+   "label": "Nov",
+   "read_only": 1,
+   "idx": 43
+  },
+  {
+   "fieldname": "dec_1",
+   "fieldtype": "Percent",
+   "label": "Dec",
+   "read_only": 1,
+   "idx": 44
+  },
+  {
+   "fieldname": "jan_1",
+   "fieldtype": "Percent",
+   "label": "Jan",
+   "read_only": 1,
+   "idx": 31
+  },
+  {
+   "fieldname": "feb_1",
+   "fieldtype": "Percent",
+   "label": "Feb",
+   "read_only": 1,
+   "idx": 32
+  },
+  {
+   "fieldname": "column_break_37",
+   "fieldtype": "Column Break",
+   "idx": 40
+  },
+  {
+   "fieldname": "mar_1",
+   "fieldtype": "Percent",
+   "label": "Mar",
+   "read_only": 1,
+   "idx": 33
+  },
+  {
+   "fieldname": "apr_1",
+   "fieldtype": "Percent",
+   "label": "Apr",
+   "read_only": 1,
+   "idx": 34
+  },
+  {
+   "fieldname": "may_1",
+   "fieldtype": "Percent",
+   "label": "May",
+   "read_only": 1,
+   "idx": 36
+  },
+  {
+   "fieldname": "jun_1",
+   "fieldtype": "Percent",
+   "label": "Jun",
+   "read_only": 1,
+   "idx": 37
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2026-10-13 15:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Construction Management",
+ "name": "Tasks Workload Distribution",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

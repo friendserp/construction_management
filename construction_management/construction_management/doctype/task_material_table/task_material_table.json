@@ -1,0 +1,121 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "creation": "2026-10-13 15:00:00.000000",
+ "custom": 1,
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "id_mat",
+  "item1",
+  "is_major_material",
+  "uom",
+  "qty",
+  "total_material_qty",
+  "unit_price",
+  "total_cost",
+  "grand_total_cost"
+ ],
+ "fields": [
+  {
+   "columns": 2,
+   "fieldname": "id_mat",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Material ID",
+   "options": "Material"
+  },
+  {
+   "columns": 2,
+   "fetch_from": "id_mat.item",
+   "fetch_if_empty": 1,
+   "fieldname": "item1",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Material Type",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "id_mat.is_major_material",
+   "fetch_if_empty": 1,
+   "fieldname": "is_major_material",
+   "fieldtype": "Check",
+   "label": "is_major_material ?"
+  },
+  {
+   "columns": 1,
+   "fieldname": "uom",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "UOM",
+   "options": "UOM"
+  },
+  {
+   "columns": 1,
+   "fieldname": "qty",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Quantity"
+  },
+  {
+   "fieldname": "total_material_qty",
+   "fieldtype": "Float",
+   "label": "Total Material qty",
+   "read_only": 1
+  },
+  {
+   "columns": 1,
+   "fetch_from": "id_mat.total_cost",
+   "fetch_if_empty": 1,
+   "fieldname": "unit_price",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Unit Rate"
+  },
+  {
+   "columns": 2,
+   "fieldname": "total_cost",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Total Cost",
+   "read_only": 1
+  },
+  {
+   "fieldname": "grand_total_cost",
+   "fieldtype": "Currency",
+   "label": "Grand Total cost",
+   "read_only": 1
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2026-10-13 15:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Construction Management",
+ "name": "Task Material Table",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

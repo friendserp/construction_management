@@ -1,0 +1,358 @@
+{
+ "actions": [],
+ "autoname": "field:name1",
+ "creation": "2026-10-15 02:10:57.332582",
+ "doctype": "DocType",
+ "document_type": "Document",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "name1",
+  "task_specific_name",
+  "parent_activity",
+  "quantity",
+  "unit",
+  "effective_productivity",
+  "column_break_2",
+  "working_hour_per_day",
+  "hour_output",
+  "availability",
+  "efficency",
+  "productivity",
+  "column_break_11",
+  "type",
+  "no_of_crew",
+  "conversion",
+  "machine_type",
+  "task_duration_in_hour",
+  "machinery_section",
+  "machinery",
+  "equipment_total_cost",
+  "equipment_unit_rate",
+  "manpower_section",
+  "manpower1",
+  "man_power_total_cost",
+  "manpower_unit_rate",
+  "material_section",
+  "material1",
+  "material_total_cost",
+  "material_unit_rate",
+  "section_break_15",
+  "activity_total_cost",
+  "indirect_cost_section",
+  "indirectcost",
+  "indirect_cost_total",
+  "column_break_32",
+  "profitmargin",
+  "total_with_profit_margin",
+  "column_break_35",
+  "percent_of_small_unit_cost",
+  "small_unit_cost",
+  "total_task_cost_section",
+  "activity_unit_rate",
+  "financial_weight",
+  "financial_percent"
+ ],
+ "fields": [
+  {
+   "fieldname": "name1",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Item No",
+   "unique": 1
+  },
+  {
+   "fieldname": "task_specific_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Item Name"
+  },
+  {
+   "fieldname": "parent_activity",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Parent Activity"
+  },
+  {
+   "fieldname": "quantity",
+   "fieldtype": "Float",
+   "label": "Quantity"
+  },
+  {
+   "fieldname": "unit",
+   "fieldtype": "Link",
+   "label": "Unit",
+   "options": "UOM"
+  },
+  {
+   "fieldname": "effective_productivity",
+   "fieldtype": "Link",
+   "label": "Leading Resource With Activity",
+   "options": "Effective Productivity"
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "working_hour_per_day",
+   "fieldtype": "Float",
+   "label": "Working Hour per Day"
+  },
+  {
+   "fetch_from": "effective_productivity.hourly_output",
+   "fetch_if_empty": 1,
+   "fieldname": "hour_output",
+   "fieldtype": "Float",
+   "label": "Hourly Output",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "effective_productivity.availability",
+   "fetch_if_empty": 1,
+   "fieldname": "availability",
+   "fieldtype": "Float",
+   "label": "Availability",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "effective_productivity.efficiency",
+   "fetch_if_empty": 1,
+   "fieldname": "efficency",
+   "fieldtype": "Float",
+   "label": "Efficiency",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "effective_productivity.effective_productivity",
+   "fetch_if_empty": 1,
+   "fieldname": "productivity",
+   "fieldtype": "Float",
+   "label": "Productivity Per Hour",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_11",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "type",
+   "fieldtype": "Select",
+   "in_standard_filter": 1,
+   "label": "Type",
+   "options": "Building\nRoad\nWater\nLandscape\nInfrastructure"
+  },
+  {
+   "fieldname": "no_of_crew",
+   "fieldtype": "Float",
+   "label": "No Of Crew"
+  },
+  {
+   "default": "1",
+   "fieldname": "conversion",
+   "fieldtype": "Float",
+   "label": "Conversion"
+  },
+  {
+   "fieldname": "machine_type",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Machine Type",
+   "options": "Machine Type"
+  },
+  {
+   "fieldname": "task_duration_in_hour",
+   "fieldtype": "Float",
+   "label": "Task Duration in Days",
+   "read_only": 1
+  },
+  {
+   "fieldname": "machinery_section",
+   "fieldtype": "Section Break",
+   "label": "Equipment"
+  },
+  {
+   "fieldname": "machinery",
+   "fieldtype": "Table",
+   "label": "Machinery",
+   "options": "Task Machinery Table"
+  },
+  {
+   "fieldname": "equipment_total_cost",
+   "fieldtype": "Float",
+   "label": "Equipment Total Hourly Cost",
+   "read_only": 1
+  },
+  {
+   "fieldname": "equipment_unit_rate",
+   "fieldtype": "Float",
+   "label": "Equipment Unit Cost",
+   "read_only": 1
+  },
+  {
+   "fieldname": "manpower_section",
+   "fieldtype": "Section Break",
+   "label": "Manpower"
+  },
+  {
+   "fieldname": "manpower1",
+   "fieldtype": "Table",
+   "label": "Manpower",
+   "options": "Task Manpower Table"
+  },
+  {
+   "fieldname": "man_power_total_cost",
+   "fieldtype": "Float",
+   "label": "Man Power Total Hourly  Cost",
+   "read_only": 1
+  },
+  {
+   "fieldname": "manpower_unit_rate",
+   "fieldtype": "Float",
+   "label": "Man Power Unit Cost",
+   "read_only": 1
+  },
+  {
+   "fieldname": "material_section",
+   "fieldtype": "Section Break",
+   "label": "Material"
+  },
+  {
+   "fieldname": "material1",
+   "fieldtype": "Table",
+   "label": "Material",
+   "options": "Task Material Table"
+  },
+  {
+   "fieldname": "material_total_cost",
+   "fieldtype": "Float",
+   "label": "Material Total Cost",
+   "read_only": 1
+  },
+  {
+   "fieldname": "material_unit_rate",
+   "fieldtype": "Float",
+   "label": "Material Unit Cost",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_15",
+   "fieldtype": "Section Break",
+   "label": "DIRECT COST"
+  },
+  {
+   "fieldname": "activity_total_cost",
+   "fieldtype": "Float",
+   "label": "Total Direct Unit Cost"
+  },
+  {
+   "fieldname": "indirect_cost_section",
+   "fieldtype": "Section Break",
+   "label": "INDIRECT COST"
+  },
+  {
+   "fieldname": "indirectcost",
+   "fieldtype": "Percent",
+   "label": "Percent of Overhead Cost"
+  },
+  {
+   "fieldname": "indirect_cost_total",
+   "fieldtype": "Float",
+   "label": "Total Overhead Cost"
+  },
+  {
+   "fieldname": "column_break_32",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "profitmargin",
+   "fieldtype": "Float",
+   "label": "Percent of profit margin"
+  },
+  {
+   "fieldname": "total_with_profit_margin",
+   "fieldtype": "Float",
+   "label": "Profit"
+  },
+  {
+   "fieldname": "column_break_35",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "percent_of_small_unit_cost",
+   "fieldtype": "Float",
+   "label": "Percent of small unit cost"
+  },
+  {
+   "fieldname": "small_unit_cost",
+   "fieldtype": "Float",
+   "label": "small unit cost"
+  },
+  {
+   "fieldname": "total_task_cost_section",
+   "fieldtype": "Section Break",
+   "label": "Total Task Cost"
+  },
+  {
+   "fieldname": "activity_unit_rate",
+   "fieldtype": "Float",
+   "label": "Task Unit Rate"
+  },
+  {
+   "fieldname": "financial_weight",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "financial_weight"
+  },
+  {
+   "fieldname": "financial_percent",
+   "fieldtype": "Data",
+   "label": "financial_percent "
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-10-15 02:10:57.332582",
+ "modified_by": "Administrator",
+ "module": "Construction Management",
+ "name": "Task Master",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Projects Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "search_fields": "name1, task_specific_name",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

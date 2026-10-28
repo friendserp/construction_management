@@ -1,0 +1,266 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "creation": "2026-10-13 15:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "activity",
+  "activity_name",
+  "task_name",
+  "uom",
+  "start_date",
+  "end_date",
+  "series",
+  "project",
+  "column_break_4",
+  "rate",
+  "contract_amount",
+  "todate_executed_qty",
+  "total_remaining_qty",
+  "this_year_revised_plan",
+  "section_break_10",
+  "jul",
+  "aug",
+  "sep",
+  "oct",
+  "column_break_15",
+  "nov",
+  "dec",
+  "jan",
+  "feb",
+  "column_break_20",
+  "mar",
+  "apr",
+  "may",
+  "jun"
+ ],
+ "fields": [
+  {
+   "columns": 2,
+   "fieldname": "activity",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Task Link",
+   "options": "Task"
+  },
+  {
+   "columns": 1,
+   "fieldname": "activity_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Task ID",
+   "read_only": 1
+  },
+  {
+   "fieldname": "task_name",
+   "fieldtype": "Data",
+   "label": "Task Name",
+   "read_only": 1
+  },
+  {
+   "columns": 1,
+   "fieldname": "uom",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "UOM",
+   "options": "UOM",
+   "read_only": 1
+  },
+  {
+   "fieldname": "start_date",
+   "fieldtype": "Date",
+   "label": "Start Date"
+  },
+  {
+   "fieldname": "end_date",
+   "fieldtype": "Date",
+   "label": "End Date"
+  },
+  {
+   "fieldname": "series",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Series",
+   "read_only": 1
+  },
+  {
+   "fieldname": "project",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Project",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "columns": 1,
+   "fieldname": "rate",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Rate",
+   "read_only": 1
+  },
+  {
+   "columns": 1,
+   "fieldname": "contract_amount",
+   "fieldtype": "Float",
+   "label": "Contract Amount",
+   "read_only": 1
+  },
+  {
+   "fieldname": "todate_executed_qty",
+   "fieldtype": "Float",
+   "label": "Todate Executed Qty",
+   "read_only": 1
+  },
+  {
+   "columns": 1,
+   "fieldname": "total_remaining_qty",
+   "fieldtype": "Float",
+   "label": "Total Remaining Qty",
+   "read_only": 1
+  },
+  {
+   "columns": 1,
+   "fieldname": "this_year_revised_plan",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "This year Revised Plan",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_10",
+   "fieldtype": "Section Break"
+  },
+  {
+   "columns": 1,
+   "fieldname": "jul",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Jul",
+   "read_only": 1
+  },
+  {
+   "columns": 1,
+   "fieldname": "aug",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Aug",
+   "read_only": 1
+  },
+  {
+   "columns": 1,
+   "fieldname": "sep",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Sep",
+   "read_only": 1
+  },
+  {
+   "columns": 1,
+   "fieldname": "oct",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Oct",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_15",
+   "fieldtype": "Column Break"
+  },
+  {
+   "columns": 1,
+   "fieldname": "nov",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Nov",
+   "read_only": 1
+  },
+  {
+   "columns": 1,
+   "fieldname": "dec",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Dec",
+   "read_only": 1
+  },
+  {
+   "columns": 1,
+   "fieldname": "jan",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Jan",
+   "read_only": 1
+  },
+  {
+   "columns": 1,
+   "fieldname": "feb",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Feb",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_20",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "mar",
+   "fieldtype": "Float",
+   "label": "Mar",
+   "read_only": 1
+  },
+  {
+   "fieldname": "apr",
+   "fieldtype": "Float",
+   "label": "Apr",
+   "read_only": 1
+  },
+  {
+   "fieldname": "may",
+   "fieldtype": "Float",
+   "label": "May",
+   "read_only": 1
+  },
+  {
+   "fieldname": "jun",
+   "fieldtype": "Float",
+   "label": "Jun",
+   "read_only": 1
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2026-10-13 15:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Construction Management",
+ "name": "Tasks Cashflow Distribution",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

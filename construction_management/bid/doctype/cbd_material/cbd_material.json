@@ -18,7 +18,7 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Item",
-   "options": "Item"
+   "options": "Material"
   },
   {
    "fieldname": "unit",
@@ -51,7 +51,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2026-05-11 13:45:00.000000",
+ "modified": "2026-10-16 16:13:28.521558",
  "modified_by": "Administrator",
  "module": "Bid",
  "name": "CBD Material",

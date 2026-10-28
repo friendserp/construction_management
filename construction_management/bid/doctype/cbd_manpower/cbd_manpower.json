@@ -16,10 +16,10 @@
  "fields": [
   {
    "fieldname": "labour",
-   "fieldtype": "Select",
+   "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Labour",
-   "options": "DL\nMason\nCarpenter\nG.Chief\nForman\nEquipment opra I\nTruck driver"
+   "options": "Manpower"
   },
   {
    "fieldname": "no",
@@ -50,7 +50,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2026-04-22 09:39:50.291895",
+ "modified": "2026-10-16 15:40:25.330089",
  "modified_by": "Administrator",
  "module": "Bid",
  "name": "CBD Manpower",

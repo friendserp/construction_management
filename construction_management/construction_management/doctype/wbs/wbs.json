@@ -1,0 +1,164 @@
+{
+ "actions": [],
+ "creation": "2026-10-16 02:49:25.544201",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "task_id",
+  "task_name",
+  "series",
+  "uom",
+  "contract_qty",
+  "task_unit_rate",
+  "amount",
+  "column_break_7",
+  "duration",
+  "activity_physical_weight",
+  "column_break_20",
+  "start_date",
+  "finish_date",
+  "total_float",
+  "predecessor",
+  "productivity",
+  "executed_qty",
+  "remaining_qty"
+ ],
+ "fields": [
+  {
+   "columns": 1,
+   "fieldname": "task_id",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Task Link",
+   "options": "Task"
+  },
+  {
+   "fieldname": "task_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Task Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "series",
+   "fieldtype": "Data",
+   "label": "Series",
+   "read_only": 1
+  },
+  {
+   "columns": 1,
+   "fieldname": "uom",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "UOM",
+   "options": "UOM",
+   "read_only": 1
+  },
+  {
+   "columns": 1,
+   "fieldname": "contract_qty",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Contract Qty",
+   "read_only": 1
+  },
+  {
+   "columns": 1,
+   "fieldname": "task_unit_rate",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Task Unit Rate",
+   "read_only": 1
+  },
+  {
+   "columns": 1,
+   "fieldname": "amount",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Contract Amount",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_7",
+   "fieldtype": "Column Break"
+  },
+  {
+   "columns": 1,
+   "fieldname": "duration",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Duration",
+   "read_only": 1
+  },
+  {
+   "fieldname": "activity_physical_weight",
+   "fieldtype": "Percent",
+   "label": "Physical weightage",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_20",
+   "fieldtype": "Column Break"
+  },
+  {
+   "columns": 1,
+   "fieldname": "start_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Start Date"
+  },
+  {
+   "columns": 1,
+   "fieldname": "finish_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Finish Date"
+  },
+  {
+   "fieldname": "total_float",
+   "fieldtype": "Float",
+   "label": "Free Float"
+  },
+  {
+   "fieldname": "predecessor",
+   "fieldtype": "Data",
+   "label": "Predecessor"
+  },
+  {
+   "fieldname": "productivity",
+   "fieldtype": "Float",
+   "label": "productivity",
+   "read_only": 1
+  },
+  {
+   "fieldname": "executed_qty",
+   "fieldtype": "Float",
+   "label": "Executed Qty",
+   "read_only": 1
+  },
+  {
+   "fieldname": "remaining_qty",
+   "fieldtype": "Float",
+   "label": "Remaining Qty",
+   "read_only": 1
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2026-10-16 02:54:58.621027",
+ "modified_by": "Administrator",
+ "module": "Construction Management",
+ "name": "WBS",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

@@ -1,0 +1,9 @@
+# Copyright (c) 2026, Friends ERP and Contributors
+# See license.txt
+
+# import frappe
+from frappe.tests.utils import FrappeTestCase
+
+
+class TestWeeklyPlan(FrappeTestCase):
+	pass

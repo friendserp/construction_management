@@ -1,0 +1,513 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "format:{employment_type}-{####}",
+ "creation": "2026-10-13 15:00:00.000000",
+ "custom": 1,
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "employment_type",
+  "working_day_per_month",
+  "working_hour_per_day",
+  "section_break_4",
+  "labour_index_table",
+  "basic_rate",
+  "column_break_7",
+  "overtime_hours",
+  "column_break_9",
+  "overtime_pay",
+  "column_break_11",
+  "overtime_index_factor",
+  "section_break_11",
+  "annual_leave_days1",
+  "column_break_13",
+  "annual_leave_pay",
+  "column_break_24",
+  "annual_leave_index_factor",
+  "section_break_15",
+  "miscellaneous_leaves_days",
+  "column_break_17",
+  "miscellaneous_leaves_pay",
+  "column_break_26",
+  "miscellaneous_leaves_index_factor",
+  "section_break_18",
+  "insurance_medical_percent",
+  "column_break_21",
+  "insurance_medical_pay",
+  "column_break_19",
+  "insurance_medical_pay_index_factor",
+  "section_break_21",
+  "public_holidays_days",
+  "column_break_25",
+  "public_holidays_pay1",
+  "column_break_22",
+  "public_holidays_index_factor",
+  "section_break_24",
+  "compensation_payment_percent",
+  "column_break_29",
+  "compensation_payment",
+  "column_break_30",
+  "compensation_index_factor",
+  "section_break_26",
+  "insurance_percent",
+  "column_break_33",
+  "insurance_pay",
+  "column_break_32",
+  "insurance_pay_index_factor",
+  "section_break_29",
+  "rainy_season_payment_month",
+  "column_break_34",
+  "rainy_season_payment1",
+  "column_break_35",
+  "rainy_season_index_factor",
+  "section_break_32",
+  "displacement_allowance_percent",
+  "column_break_57",
+  "displacement_allowance_index_factor",
+  "section_break_41",
+  "hardship_allowance_percent",
+  "column_break_61",
+  "hardship_allowance_index_factor",
+  "section_break_43",
+  "food_allowance_percent",
+  "column_break_37",
+  "food_allowance_index_factor",
+  "section_break_36",
+  "training_percent",
+  "column_break_42",
+  "training_index_factor",
+  "section_break_39",
+  "sub_total",
+  "market_fluctuation_percent",
+  "market_fluctuation",
+  "total_labour_index"
+ ],
+ "fields": [
+  {
+   "fieldname": "employment_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Employment Type",
+   "options": "Permanent\nContract\nDaily Labor"
+  },
+  {
+   "default": "26.0",
+   "fieldname": "working_day_per_month",
+   "fieldtype": "Float",
+   "label": "Working Day Per month"
+  },
+  {
+   "default": "8.0",
+   "fieldname": "working_hour_per_day",
+   "fieldtype": "Float",
+   "label": "Working Hour Per day"
+  },
+  {
+   "fieldname": "section_break_4",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "labour_index_table",
+   "fieldtype": "Table",
+   "hidden": 1,
+   "label": "Labour Index Table",
+   "options": "Labour Index Table"
+  },
+  {
+   "fieldname": "basic_rate",
+   "fieldtype": "Float",
+   "label": "Basic Rate"
+  },
+  {
+   "fieldname": "column_break_7",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "overtime_hours",
+   "fieldtype": "Float",
+   "label": "Overtime Hours"
+  },
+  {
+   "fieldname": "column_break_9",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "overtime_pay",
+   "fieldtype": "Float",
+   "label": "Overtime Pay",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_11",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "overtime_index_factor",
+   "fieldtype": "Float",
+   "label": "Overtime Index Factor",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_11",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "annual_leave_days1",
+   "fieldtype": "Float",
+   "label": "Annual leave Pay Days"
+  },
+  {
+   "fieldname": "column_break_13",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "annual_leave_pay",
+   "fieldtype": "Float",
+   "label": "Annual leave Pay",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_24",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "annual_leave_index_factor",
+   "fieldtype": "Float",
+   "label": "Annual leave Index Factor",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_15",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "miscellaneous_leaves_days",
+   "fieldtype": "Float",
+   "label": "Miscellaneous Leaves Days"
+  },
+  {
+   "fieldname": "column_break_17",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "miscellaneous_leaves_pay",
+   "fieldtype": "Float",
+   "label": "Miscellaneous Leaves Pay",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_26",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "miscellaneous_leaves_index_factor",
+   "fieldtype": "Float",
+   "label": "Miscellaneous Leaves Index Factor",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval:doc.employment_type==\"Permanent\"",
+   "fieldname": "section_break_18",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "insurance_medical_percent",
+   "fieldtype": "Percent",
+   "label": "Insurance (Medical) percent"
+  },
+  {
+   "fieldname": "column_break_21",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "insurance_medical_pay",
+   "fieldtype": "Float",
+   "label": "Insurance (Medical) Pay",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_19",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "insurance_medical_pay_index_factor",
+   "fieldtype": "Float",
+   "label": "Insurance (Medical) Pay Index Factor",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_21",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "public_holidays_days",
+   "fieldtype": "Float",
+   "label": "Public Holidays Days"
+  },
+  {
+   "fieldname": "column_break_25",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "public_holidays_pay1",
+   "fieldtype": "Float",
+   "label": "public_holidays_pay",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_22",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "public_holidays_index_factor",
+   "fieldtype": "Float",
+   "label": "Public Holidays Index Factor",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_24",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "compensation_payment_percent",
+   "fieldtype": "Percent",
+   "label": "Compensation Payment Percent"
+  },
+  {
+   "fieldname": "column_break_29",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "compensation_payment",
+   "fieldtype": "Float",
+   "label": "Compensation Payment",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_30",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "compensation_index_factor",
+   "fieldtype": "Float",
+   "label": "Compensation Index Factor",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_26",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "insurance_percent",
+   "fieldtype": "Percent",
+   "label": "Insurance Percent"
+  },
+  {
+   "fieldname": "column_break_33",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "insurance_pay",
+   "fieldtype": "Float",
+   "label": "Insurance Pay",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_32",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "insurance_pay_index_factor",
+   "fieldtype": "Float",
+   "label": "Insurance Pay Index Factor",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval:doc.employment_type==\"Permanent\"",
+   "fieldname": "section_break_29",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "rainy_season_payment_month",
+   "fieldtype": "Float",
+   "label": "Rainy season Payment Month"
+  },
+  {
+   "fieldname": "column_break_34",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "rainy_season_payment1",
+   "fieldtype": "Float",
+   "label": "Rainy season Payment",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_35",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "rainy_season_index_factor",
+   "fieldtype": "Float",
+   "label": "Rainy season Index Factor",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval:doc.employment_type==\"Permanent\"",
+   "fieldname": "section_break_32",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "displacement_allowance_percent",
+   "fieldtype": "Percent",
+   "label": "Displacement allowance Percent"
+  },
+  {
+   "fieldname": "column_break_57",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "displacement_allowance_index_factor",
+   "fieldtype": "Float",
+   "label": "Displacement allowance Index Factor",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval:doc.employment_type==\"Permanent\"",
+   "fieldname": "section_break_41",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "hardship_allowance_percent",
+   "fieldtype": "Percent",
+   "label": "Hardship allowance Percent"
+  },
+  {
+   "fieldname": "column_break_61",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "hardship_allowance_index_factor",
+   "fieldtype": "Float",
+   "label": "Hardship allowance Index Factor",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval:doc.employment_type==\"Permanent\"",
+   "fieldname": "section_break_43",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "food_allowance_percent",
+   "fieldtype": "Percent",
+   "label": "Food allowance Percent"
+  },
+  {
+   "fieldname": "column_break_37",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "food_allowance_index_factor",
+   "fieldtype": "Float",
+   "label": "Food allowance Index Factor",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval:doc.employment_type==\"Permanent\"",
+   "fieldname": "section_break_36",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "training_percent",
+   "fieldtype": "Percent",
+   "label": "Training Percent"
+  },
+  {
+   "fieldname": "column_break_42",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "training_index_factor",
+   "fieldtype": "Float",
+   "label": "Training Index Factor",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_39",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "sub_total",
+   "fieldtype": "Float",
+   "hidden": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Sub Total",
+   "read_only": 1
+  },
+  {
+   "fieldname": "market_fluctuation_percent",
+   "fieldtype": "Percent",
+   "hidden": 1,
+   "label": "Market Fluctuation Percent"
+  },
+  {
+   "fieldname": "market_fluctuation",
+   "fieldtype": "Float",
+   "hidden": 1,
+   "label": "Market Fluctuation",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_labour_index",
+   "fieldtype": "Float",
+   "label": "Total Labour Index",
+   "read_only": 1
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-10-13 15:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Construction Management",
+ "name": "Labour Index",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Projects User",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "search_fields": "total_labour_index",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}
