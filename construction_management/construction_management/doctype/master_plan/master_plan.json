@@ -2,7 +2,7 @@
  "actions": [],
  "allow_rename": 1,
  "autoname": "field:name1",
- "creation": "2026-10-15 02:32:32.946997",
+ "creation": "2026-11-04 12:29:08.311640",
  "doctype": "DocType",
  "document_type": "Document",
  "editable_grid": 1,
@@ -41,37 +41,26 @@
   "get_monthly_distribution",
   "monthly_distribution_html",
   "distribution",
+  "cost_distribution_tab",
+  "cost_distribution_section",
+  "cost_distribution_html",
   "machinary_tab",
   "project_resource_list_section",
   "project_machinery_list",
+  "section_break_rrhc",
+  "machinery_distribution",
   "manpower_tab",
   "project_manpower_list_section",
   "project_manpower_list",
+  "section_break_btep",
+  "manpower_distirbution",
   "material_tab",
   "project_material_list_section",
   "project_material_list",
-  "sequencing_tab",
-  "activity_scheduling_section",
-  "project_yearly_task_list",
-  "act_sequencing_section",
-  "start_date_of_first_task",
-  "activity_sequencing",
-  "get_critical_path",
-  "critical_path_table",
-  "tasks_on_the_critical_path",
-  "critical_path_duration_in_days",
-  "critical_path_duration_in_day",
-  "gantt_chart",
   "amended_from",
-  "task_schedling_list",
-  "get_task_resources",
-  "get_task",
-  "task_machinery_scheduling",
-  "task_machinery_list",
-  "task_manpower_scheduling",
-  "task_manpower_list",
-  "task_material_scheduling",
-  "task_material_list"
+  "section_break_wvcr",
+  "material_distirbution",
+  "amended_from"
  ],
  "fields": [
   {
@@ -174,170 +163,6 @@
    "fieldtype": "Table",
    "label": "WBS",
    "options": "WBS"
-  },
-  {
-   "fieldname": "project_resource_list_section",
-   "fieldtype": "Section Break",
-   "label": "Machinery Resource List"
-  },
-  {
-   "fieldname": "project_machinery_list",
-   "fieldtype": "Table",
-   "label": "Project Machinery List",
-   "options": "Project Machinery List"
-  },
-  {
-   "fieldname": "project_manpower_list_section",
-   "fieldtype": "Section Break",
-   "label": "Manpower Resource List"
-  },
-  {
-   "fieldname": "project_manpower_list",
-   "fieldtype": "Table",
-   "label": "Project Manpower List",
-   "options": "Project Manpower List"
-  },
-  {
-   "fieldname": "project_material_list_section",
-   "fieldtype": "Section Break",
-   "label": "Material Resource List"
-  },
-  {
-   "fieldname": "project_material_list",
-   "fieldtype": "Table",
-   "label": "Project Material List",
-   "options": "Project Material List"
-  },
-  {
-   "description": "This critical Path is work based on Forward Pass to find (ES & EF ) Using Project Start Date and Backward Pass to Find (LS & LF )Using Project End date.",
-   "fieldname": "act_sequencing_section",
-   "fieldtype": "Section Break",
-   "label": "Task Sequencing"
-  },
-  {
-   "fieldname": "start_date_of_first_task",
-   "fieldtype": "Date",
-   "hidden": 1,
-   "label": "Start Date of First Task(Project Start Date) Milestone"
-  },
-  {
-   "fieldname": "activity_sequencing",
-   "fieldtype": "Table",
-   "label": "Activity Sequencing",
-   "options": "Activity Sequencing"
-  },
-  {
-   "fieldname": "get_critical_path",
-   "fieldtype": "Button",
-   "hidden": 1,
-   "label": "Get Critical Path"
-  },
-  {
-   "fieldname": "critical_path_table",
-   "fieldtype": "Table",
-   "hidden": 1,
-   "label": "Critical Path Table",
-   "options": "Critical Path Table"
-  },
-  {
-   "fieldname": "tasks_on_the_critical_path",
-   "fieldtype": "Small Text",
-   "hidden": 1,
-   "label": "Tasks on the Critical Path"
-  },
-  {
-   "fieldname": "critical_path_duration_in_days",
-   "fieldtype": "Data",
-   "hidden": 1,
-   "label": "Critical Path Duration in Days"
-  },
-  {
-   "fieldname": "critical_path_duration_in_day",
-   "fieldtype": "Float",
-   "hidden": 1,
-   "label": "Critical Path Duration in Day",
-   "read_only": 1
-  },
-  {
-   "fieldname": "gantt_chart",
-   "fieldtype": "Text Editor",
-   "hidden": 1,
-   "label": "gantt_chart",
-   "read_only": 1
-  },
-  {
-   "fieldname": "amended_from",
-   "fieldtype": "Link",
-   "label": "Amended From",
-   "no_copy": 1,
-   "options": "Master Plan",
-   "print_hide": 1,
-   "read_only": 1
-  },
-  {
-   "fieldname": "task_schedling_list",
-   "fieldtype": "Section Break",
-   "hidden": 1,
-   "label": "Task Scheduling List"
-  },
-  {
-   "fieldname": "get_task_resources",
-   "fieldtype": "Button",
-   "label": "Get Task Resources"
-  },
-  {
-   "fieldname": "get_task",
-   "fieldtype": "Button",
-   "label": "Get Task"
-  },
-  {
-   "collapsible": 1,
-   "fieldname": "activity_scheduling_section",
-   "fieldtype": "Section Break",
-   "hidden": 1,
-   "label": "Activity Scheduling"
-  },
-  {
-   "fieldname": "project_yearly_task_list",
-   "fieldtype": "Table",
-   "label": "Project Yearly Task List",
-   "options": "Project Yearly Task List"
-  },
-  {
-   "collapsible": 1,
-   "fieldname": "task_machinery_scheduling",
-   "fieldtype": "Section Break",
-   "label": "Machinery Resource Scheduling"
-  },
-  {
-   "fieldname": "task_machinery_list",
-   "fieldtype": "Table",
-   "label": "Task Machinery Scheduling",
-   "options": "Task Machinery Scheduling"
-  },
-  {
-   "collapsible": 1,
-   "fieldname": "task_manpower_scheduling",
-   "fieldtype": "Section Break",
-   "label": "Manpower Resource Scheduling"
-  },
-  {
-   "fieldname": "task_manpower_list",
-   "fieldtype": "Table",
-   "label": "Task Manpower Scheduling",
-   "options": "Task Manpower Scheduling"
-  },
-  {
-   "collapsible": 1,
-   "fieldname": "task_material_scheduling",
-   "fieldtype": "Section Break",
-   "label": "Material Resource Scheduling"
-  },
-  {
-   "fieldname": "task_material_list",
-   "fieldtype": "Table",
-   "label": "Task Material Scheduling",
-   "options": "Task Material Scheduling"
   },
   {
    "fieldname": "calendar_tab",
@@ -449,13 +274,20 @@
    "options": "Master Plan Distribution"
   },
   {
-   "fieldname": "amended_from",
-   "fieldtype": "Link",
-   "label": "Amended From",
-   "no_copy": 1,
-   "options": "Master Plan",
-   "print_hide": 1,
-   "read_only": 1
+   "fieldname": "cost_distribution_tab",
+   "fieldtype": "Tab Break",
+   "label": "Cost Distribution"
+  },
+  {
+   "fieldname": "cost_distribution_section",
+   "fieldtype": "Section Break",
+   "label": "Monthly / Seasonal Cost Distribution"
+  },
+  {
+   "description": "Read-only cost of the workload distribution: month quantity multiplied by the task unit rate.",
+   "fieldname": "cost_distribution_html",
+   "fieldtype": "HTML",
+   "label": "Cost Distribution"
   },
   {
    "fieldname": "machinary_tab",
@@ -463,9 +295,49 @@
    "label": "Machinary"
   },
   {
+   "fieldname": "project_resource_list_section",
+   "fieldtype": "Section Break",
+   "label": "Machinery Resource List"
+  },
+  {
+   "fieldname": "project_machinery_list",
+   "fieldtype": "Table",
+   "label": "Project Machinery List",
+   "options": "Project Machinery List"
+  },
+  {
+   "fieldname": "section_break_rrhc",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "machinery_distribution",
+   "fieldtype": "HTML",
+   "label": "Machinery Distribution"
+  },
+  {
    "fieldname": "manpower_tab",
    "fieldtype": "Tab Break",
    "label": "Manpower"
+  },
+  {
+   "fieldname": "project_manpower_list_section",
+   "fieldtype": "Section Break",
+   "label": "Manpower Resource List"
+  },
+  {
+   "fieldname": "project_manpower_list",
+   "fieldtype": "Table",
+   "label": "Project Manpower List",
+   "options": "Project Manpower List"
+  },
+  {
+   "fieldname": "section_break_btep",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "manpower_distirbution",
+   "fieldtype": "HTML",
+   "label": "Manpower Distirbution"
   },
   {
    "fieldname": "material_tab",
@@ -473,16 +345,51 @@
    "label": "Material"
   },
   {
-   "fieldname": "sequencing_tab",
-   "fieldtype": "Tab Break",
-   "label": "Sequencing"
+   "fieldname": "project_material_list_section",
+   "fieldtype": "Section Break",
+   "label": "Material Resource List"
+  },
+  {
+   "fieldname": "project_material_list",
+   "fieldtype": "Table",
+   "label": "Project Material List",
+   "options": "Project Material List"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Master Plan",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "section_break_wvcr",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "material_distirbution",
+   "fieldtype": "HTML",
+   "label": "Material Distirbution"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Master Plan",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-10-16 02:57:22.780779",
+ "modified": "2026-11-04 12:29:08.311640",
  "modified_by": "Administrator",
  "module": "Construction Management",
  "name": "Master Plan",

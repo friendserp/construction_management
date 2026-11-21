@@ -11,7 +11,10 @@
   "no",
   "uf",
   "hourly_rental",
-  "hourly_cost"
+  "hourly_cost",
+  "column_break_zoyb",
+  "hourly_output",
+  "shrink_factor"
  ],
  "fields": [
   {
@@ -44,13 +47,27 @@
    "fieldtype": "Float",
    "in_list_view": 1,
    "label": "UF"
+  },
+  {
+   "fieldname": "column_break_zoyb",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "hourly_output",
+   "fieldtype": "Float",
+   "label": "Hourly Output"
+  },
+  {
+   "fieldname": "shrink_factor",
+   "fieldtype": "Float",
+   "label": "Shrink Factor"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2026-10-16 15:56:00.394661",
+ "modified": "2026-11-19 12:24:15.083820",
  "modified_by": "Administrator",
  "module": "Bid",
  "name": "CBD Machinery",

@@ -9,7 +9,8 @@
  "engine": "InnoDB",
  "field_order": [
   "type",
-  "make_model"
+  "make_model",
+  "defaullt_hourly_output"
  ],
  "fields": [
   {
@@ -22,12 +23,17 @@
    "fieldname": "make_model",
    "fieldtype": "Data",
    "label": "Make Model"
+  },
+  {
+   "fieldname": "defaullt_hourly_output",
+   "fieldtype": "Float",
+   "label": "Defaullt Hourly Output"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-10-18 15:18:53.773726",
+ "modified": "2026-11-19 12:08:16.909131",
  "modified_by": "Administrator",
  "module": "Construction Management",
  "name": "Machinery",
