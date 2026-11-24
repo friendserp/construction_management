@@ -2,6 +2,7 @@
 # For license information, please see license.txt
 
 from bisect import bisect_left
+from math import ceil
 
 import frappe
 from frappe import _
@@ -467,7 +468,7 @@ def _distribute_resources(resources, rows_by_task, columns, kind):
 @frappe.whitelist()
 def get_monthly_distribution(
 	holiday_list=None, country=None, holidays=None, start_date=None, end_date=None,
-	tasks=None, season_length_months=6, overrides=None,
+	tasks=None, season_length_months=6, weekly_off=None, overrides=None,
 	machinery=None, manpower=None, material=None, auto_distribute=0,
 ):
 	if not start_date or not end_date:
@@ -496,6 +497,9 @@ def get_monthly_distribution(
 		country = _resolve_country(holiday_list, country)
 		hd, wod, _rows, _wo = _collect_holiday_dates(country, start_date, end_date, holiday_list)
 		holiday_dates = hd | wod
+	if weekly_off:
+		offs = {w.strip() for w in weekly_off.split(",")} if isinstance(weekly_off, str) else set(weekly_off)
+		holiday_dates |= _weekly_off_date_set(offs, start_date, end_date)
 
 	project_months = _months_between(start_date, end_date)
 
@@ -843,92 +847,519 @@ def compute_schedule(start_date=None, end_date=None, holidays=None, tasks=None,
 	}
 
 
-# ---------------------------------------------------------------------------
-# Cost Break Down → resource rows (machinery / manpower / material)
-# ---------------------------------------------------------------------------
-@frappe.whitelist()
-def get_task_resources(project=None, tasks=None):
-	tasks = frappe.parse_json(tasks) if isinstance(tasks, str) else (tasks or [])
-	machinery, manpower, material = [], [], []
-	meta = frappe.get_meta("Task")
-	task_fields = ["name", "subject", "cost_break_down", "task_duration_in_hour",
-	               "task_duration_in_days", "working_hour_per_day"]
-	if meta.has_field("custom_task_duration_in_hour"):
-		task_fields.append("custom_task_duration_in_hour")
-	if meta.has_field("custom_contract_qty"):
-		task_fields.append("custom_contract_qty")
+RESOURCE_TABS = (
+	"doz", "exc", "grader", "loader", "dt",
+	"equipment", "crew", "fuel", "manpower", "material",
+)
+MACHINE_TABS = ("doz", "exc", "grader", "loader", "dt")
 
+MACHINE_KEYWORDS = {
+	"doz": ("dozer", "bulldozer", "d6", "d7", "d8"),
+	"exc": ("excav", "backhoe", "hoe"),
+	"grader": ("grader",),
+	"loader": ("loader",),
+	"dt": ("dump", "tipper", "tipper truck", "dump truck"),
+}
+
+MACHINE_DEFAULTS = {
+	"doz": {"title": "Dozer", "hourly_output": 0.1},
+	"exc": {"title": "Excavator", "hourly_output": 20.0},
+	"grader": {"title": "Grader", "hourly_output": 80.0},
+	"loader": {"title": "Loader", "hourly_output": 140.0},
+	"dt": {"title": "Dump Truck", "hourly_output": 15.0},
+}
+
+FUEL_RATES = (
+	("dozer", 40.0), ("excav", 25.0), ("grader", 15.0), ("roller", 10.0),
+	("loader", 13.0), ("backhoe", 10.0), ("dump", 10.0), ("water", 10.0),
+	("fuel truck", 10.0), ("drill", 20.0), ("bitumen", 24.0), ("paver", 17.0),
+	("pneumatic", 21.0), ("steel drum", 18.0), ("asphalt plant", 110.0),
+	("mixer", 2.5), ("compactor", 2.0), ("generator", 15.0),
+	("crane", 15.0), ("vehicle", 4.5), ("car", 4.5), ("bus", 6.0),
+)
+
+
+def _json_arg(value, default=None):
+	if value is None or value == "":
+		return default if default is not None else {}
+	if isinstance(value, str):
+		try:
+			return frappe.parse_json(value)
+		except Exception:
+			return default if default is not None else {}
+	return value
+
+
+def _uid(prefix, index):
+	return f"{prefix}_{index + 1}"
+
+
+def _as_id_list(value):
+	if value is None or value == "":
+		return []
+	if isinstance(value, (list, tuple, set)):
+		return list(value)
+	return [part.strip() for part in str(value).split(",") if part.strip()]
+
+
+def _month_key_map(distribution):
+	data = _json_arg(distribution, {}) or {}
+	columns = data.get("columns") or []
+	keys = [str(c.get("key") or "") for c in columns if c.get("key")]
+	working_days = {
+		str(c.get("key")): flt(c.get("working_days")) for c in columns if c.get("key")
+	}
+	rows = data.get("rows") or []
+	by_task = {}
+	for row in rows:
+		tid = row.get("task_id")
+		if tid:
+			by_task[str(tid)] = row
+	return data, columns, keys, working_days, by_task
+
+
+def _dist_qty(dist_row, month_key):
+	if not dist_row:
+		return 0.0
+	cell = (dist_row.get("cells") or {}).get(month_key) or {}
+	return flt(cell.get("qty"))
+
+
+def _default_equipment_rows():
+	return [
+		{"id": "eq_dozer", "name": "Dozer", "unit": "No", "source_type": "tab_total", "source_tab": "doz", "multiplier": 1},
+		{"id": "eq_excavator", "name": "Chain Excavator", "unit": "No", "source_type": "tab_total", "source_tab": "exc", "multiplier": 1},
+		{"id": "eq_grader", "name": "Grader", "unit": "No", "source_type": "tab_total", "source_tab": "grader", "multiplier": 1},
+		{"id": "eq_roller", "name": "Single Drum Roller", "unit": "No", "source_type": "equipment", "source_id": "eq_grader", "multiplier": 1},
+		{"id": "eq_loader", "name": "Loader", "unit": "No", "source_type": "tab_total", "source_tab": "loader", "multiplier": 1},
+		{"id": "eq_backhoe", "name": "Backhoe Loader", "unit": "No", "source_type": "manual", "multiplier": 1, "manual_cells": {}},
+		{"id": "eq_dump_truck", "name": "Dump Truck", "unit": "No", "source_type": "tab_total", "source_tab": "dt", "multiplier": 1},
+		{"id": "eq_water_truck", "name": "Water Truck", "unit": "No", "source_type": "equipment", "source_id": "eq_grader", "multiplier": 2},
+	]
+
+
+def _default_fuel_rows(equipment_rows):
+	rows = []
+	seen = set()
+	for eq in equipment_rows:
+		name = str(eq.get("name") or "").lower()
+		rate = 0.0
+		for needle, value in FUEL_RATES:
+			if needle in name:
+				rate = value
+				break
+		rows.append({
+			"id": f"fuel_{eq.get('id')}",
+			"item": eq.get("name") or "Equipment",
+			"equipment_id": eq.get("id"),
+			"l_per_hour": rate,
+			"hours_day": 8,
+		})
+		seen.add(eq.get("id"))
+	if "eq_manual_equipment" not in seen:
+		rows.append({
+			"id": "fuel_manual", "item": "Manual Equipment",
+			"equipment_id": "", "l_per_hour": 0, "hours_day": 8,
+		})
+	return rows
+
+
+def _default_manpower_rows(equipment_rows):
+	return [
+		{"id": "mp_dozer", "role": "Dozer Operators", "source_type": "equipment", "source_id": "eq_dozer", "factor": 1, "manual_cells": {}},
+		{"id": "mp_excavator", "role": "Excavator Operators", "source_type": "equipment", "source_id": "eq_excavator", "factor": 1, "manual_cells": {}},
+		{"id": "mp_grader", "role": "Grader Operators", "source_type": "equipment", "source_id": "eq_grader", "factor": 1, "manual_cells": {}},
+		{"id": "mp_loader", "role": "Loader Operators", "source_type": "equipment", "source_id": "eq_loader", "factor": 1, "manual_cells": {}},
+		{"id": "mp_roller", "role": "Roller Operators", "source_type": "equipment", "source_id": "eq_roller", "factor": 1, "manual_cells": {}},
+		{"id": "mp_driver", "role": "Dump Truck Drivers", "source_type": "equipment", "source_id": "eq_dump_truck", "factor": 1, "manual_cells": {}},
+		{"id": "mp_assistant", "role": "Assistance Operators", "source_type": "equipment_sum", "source_ids": ["eq_dozer", "eq_excavator", "eq_grader", "eq_loader"], "factor": 1, "manual_cells": {}},
+		{"id": "mp_manual", "role": "Manual Staff", "source_type": "manual", "factor": 1, "manual_cells": {}},
+	]
+
+
+def _default_crew_rows():
+	return [
+		{"id": "crew_dozer", "activity": "Dozer Production", "source_type": "machine_tab", "source_tab": "doz", "hourly_output": 0, "hours_day": 8, "crew_size": 1},
+		{"id": "crew_grader", "activity": "Grader Production", "source_type": "machine_tab", "source_tab": "grader", "hourly_output": 0, "hours_day": 8, "crew_size": 1},
+		{"id": "crew_manual", "activity": "Manual Crew", "source_type": "manual", "hourly_output": 0, "hours_day": 8, "crew_size": 1},
+	]
+
+
+@frappe.whitelist()
+def get_resource_plan_seed(tasks=None, distribution=None, material_resources=None):
+	tasks = _json_arg(tasks, []) or []
+	distribution = _json_arg(distribution, {}) or {}
+	material_resources = _json_arg(material_resources, []) or []
+	_dist, _cols, _keys, _wd, by_task = _month_key_map(distribution)
+
+	state = {}
+	for tab in RESOURCE_TABS:
+		state[tab] = {"rows": []}
+	state["meta"] = {"seeded": 1}
+
+	seen = set()
+	seen_materials = {
+		(str(r.get("task_id") or ""), str(r.get("item1") or r.get("id_mat") or ""))
+		for r in material_resources
+	}
 	for task in tasks:
-		tid = task.get("task_id")
+		tid = str(task.get("task_id") or "")
 		if not tid:
 			continue
-		info = frappe.db.get_value("Task", tid, task_fields, as_dict=True)
+		info = frappe.db.get_value("Task", tid, ["subject", "cost_break_down"], as_dict=True)
 		if not info or not info.cost_break_down:
 			continue
+		try:
+			cbd = frappe.get_doc("Cost Break Down", info.cost_break_down)
+		except Exception:
+			continue
+		task_dist = by_task.get(tid) or {}
+		task_qty = flt(task_dist.get("contract_qty") or task.get("contract_qty"))
+		uom = task_dist.get("uom") or task.get("uom") or ""
+		task_name = task.get("task_name") or info.subject or tid
+		cbd_output = flt(cbd.hourly_output_eq)
 
-		start, end = task.get("start_date"), task.get("finish_date")
-		year = (start or "")[:4]
-		task_qty = flt(info.get("custom_contract_qty"))
-		working_hour = flt(info.working_hour_per_day) or 8
-		dur_hours = flt(info.get("custom_task_duration_in_hour"))
-		if dur_hours <= 0:
-			dur_hours = flt(info.task_duration_in_hour)
-		if dur_hours <= 0:
-			dur_hours = flt(info.task_duration_in_days) * working_hour
-		if dur_hours <= 0 and start and end:
-			dur_hours = max(date_diff(getdate(end), getdate(start)) + 1, 1) * working_hour
-
-		cbd = frappe.get_doc("Cost Break Down", info.cost_break_down)
-		hourly_output_eq = flt(cbd.hourly_output_eq)
-		hourly_output_mp = flt(cbd.hourly_output_mp)
-
-		for m in cbd.machineries:
-			qty = flt(m.no)
-			uf = flt(m.uf) or 1
-			rental = flt(m.hourly_rental)
-			hourly = flt(m.hourly_cost)
-			hourly_output = flt(m.hourly_output)
-			if qty <= 0 and hourly_output > 0 and task_qty > 0 and dur_hours > 0:
-				qty = round(task_qty / (hourly_output * dur_hours), 4)
-				if rental:
-					hourly = qty * uf * rental
-			elif qty <= 0 and rental and hourly:
-				qty = round(hourly / (uf * rental), 4)
-			if hourly <= 0 and qty and rental:
-				hourly = qty * uf * rental
-			machinery.append({
-				"year": year, "task_id": tid, "task_name": info.subject, "type": m.type,
-				"qty": qty, "task_duration_in_hour": dur_hours, "working_hour": working_hour,
-				"uf": flt(m.uf), "rental_rate": rental, "total_hourly_cost": hourly,
-				"total_cost": round(hourly * dur_hours, 2),
-				"start_date": start, "end_date": end, "hourly_output_eq": hourly_output_eq,
+		for material in cbd.materials or []:
+			item = material.get("item") or material.get("item1")
+			if not item:
+				continue
+			marker = (tid, str(item))
+			if marker in seen_materials:
+				continue
+			seen_materials.add(marker)
+			material_resources.append({
+				"task_id": tid,
+				"item1": item,
+				"uom": material.get("unit") or "",
+				"qty": flt(material.get("qty")),
 			})
 
-		for m in cbd.manpowers:
-			qty = flt(m.no)
-			uf = flt(m.uf) or 1
-			hourly = flt(m.hourly_cost)
-			if hourly <= 0 and qty:
-				hourly = qty * uf * flt(m.indexed_hourly_cost)
-			manpower.append({
-				"year": year, "task_id": tid, "task_name": info.subject,
-				"id_map": m.labour, "job_title": m.labour, "is_major_manpower": 0,
-				"qty": qty, "uf": flt(m.uf), "task_duration_in_hour": dur_hours,
-				"working_hour": working_hour, "rental_rate": flt(m.indexed_hourly_cost),
-				"total_hourly_cost": hourly, "total_cost": round(hourly * dur_hours, 2),
-				"start_date": start, "end_date": end, "hourly_output_mp": hourly_output_mp,
-			})
+		for machine in cbd.machineries or []:
+			label = str(machine.get("type") or "").lower()
+			for key, keywords in MACHINE_KEYWORDS.items():
+				if not any(word in label for word in keywords):
+					continue
+				marker = (key, tid)
+				if marker in seen:
+					break
+				seen.add(marker)
+				defaults = MACHINE_DEFAULTS[key]
+				hourly_output = flt(machine.get("hourly_output")) or cbd_output or defaults["hourly_output"]
+				row = {
+					"id": _uid(key, len(state[key]["rows"])),
+					"task_id": tid,
+					"task_name": task_name,
+					"uom": uom,
+					"total_qty": task_qty,
+					"eng_pct": 100,
+					"hours_day": 8,
+					"hourly_output": hourly_output,
+					"source": "cbd",
+				}
+				if key == "dt":
+					row.update({
+						"distance": 13,
+						"speed": 20,
+						"load_unload_min": 9,
+						"capacity": 16,
+						"efficiency": 0.9,
+						"availability": 0.85,
+						"loose_factor": 1.25,
+					})
+				state[key]["rows"].append(row)
+				break
 
-		for m in cbd.materials:
-			qty = flt(m.qty)
-			rate = flt(m.rate)
-			material.append({
-				"year": year, "task_id": tid, "task_name": info.subject,
-				"id_mat": m.item, "item1": m.item, "is_major_material": 0,
-				"uom": m.unit, "qty": qty, "task_duration_in_hour": dur_hours,
-				"working_hour": working_hour, "unit_price": rate,
-				"total_cost": round(qty * rate, 2),
-				"start_date": start, "end_date": end,
-			})
+	equipment_rows = _default_equipment_rows()
+	state["equipment"]["rows"] = equipment_rows
+	state["fuel"]["rows"] = _default_fuel_rows(equipment_rows)
+	state["manpower"]["rows"] = _default_manpower_rows(equipment_rows)
+	state["crew"]["rows"] = _default_crew_rows()
 
-	return {"machinery": machinery, "manpower": manpower, "material": material}
+	fuel_row = {
+		"id": "mat_fuel", "item": "Fuel", "unit": "Lt",
+		"source_type": "fuel_total", "factor": 1, "divisor": 1,
+		"manual_cells": {},
+	}
+	state["material"]["rows"].append(fuel_row)
+
+	material_index = 1
+	for resource in material_resources:
+		tid = str(resource.get("task_id") or "")
+		if not tid:
+			continue
+		task_dist = by_task.get(tid) or {}
+		contract_qty = flt(task_dist.get("contract_qty"))
+		if contract_qty <= 0:
+			continue
+		factor = flt(resource.get("qty")) / contract_qty
+		state["material"]["rows"].append({
+			"id": f"mat_{material_index}",
+			"item": resource.get("item1") or resource.get("id_mat") or "Material",
+			"unit": resource.get("uom") or "",
+			"source_type": "workload",
+			"task_id": tid,
+			"factor": round(factor, 6),
+			"divisor": 1,
+			"manual_cells": {},
+		})
+		material_index += 1
+
+	return state
+
+
+def _machine_hourly_output(rows, tab):
+	values = [flt(r.get("hourly_output")) for r in rows if flt(r.get("hourly_output")) > 0]
+	if values:
+		return sum(values) / len(values)
+	return MACHINE_DEFAULTS.get(tab, {}).get("hourly_output", 0.0)
+
+
+@frappe.whitelist()
+def save_resource_plan_state(name=None, state=None):
+	if not name:
+		return {"ok": False}
+	doc = frappe.get_doc("Master Plan", name)
+	doc.check_permission("write")
+	state = _json_arg(state, None)
+	if state is None:
+		return {"ok": False}
+	frappe.db.set_value("Master Plan", name, "resource_plan_data", frappe.as_json(state), update_modified=False)
+	return {"ok": True}
+
+
+@frappe.whitelist()
+def compute_resource_plan(distribution=None, state=None):
+	distribution, columns, month_keys, working_days, by_task = _month_key_map(distribution)
+	state = _json_arg(state, {}) or {}
+
+	result = {
+		"columns": columns,
+		"months": month_keys,
+		"working_days": working_days,
+		"tabs": {},
+	}
+
+	machine_results = {}
+	for tab in MACHINE_TABS:
+		rows = (state.get(tab) or {}).get("rows") or []
+		computed_rows = []
+		totals = {key: 0.0 for key in month_keys}
+		workload_totals = {key: 0.0 for key in month_keys}
+
+		for row in rows:
+			cells = {}
+			engagement = flt(row.get("eng_pct") if row.get("eng_pct") is not None else 100)
+			if engagement > 1.5:
+				engagement = engagement / 100.0
+			for key in month_keys:
+				workload = _dist_qty(by_task.get(str(row.get("task_id") or "")), key) * engagement
+				hours_day = flt(row.get("hours_day")) or 8
+				wd = flt(working_days.get(key))
+				if tab == "dt":
+					distance = flt(row.get("distance")) or 13
+					speed = flt(row.get("speed")) or 20
+					load_minutes = flt(row.get("load_unload_min")) or 9
+					capacity = flt(row.get("capacity")) or 16
+					efficiency = flt(row.get("efficiency")) or 0.9
+					availability = flt(row.get("availability")) or 0.85
+					cycle_hours = (distance / speed) + (load_minutes / 60.0)
+					effective_output = (capacity / cycle_hours) * efficiency * availability if cycle_hours else 0.0
+					loose_factor = flt(row.get("loose_factor")) or 1.25
+					denominator = efficiency * availability * effective_output * hours_day * wd
+					machines = (workload * loose_factor / denominator) if denominator else 0.0
+					daily_output = effective_output * hours_day
+				else:
+					hourly_output = flt(row.get("hourly_output"))
+					daily_output = hourly_output * hours_day
+					denominator = daily_output * wd
+					machines = (workload / denominator) if denominator else 0.0
+
+				cells[key] = {
+					"workload": workload,
+					"working_days": wd,
+					"daily_output": daily_output,
+					"machines": machines,
+				}
+				totals[key] += machines
+				workload_totals[key] += workload
+
+			computed_rows.append(dict(
+				row,
+				cells=cells,
+				total=sum(flt(c.get("machines")) for c in cells.values()),
+				total_workload=sum(flt(c.get("workload")) for c in cells.values()),
+			))
+
+		machine_results[tab] = {
+			"rows": computed_rows,
+			"totals": {
+				key: {
+					"raw": totals[key],
+					"rounded": ceil(totals[key] - 1e-9) if totals[key] > 0 else 0,
+				}
+				for key in month_keys
+			},
+			"total_workload": workload_totals,
+		}
+		result["tabs"][tab] = machine_results[tab]
+
+	equipment_rows = (state.get("equipment") or {}).get("rows") or _default_equipment_rows()
+	equipment_results = {}
+	equipment_by_id = {}
+	for row in equipment_rows:
+		equipment_results[str(row.get("id") or "")] = dict(row, cells={}, peak=0.0, total=0.0)
+		equipment_by_id[str(row.get("id") or "")] = equipment_results[str(row.get("id") or "")]
+
+	for _pass in range(4):
+		for row in equipment_rows:
+			target = equipment_results[str(row.get("id") or "")]
+			for key in month_keys:
+				value = 0.0
+				source_type = row.get("source_type")
+				if source_type == "tab_total":
+					value = flt((machine_results.get(row.get("source_tab")) or {}).get("totals", {}).get(key, {}).get("rounded"))
+				elif source_type == "tab_row":
+					source_rows = (machine_results.get(row.get("source_tab")) or {}).get("rows") or []
+					source = next((r for r in source_rows if str(r.get("id")) == str(row.get("source_row_id"))), None)
+					if source:
+						value = flt((source.get("cells") or {}).get(key, {}).get("machines"))
+				elif source_type == "equipment":
+					source = equipment_by_id.get(str(row.get("source_id") or ""))
+					if source:
+						value = flt((source.get("cells") or {}).get(key, {}).get("value"))
+				elif source_type == "equipment_sum":
+					for source_id in _as_id_list(row.get("source_ids")):
+						source = equipment_by_id.get(str(source_id))
+						if source:
+							value += flt((source.get("cells") or {}).get(key, {}).get("value"))
+				else:
+					value = flt((row.get("manual_cells") or {}).get(key))
+				multiplier = row.get("multiplier")
+				multiplier = 1.0 if multiplier is None or multiplier == "" else flt(multiplier)
+				value *= multiplier
+				target["cells"][key] = {"value": value}
+			target["peak"] = max([flt(c["value"]) for c in target["cells"].values()] or [0])
+			target["total"] = sum(flt(c["value"]) for c in target["cells"].values())
+
+	for target in equipment_results.values():
+		target["peak"] = max([flt(c["value"]) for c in target["cells"].values()] or [0])
+		target["total"] = sum(flt(c["value"]) for c in target["cells"].values())
+
+	result["tabs"]["equipment"] = {
+		"rows": list(equipment_results.values()),
+		"totals": {
+			key: sum(flt(r["cells"].get(key, {}).get("value")) for r in equipment_results.values())
+			for key in month_keys
+		},
+		"peaks": {
+			key: max([flt(r["cells"].get(key, {}).get("value")) for r in equipment_results.values()] or [0])
+			for key in month_keys
+		},
+	}
+
+	crew_rows = (state.get("crew") or {}).get("rows") or _default_crew_rows()
+	crew_computed = []
+	for row in crew_rows:
+		if row.get("source_type") == "machine_tab":
+			hourly_output = _machine_hourly_output(
+				(machine_results.get(row.get("source_tab")) or {}).get("rows") or [],
+				row.get("source_tab"),
+			)
+		else:
+			hourly_output = flt(row.get("hourly_output"))
+		hours_day = flt(row.get("hours_day")) or 8
+		crew_size = flt(row.get("crew_size")) or 1
+		daily_output = hourly_output * hours_day
+		cells = {
+			key: {"output": daily_output * crew_size * flt(working_days.get(key))}
+			for key in month_keys
+		}
+		crew_computed.append(dict(
+			row,
+			hourly_output=hourly_output,
+			daily_output=daily_output,
+			cells=cells,
+		))
+	result["tabs"]["crew"] = {"rows": crew_computed}
+
+	fuel_rows = (state.get("fuel") or {}).get("rows") or _default_fuel_rows(equipment_rows)
+	fuel_computed = []
+	fuel_totals = {key: 0.0 for key in month_keys}
+	for row in fuel_rows:
+		source = equipment_by_id.get(str(row.get("equipment_id") or ""))
+		cells = {}
+		for key in month_keys:
+			count = flt((source.get("cells") or {}).get(key, {}).get("value")) if source else 0.0
+			litres = count * flt(row.get("l_per_hour")) * (flt(row.get("hours_day")) or 8) * flt(working_days.get(key))
+			cells[key] = {"equipment": count, "litres": litres}
+			fuel_totals[key] += litres
+		fuel_computed.append(dict(row, cells=cells, total=sum(flt(c["litres"]) for c in cells.values())))
+
+	total_litres = sum(fuel_totals.values())
+	scenario_pct = flt((state.get("fuel") or {}).get("scenario_pct")) or 85
+	result["tabs"]["fuel"] = {
+		"rows": fuel_computed,
+		"totals": fuel_totals,
+		"summary": {
+			"total_litres": total_litres,
+			"tanker_loads": total_litres / 13000.0 if total_litres else 0.0,
+			"scenario_pct": scenario_pct,
+			"scenario_litres": total_litres * scenario_pct / 100.0,
+		},
+	}
+
+	manpower_rows = (state.get("manpower") or {}).get("rows") or _default_manpower_rows(equipment_rows)
+	manpower_computed = []
+	manpower_totals = {key: 0.0 for key in month_keys}
+	for row in manpower_rows:
+		cells = {}
+		for key in month_keys:
+			value = 0.0
+			source_type = row.get("source_type")
+			ids = _as_id_list(row.get("source_ids")) or ([row.get("source_id")] if row.get("source_id") else [])
+			if source_type in ("equipment", "equipment_sum"):
+				for source_id in ids:
+					source = equipment_by_id.get(str(source_id))
+					if source:
+						value += flt((source.get("cells") or {}).get(key, {}).get("value"))
+				factor = row.get("factor")
+				factor = 1.0 if factor is None or factor == "" else flt(factor)
+				value *= factor
+			else:
+				value = flt((row.get("manual_cells") or {}).get(key))
+			cells[key] = {"headcount": value}
+			manpower_totals[key] += value
+		manpower_computed.append(dict(
+			row,
+			cells=cells,
+			peak=max([flt(c["headcount"]) for c in cells.values()] or [0]),
+			total=sum(flt(c["headcount"]) for c in cells.values()),
+		))
+	result["tabs"]["manpower"] = {"rows": manpower_computed, "totals": manpower_totals}
+
+	material_rows = (state.get("material") or {}).get("rows") or []
+	material_computed = []
+	material_totals = {key: 0.0 for key in month_keys}
+	for row in material_rows:
+		cells = {}
+		for key in month_keys:
+			source_type = row.get("source_type")
+			if source_type == "fuel_total":
+				value = flt(fuel_totals.get(key))
+			elif source_type == "workload":
+				value = _dist_qty(by_task.get(str(row.get("task_id") or "")), key)
+				divisor = flt(row.get("divisor")) or 1
+				value = value * flt(row.get("factor")) / divisor
+			else:
+				value = flt((row.get("manual_cells") or {}).get(key))
+			cells[key] = {"value": value}
+			material_totals[key] += value
+		material_computed.append(dict(
+			row,
+			cells=cells,
+			total=sum(flt(c["value"]) for c in cells.values()),
+		))
+	result["tabs"]["material"] = {"rows": material_computed, "totals": material_totals}
+
+	return result
+

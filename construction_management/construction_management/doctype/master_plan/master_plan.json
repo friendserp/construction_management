@@ -2,7 +2,7 @@
  "actions": [],
  "allow_rename": 1,
  "autoname": "field:name1",
- "creation": "2026-11-04 12:29:08.311640",
+ "creation": "2026-11-22 13:36:09.567492",
  "doctype": "DocType",
  "document_type": "Document",
  "editable_grid": 1,
@@ -38,28 +38,41 @@
   "distribution_tab",
   "monthly_workload_section",
   "season_length_months",
+  "planning_year",
   "get_monthly_distribution",
   "monthly_distribution_html",
+  "yearly_distribution_html",
   "distribution",
   "cost_distribution_tab",
   "cost_distribution_section",
   "cost_distribution_html",
-  "machinary_tab",
-  "project_resource_list_section",
-  "project_machinery_list",
-  "section_break_rrhc",
-  "machinery_distribution",
-  "manpower_tab",
-  "project_manpower_list_section",
-  "project_manpower_list",
-  "section_break_btep",
-  "manpower_distirbution",
-  "material_tab",
-  "project_material_list_section",
-  "project_material_list",
+  "resource_plan_data",
+  "resource_doz_tab",
+  "resource_doz_html",
+  "resource_doz_tasks",
+  "resource_exc_tab",
+  "resource_exc_html",
+  "resource_exc_tasks",
+  "resource_grader_tab",
+  "resource_grader_html",
+  "resource_grader_tasks",
+  "resource_loader_tab",
+  "resource_loader_html",
+  "resource_loader_tasks",
+  "resource_dt_tab",
+  "resource_dt_html",
+  "resource_dt_tasks",
+  "resource_equipment_tab",
+  "resource_equipment_html",
+  "resource_crew_tab",
+  "resource_crew_html",
+  "resource_fuel_tab",
+  "resource_fuel_html",
+  "resource_manpower_tab",
+  "resource_manpower_html",
+  "resource_material_tab",
+  "resource_material_html",
   "amended_from",
-  "section_break_wvcr",
-  "material_distirbution",
   "amended_from"
  ],
  "fields": [
@@ -257,6 +270,14 @@
    "label": "Season Length (Months)"
   },
   {
+   "default": "All Years",
+   "description": "View-only filter for the monthly tables. Stored overrides are unchanged.",
+   "fieldname": "planning_year",
+   "fieldtype": "Select",
+   "label": "Planning Year",
+   "options": "All Years"
+  },
+  {
    "fieldname": "get_monthly_distribution",
    "fieldtype": "Button",
    "label": "Get Monthly Distribution"
@@ -267,7 +288,12 @@
    "label": "Monthly Workload Distribution"
   },
   {
-   "description": "Only the cells you typed by hand. Empty values fall back to the working day weighted split.",
+   "fieldname": "yearly_distribution_html",
+   "fieldtype": "HTML",
+   "label": "Yearly Workload Distribution"
+  },
+  {
+   "description": "Only the cells typed by hand are stored. Empty months stay empty; nothing is auto-distributed.",
    "fieldname": "distribution",
    "fieldtype": "Table",
    "label": "Manual Distribution Overrides",
@@ -290,70 +316,141 @@
    "label": "Cost Distribution"
   },
   {
-   "fieldname": "machinary_tab",
+   "fieldname": "resource_plan_data",
+   "fieldtype": "Long Text",
+   "hidden": 1,
+   "label": "Resource Plan Data",
+   "print_hide": 1
+  },
+  {
+   "fieldname": "resource_doz_tab",
    "fieldtype": "Tab Break",
-   "label": "Machinary"
+   "label": "Doz"
   },
   {
-   "fieldname": "project_resource_list_section",
-   "fieldtype": "Section Break",
-   "label": "Machinery Resource List"
-  },
-  {
-   "fieldname": "project_machinery_list",
-   "fieldtype": "Table",
-   "label": "Project Machinery List",
-   "options": "Project Machinery List"
-  },
-  {
-   "fieldname": "section_break_rrhc",
-   "fieldtype": "Section Break"
-  },
-  {
-   "fieldname": "machinery_distribution",
+   "fieldname": "resource_doz_html",
    "fieldtype": "HTML",
-   "label": "Machinery Distribution"
+   "label": "Doz Requirement"
   },
   {
-   "fieldname": "manpower_tab",
-   "fieldtype": "Tab Break",
-   "label": "Manpower"
-  },
-  {
-   "fieldname": "project_manpower_list_section",
-   "fieldtype": "Section Break",
-   "label": "Manpower Resource List"
-  },
-  {
-   "fieldname": "project_manpower_list",
+   "fieldname": "resource_doz_tasks",
    "fieldtype": "Table",
-   "label": "Project Manpower List",
-   "options": "Project Manpower List"
+   "label": "Doz Task List",
+   "options": "Master Plan Machine Task"
   },
   {
-   "fieldname": "section_break_btep",
-   "fieldtype": "Section Break"
+   "fieldname": "resource_exc_tab",
+   "fieldtype": "Tab Break",
+   "label": "Exc"
   },
   {
-   "fieldname": "manpower_distirbution",
+   "fieldname": "resource_exc_html",
    "fieldtype": "HTML",
-   "label": "Manpower Distirbution"
+   "label": "Excavator Requirement"
   },
   {
-   "fieldname": "material_tab",
-   "fieldtype": "Tab Break",
-   "label": "Material"
-  },
-  {
-   "fieldname": "project_material_list_section",
-   "fieldtype": "Section Break",
-   "label": "Material Resource List"
-  },
-  {
-   "fieldname": "project_material_list",
+   "fieldname": "resource_exc_tasks",
    "fieldtype": "Table",
-   "label": "Project Material List",
-   "options": "Project Material List"
+   "label": "Excavator Task List",
+   "options": "Master Plan Machine Task"
+  },
+  {
+   "fieldname": "resource_grader_tab",
+   "fieldtype": "Tab Break",
+   "label": "Grader"
+  },
+  {
+   "fieldname": "resource_grader_html",
+   "fieldtype": "HTML",
+   "label": "Grader Requirement"
+  },
+  {
+   "fieldname": "resource_grader_tasks",
+   "fieldtype": "Table",
+   "label": "Grader Task List",
+   "options": "Master Plan Machine Task"
+  },
+  {
+   "fieldname": "resource_loader_tab",
+   "fieldtype": "Tab Break",
+   "label": "Loader"
+  },
+  {
+   "fieldname": "resource_loader_html",
+   "fieldtype": "HTML",
+   "label": "Loader Requirement"
+  },
+  {
+   "fieldname": "resource_loader_tasks",
+   "fieldtype": "Table",
+   "label": "Loader Task List",
+   "options": "Master Plan Machine Task"
+  },
+  {
+   "fieldname": "resource_dt_tab",
+   "fieldtype": "Tab Break",
+   "label": "DT"
+  },
+  {
+   "fieldname": "resource_dt_html",
+   "fieldtype": "HTML",
+   "label": "Dump Truck Requirement"
+  },
+  {
+   "fieldname": "resource_dt_tasks",
+   "fieldtype": "Table",
+   "label": "DT Task List",
+   "options": "Master Plan DT Task"
+  },
+  {
+   "fieldname": "resource_equipment_tab",
+   "fieldtype": "Tab Break",
+   "label": "Equipment Requirement"
+  },
+  {
+   "fieldname": "resource_equipment_html",
+   "fieldtype": "HTML",
+   "label": "Equipment Requirement"
+  },
+  {
+   "fieldname": "resource_crew_tab",
+   "fieldtype": "Tab Break",
+   "label": "Crew Formation"
+  },
+  {
+   "fieldname": "resource_crew_html",
+   "fieldtype": "HTML",
+   "label": "Crew Formation"
+  },
+  {
+   "fieldname": "resource_fuel_tab",
+   "fieldtype": "Tab Break",
+   "label": "Fuel Requirement"
+  },
+  {
+   "fieldname": "resource_fuel_html",
+   "fieldtype": "HTML",
+   "label": "Fuel Requirement"
+  },
+  {
+   "fieldname": "resource_manpower_tab",
+   "fieldtype": "Tab Break",
+   "label": "Manpower schedule"
+  },
+  {
+   "fieldname": "resource_manpower_html",
+   "fieldtype": "HTML",
+   "label": "Manpower schedule"
+  },
+  {
+   "fieldname": "resource_material_tab",
+   "fieldtype": "Tab Break",
+   "label": "Material Schedule"
+  },
+  {
+   "fieldname": "resource_material_html",
+   "fieldtype": "HTML",
+   "label": "Material Schedule"
   },
   {
    "fieldname": "amended_from",
@@ -364,15 +461,6 @@
    "print_hide": 1,
    "read_only": 1,
    "search_index": 1
-  },
-  {
-   "fieldname": "section_break_wvcr",
-   "fieldtype": "Section Break"
-  },
-  {
-   "fieldname": "material_distirbution",
-   "fieldtype": "HTML",
-   "label": "Material Distirbution"
   },
   {
    "fieldname": "amended_from",
@@ -389,7 +477,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-11-04 12:29:08.311640",
+ "modified": "2026-11-22 13:36:09.567492",
  "modified_by": "Administrator",
  "module": "Construction Management",
  "name": "Master Plan",

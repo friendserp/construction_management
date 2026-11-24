@@ -3,6 +3,80 @@
 
 const NS = "construction_management.construction_management.doctype.master_plan.master_plan";
 
+const RP_MACHINE_KEYS = ["doz", "exc", "grader", "loader", "dt"];
+const RP_MACHINE_TABLE_FIELDS = {
+	doz: "resource_doz_tasks",
+	exc: "resource_exc_tasks",
+	grader: "resource_grader_tasks",
+	loader: "resource_loader_tasks",
+	dt: "resource_dt_tasks",
+};
+const RP_DT_FIELDS = ["distance", "speed", "load_unload_min", "capacity", "efficiency", "availability", "loose_factor"];
+
+function get_view_year(frm) {
+	const year = String(frm.doc.planning_year || "");
+	return /^\d{4}$/.test(year) ? year : "";
+}
+
+function setup_planning_year(frm) {
+	const years = [];
+	if (frm.doc.start_date && frm.doc.end_date) {
+		const start = frappe.datetime.str_to_obj(frm.doc.start_date).getFullYear();
+		const end = frappe.datetime.str_to_obj(frm.doc.end_date).getFullYear();
+		for (let y = start; y <= end; y++) years.push(String(y));
+	}
+	frm.set_df_property("planning_year", "options", [__("All Years")].concat(years).join("\n"));
+	const current = String(frm.doc.planning_year || "");
+	if (/^\d{4}$/.test(current) && years.indexOf(current) === -1) {
+		frm.set_value("planning_year", __("All Years"));
+	} else {
+		frm.refresh_field("planning_year");
+	}
+	return years;
+}
+
+function scope_note(frm) {
+	const year = get_view_year(frm);
+	return year ? __("Viewing {0}", [year]) : __("Viewing all years");
+}
+
+function scope_distribution(frm, data) {
+	const year = get_view_year(frm);
+	if (!year || !data) return data;
+	const columns = (data.columns || []).filter((c) => String(c.key).slice(0, 4) === year);
+	const keys = {};
+	columns.forEach((c) => (keys[c.key] = true));
+	const scope_cells = (cells) => {
+		const out = {};
+		Object.keys(cells || {}).forEach((key) => {
+			if (keys[key]) out[key] = cells[key];
+		});
+		return out;
+	};
+	const rows = (data.rows || []).map((row) => {
+		const cells = scope_cells(row.cells);
+		const scoped_qty = columns.reduce((sum, c) => sum + flt(cells[c.key] && cells[c.key].qty), 0);
+		return Object.assign({}, row, { cells, distributed_qty: scoped_qty });
+	});
+	const result = Object.assign({}, data, { columns, rows });
+	["machinery", "manpower", "material"].forEach((kind) => {
+		result[kind] = (data[kind] || []).map((row) =>
+			Object.assign({}, row, { cells: scope_cells(row.cells) })
+		);
+	});
+	return result;
+}
+
+function render_cached_distribution(frm) {
+	const data = frm.__mp_distribution_data;
+	if (!data) return;
+	const scoped = scope_distribution(frm, data);
+	render_monthly_matrix(frm, scoped);
+	render_cost_matrix(frm, scoped);
+	render_yearly_matrix(frm, data);
+	render_resource_plan(frm, data);
+}
+
 // Temporary debug logging for the workload distribution tables.
 const MP_DEBUG = true;
 function mp_log(label, value) {
@@ -14,6 +88,8 @@ function mp_log(label, value) {
 frappe.ui.form.on("Master Plan", {
 	project(frm) {
 		if (!frm.doc.project) return;
+		rp_reset_state(frm);
+		rp_setup_machine_child_queries(frm);
 		load_tasks(frm);
 		frappe.after_ajax(() => maybe_autobuild_calendar(frm));
 	},
@@ -29,16 +105,21 @@ frappe.ui.form.on("Master Plan", {
 	run_schedule(frm) {
 		run_schedule_engine(frm);
 	},
-	get_task_resources(frm) {
-		load_task_resources(frm);
-	},
 	season_length_months(frm) {
 		if (frm.doc.start_date && frm.doc.end_date) schedule_recompute(frm);
 	},
+	start_date(frm) { setup_planning_year(frm); },
+	end_date(frm) { setup_planning_year(frm); },
+	planning_year(frm) { render_cached_distribution(frm); },
 	validate(frm) {
 		validate_distribution_totals(frm, { throw: true });
 	},
 	refresh(frm) {
+		frm.__mp_distribution_data = null;
+		frm.__mp_resource_computed = null;
+		frm.__mp_machine_tables_hydrated = false;
+		setup_planning_year(frm);
+		rp_setup_machine_child_queries(frm);
 		if (!frm.doc.project) {
 			frm.dashboard.set_headline(
 				__("Select a Project to load tasks and build the Ethiopian holiday calendar.")
@@ -46,14 +127,14 @@ frappe.ui.form.on("Master Plan", {
 			render_working_days_html(frm, html_placeholder(__("Select a Project to build the calendar.")));
 			render_matrix_html(frm, html_placeholder(__("Select a Project to build the distribution.")));
 			render_cost_matrix(frm, {});
-			clear_resource_tables(frm);
+			rp_clear_tabs(frm, __("Select a Project to build resource plans."));
 			return;
 		}
 		if (!frm.doc.start_date || !frm.doc.end_date) {
 			frm.dashboard.set_headline(__("Set the project dates to build the holiday calendar."));
 			render_working_days_html(frm, html_placeholder(__("Project dates are required.")));
 			render_cost_matrix(frm, {});
-			clear_resource_tables(frm);
+			rp_clear_tabs(frm, __("Project dates are required."));
 			return;
 		}
 		if (!frm.doc.holiday || !frm.doc.holiday.length) {
@@ -71,20 +152,13 @@ frappe.ui.form.on("Master Plan", {
 				)
 			);
 			render_cost_matrix(frm, {});
-			clear_resource_tables(frm);
+			rp_clear_tabs(frm, __("Build the working calendar first."));
 			return;
 		}
 		recompute_working_days(frm, { silent: true });
 		render_gantt_from_wbs(frm);
 
-		// If the resources child tables are empty but WBS exists, auto-load from CBD.
-		const has_resources =
-			(frm.doc.project_machinery_list || []).length ||
-			(frm.doc.project_manpower_list || []).length ||
-			(frm.doc.project_material_list || []).length;
-		if (!has_resources && frm.doc.wbs && frm.doc.wbs.length) {
-			load_task_resources(frm, { silent: true });
-		}
+		if (frm.doc.wbs && frm.doc.wbs.length) build_monthly_distribution(frm, { silent: true });
 	},
 });
 
@@ -115,6 +189,78 @@ frappe.ui.form.on("Master Plan Distribution", {
 	month(frm) { sync_distribution_from_grid(frm); },
 	qty(frm) { sync_distribution_from_grid(frm); },
 	distribution_remove(frm) { sync_distribution_from_grid(frm); },
+});
+
+function rp_on_machine_task_change(frm, cdt, cdn) {
+	const row = frappe.get_doc(cdt, cdn);
+	if (!row.task_id) {
+		rp_schedule_machine_sync(frm);
+		return;
+	}
+	const dist = ((frm.__mp_distribution_data || {}).rows || []).find(
+		(r) => String(r.task_id) === String(row.task_id)
+	);
+	if (dist) {
+		frappe.model.set_value(cdt, cdn, {
+			task_name: dist.task_name || "",
+			uom: dist.uom || "",
+			total_qty: flt(dist.contract_qty),
+		});
+	} else {
+		frappe.db.get_value("Task", row.task_id, ["subject", "custom_unit", "custom_contract_qty"]).then((r) => {
+			const task = Array.isArray(r.message) ? (r.message[0] || {}) : (r.message || {});
+			frappe.model.set_value(cdt, cdn, {
+				task_name: task.subject || "",
+				uom: task.custom_unit || "",
+				total_qty: flt(task.custom_contract_qty),
+			});
+		});
+	}
+	rp_schedule_machine_sync(frm);
+}
+
+function rp_setup_machine_child_queries(frm) {
+	if (!frm.doc.project) return;
+	RP_MACHINE_KEYS.forEach((tab) => {
+		const field = RP_MACHINE_TABLE_FIELDS[tab];
+		if (!frm.get_field(field)) return;
+		frm.set_query("task_id", field, () => ({
+			filters: {
+				project: frm.doc.project,
+				status: ["!=", "Cancelled"],
+				is_group: 0,
+			},
+		}));
+	});
+}
+
+frappe.ui.form.on("Master Plan Machine Task", {
+	task_id(frm, cdt, cdn) { rp_on_machine_task_change(frm, cdt, cdn); },
+	eng_pct(frm) { rp_schedule_machine_sync(frm); },
+	hours_day(frm) { rp_schedule_machine_sync(frm); },
+	hourly_output(frm) { rp_schedule_machine_sync(frm); },
+});
+
+frappe.ui.form.on("Master Plan DT Task", {
+	task_id(frm, cdt, cdn) { rp_on_machine_task_change(frm, cdt, cdn); },
+	eng_pct(frm) { rp_schedule_machine_sync(frm); },
+	distance(frm) { rp_schedule_machine_sync(frm); },
+	speed(frm) { rp_schedule_machine_sync(frm); },
+	load_unload_min(frm) { rp_schedule_machine_sync(frm); },
+	capacity(frm) { rp_schedule_machine_sync(frm); },
+	efficiency(frm) { rp_schedule_machine_sync(frm); },
+	availability(frm) { rp_schedule_machine_sync(frm); },
+	loose_factor(frm) { rp_schedule_machine_sync(frm); },
+	hours_day(frm) { rp_schedule_machine_sync(frm); },
+});
+
+RP_MACHINE_KEYS.forEach((tab) => {
+	const field = RP_MACHINE_TABLE_FIELDS[tab];
+	const handlers = {
+		[`${field}_add`](frm) { rp_schedule_machine_sync(frm); },
+		[`${field}_remove`](frm) { rp_schedule_machine_sync(frm); },
+	};
+	frappe.ui.form.on("Master Plan", handlers);
 });
 
 let distribution_rebuild_timer = null;
@@ -210,8 +356,9 @@ function load_tasks(frm) {
 			});
 			frm.refresh_field("wbs");
 			frm.dirty();
+			rp_reset_state(frm);
 			frappe.show_alert({ message: __("{0} task(s) loaded", [seen.size]), indicator: "green" });
-			load_task_resources(frm, { silent: true });
+			build_monthly_distribution(frm, { silent: true });
 			maybe_auto_schedule(frm);
 		});
 }
@@ -357,6 +504,7 @@ function render_cost_matrix(frm, data) {
 		'<div style="border:1px solid #e2e8f0;border-radius:10px;overflow:hidden;margin:4px 0">' +
 		'<div style="padding:8px 12px;background:#f8fafc;border-bottom:1px solid #e2e8f0;font-size:12px">' +
 		`<b>${__("Cost Distribution")}</b> · ${rows.length} ${__("items")} · ${cols.length} ${__("months")} · ` +
+		`${scope_note(frm)} · ` +
 		`<span style="color:#64748b">${__("read-only: month quantity × unit rate")}</span></div>` +
 		'<div style="overflow:auto;max-height:75vh">' +
 		'<table style="border-collapse:collapse;font-size:12px;width:100%">' +
@@ -602,21 +750,9 @@ function build_monthly_distribution(frm, opts = {}) {
 		.filter((d) => d.task_id && d.month && d.qty != null && d.qty !== "")
 		.map((d) => ({ task_id: d.task_id, month: d.month, qty: d.qty }));
 
-	// Resources go along for the ride - one server call returns all 6 tables
-	const machinery = (frm.doc.project_machinery_list || []).map((r) => ({
-		task_id: r.task_id, type: r.type, qty: r.qty, uf: r.uf,
-		task_duration_in_hour: r.task_duration_in_hour,
-		total_hourly_cost: r.total_hourly_cost, total_cost: r.total_cost,
-	}));
-	const manpower = (frm.doc.project_manpower_list || []).map((r) => ({
-		task_id: r.task_id, job_title: r.job_title, qty: r.qty, uf: r.uf,
-		task_duration_in_hour: r.task_duration_in_hour,
-		total_hourly_cost: r.total_hourly_cost, total_cost: r.total_cost,
-	}));
-	const material = (frm.doc.project_material_list || []).map((r) => ({
-		task_id: r.task_id, item1: r.item1, uom: r.uom, qty: r.qty,
-		unit_price: r.unit_price, total_cost: r.total_cost,
-	}));
+	const machinery = [];
+	const manpower = [];
+	const material = [];
 
 	mp_log("build_monthly_distribution request", {
 		start_date: frm.doc.start_date,
@@ -655,22 +791,14 @@ function build_monthly_distribution(frm, opts = {}) {
 			mp_log("get_monthly_distribution counts", {
 				columns: (data.columns || []).length,
 				rows: (data.rows || []).length,
-				machinery: (data.machinery || []).length,
-				manpower: (data.manpower || []).length,
-				material: (data.material || []).length,
 			});
-			render_monthly_matrix(frm, data);
-			render_cost_matrix(frm, data);
-			render_yearly_matrix(frm, data);
-			render_resource_tables(frm, data);
+			frm.__mp_distribution_data = data;
+			render_cached_distribution(frm);
 			if (!opts.silent) {
 				frappe.show_alert({
-					message: __("{0} task(s) over {1} month(s) · {2} machinery · {3} manpower · {4} material", [
+					message: __("{0} task(s) over {1} month(s)", [
 						(data.rows || []).length,
 						(data.columns || []).length,
-						(data.machinery || []).length,
-						(data.manpower || []).length,
-						(data.material || []).length,
 					]),
 					indicator: "green",
 				});
@@ -731,7 +859,7 @@ function render_monthly_matrix(frm, data) {
 				`<input type="number" step="any" min="0" class="mpdm-cell" data-task="${frappe.utils.escape_html(task_id)}" data-month="${frappe.utils.escape_html(c.key)}" data-prev="${qty ? qty : ""}" value="${qty ? qty : ""}" ` +
 				`style="${MPDM_INPUT}${manual ? MPDM_INPUT_MANUAL : ""}"></td>`;
 		}).join("");
-		return `<tr class="mpdm-item" data-task="${frappe.utils.escape_html(task_id)}" data-qty="${flt(r.contract_qty)}">` +
+		return `<tr class="mpdm-item" data-task="${frappe.utils.escape_html(task_id)}" data-qty="${get_view_year(frm) ? "" : flt(r.contract_qty)}">` +
 			`<td style="${DIST_TD}color:#94a3b8">${frappe.utils.escape_html(r.series || r.task_id || String(i + 1))}</td>` +
 			`<td style="${DIST_TD}max-width:280px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis" title="${frappe.utils.escape_html(r.task_name || r.task_id || "")}">${frappe.utils.escape_html(r.task_name || r.task_id || "")}</td>` +
 			`<td style="${DIST_TD}white-space:nowrap">${frappe.utils.escape_html(r.uom || "")}</td>` +
@@ -759,6 +887,7 @@ function render_monthly_matrix(frm, data) {
 		'<div style="border:1px solid #e2e8f0;border-radius:10px;overflow:hidden;margin:4px 0">' +
 		'<div style="padding:8px 12px;background:#f8fafc;border-bottom:1px solid #e2e8f0;font-size:12px">' +
 			`<b>${__("Workload Distribution")}</b> · ${rows.length} ${__("items")} · ${cols.length} ${__("months")} · ` +
+			`${scope_note(frm)} · ` +
 			`<span style="color:#92400e">${__("enter the monthly qty; empty months are not auto-distributed")}</span></div>` +
 		'<div style="overflow:auto;max-height:75vh">' +
 		'<table style="border-collapse:collapse;font-size:12px;width:100%">' +
@@ -861,9 +990,14 @@ function refresh_child_grid(frm) {
 function refresh_row_total($row) {
 	let sum = 0;
 	$row.find("input.mpdm-cell").each(function () { sum += flt($(this).val()); });
-	const target = flt($row.attr("data-qty"));
+	const raw_target = $row.attr("data-qty");
 	const $cell = $row.find(".mpdm-rowtotal");
 	$cell.text(fmt_num(sum, 2));
+	if (raw_target === "" || raw_target == null) {
+		$cell.css("color", "").removeAttr("title");
+		return;
+	}
+	const target = flt(raw_target);
 	const diff = Math.round((sum - target) * 100) / 100;
 	if (sum > target + 0.0001) {
 		$cell.css("color", "#dc2626").attr("title", __("Total exceeds Contract Qty by {0}", [diff]));
@@ -1057,240 +1191,6 @@ function render_gantt_from_wbs(frm) {
 }
 
 // ---------------------------------------------------------------------------
-// Resource loading (CBD → child tables)
-// ---------------------------------------------------------------------------
-function load_task_resources(frm, opts = {}) {
-	if (!frm.doc.wbs || !frm.doc.wbs.length) {
-		clear_resource_tables(frm);
-		if (!opts.silent) frappe.msgprint(__("Load the project tasks first."));
-		return;
-	}
-	const tasks = frm.doc.wbs.filter((r) => r.task_id).map((r) => ({
-		task_id: r.task_id, task_name: r.task_name,
-		start_date: r.start_date, finish_date: r.finish_date,
-	}));
-
-	frappe.call({
-		method: `${NS}.get_task_resources`,
-		args: { project: frm.doc.project, tasks },
-		freeze: !opts.silent,
-		freeze_message: __("Loading task resources from the Cost Break Downs..."),
-		callback(r) {
-			const d = (r && r.message) || {};
-			const m = d.machinery || [];
-			const p = d.manpower || [];
-			const mat = d.material || [];
-
-			if (!m.length && !p.length && !mat.length) {
-				clear_resource_tables(frm);
-				if (!opts.silent) {
-					frappe.msgprint({
-						title: __("No Resource Data"),
-						indicator: "orange",
-						message: __("The tasks in this project have no Cost Break Down entries. Add a Cost Break Down to each Task master and try again."),
-					});
-				}
-				return;
-			}
-			fill_child_table(frm, "project_machinery_list", m);
-			fill_child_table(frm, "project_manpower_list", p);
-			fill_child_table(frm, "project_material_list", mat);
-			frm.dirty();
-			// Rebuild distribution + resource tables (one server call)
-			build_monthly_distribution(frm, { silent: true });
-			if (!opts.silent) {
-				frappe.show_alert({
-					message: __("{0} machinery, {1} manpower and {2} material row(s) loaded.", [m.length, p.length, mat.length]),
-					indicator: "green",
-				});
-			}
-		},
-		error(r) {
-			clear_resource_tables(frm);
-			console.error("Master Plan: get_task_resources failed", r);
-			if (!opts.silent) {
-				frappe.msgprint({
-					title: __("Could Not Load Resources"),
-					indicator: "red",
-					message: __("The server did not return resource data. Open the browser console and the Frappe Error Log for details."),
-				});
-			}
-		},
-	});
-}
-
-function fill_child_table(frm, table, rows) {
-	frm.clear_table(table);
-	rows.forEach((r) => {
-		const c = frm.add_child(table);
-		Object.keys(r).forEach((k) => { c[k] = r[k]; });
-	});
-	frm.refresh_field(table);
-}
-
-// ---------------------------------------------------------------------------
-// Resource distribution tables (season grouped, mirrors the workload matrix)
-// ---------------------------------------------------------------------------
-const RESOURCE_TABLES = [
-	{
-		kind: "machinery",
-		key: "machinery",
-		fields: ["machinery_distribution", "machinery_distirbution"],
-		title: __("Machinery Distribution by Season"),
-		metric_label: __("No"),
-	},
-	{
-		kind: "manpower",
-		key: "manpower",
-		fields: ["manpower_distribution", "manpower_distirbution"],
-		title: __("Manpower Distribution by Season"),
-		metric_label: __("Hours"),
-	},
-	{
-		kind: "material",
-		key: "material",
-		fields: ["material_distribution", "material_distirbution"],
-		title: __("Material Distribution by Season"),
-		metric_label: __("Qty"),
-	},
-];
-
-function resolve_field(frm, names) {
-	for (const n of names) if (frm.get_field(n)) return n;
-	return null;
-}
-
-function render_resource_tables(frm, data) {
-	mp_log("render_resource_tables data", {
-		columns: (data.columns || []).length,
-		machinery: (data.machinery || []).length,
-		manpower: (data.manpower || []).length,
-		material: (data.material || []).length,
-	});
-	RESOURCE_TABLES.forEach((cfg) => {
-		const fname = resolve_field(frm, cfg.fields);
-		if (!fname) {
-			mp_log(`render_resource_tables missing field for ${cfg.kind}`, cfg.fields);
-			return;
-		}
-		render_resource_table(frm, fname, cfg, data[cfg.key] || [], data.columns || []);
-	});
-}
-
-function clear_resource_tables(frm) {
-	RESOURCE_TABLES.forEach((cfg) => {
-		const fname = resolve_field(frm, cfg.fields);
-		if (fname) render_resource_table(frm, fname, cfg, [], []);
-	});
-}
-
-function render_resource_table(frm, field_name, cfg, rows, columns) {
-	const field = frm.get_field(field_name);
-	if (!field || !field.$wrapper) return;
-
-	mp_log(`render_resource_table ${cfg.kind}`, {
-		field: field_name,
-		rows: (rows || []).length,
-		columns: (columns || []).length,
-		row_summary: (rows || []).map((r) => ({
-			name: r.name,
-			unit: r.unit,
-			total_metric: r.total_metric,
-			total_cost: r.total_cost,
-		})),
-	});
-	if (!rows || !rows.length || !columns || !columns.length) {
-		field.$wrapper.html(html_placeholder(
-			__("No resources found. Add a Cost Break Down to each Task master, then reopen the form (or click '{0}').",
-				[__("Get Task Resources")])
-		));
-		return;
-	}
-
-	const esc = frappe.utils.escape_html;
-	const metric_key = cfg.kind === "manpower" ? "hours" : "qty";
-	const metric_label = cfg.metric_label;
-
-	// Same season grouping as the workload matrix
-	const groups = [];
-	columns.forEach((c) => {
-		const last = groups[groups.length - 1];
-		if (last && last.season === c.season) last.count++;
-		else groups.push({ season: c.season, count: 1 });
-	});
-	const season_cells = groups.map((g) =>
-		`<th colspan="${g.count}" style="${DIST_TH}text-align:center">${esc(g.season || "")}</th>`
-	).join("");
-	const number_cells = columns.map((c) =>
-		`<th style="${DIST_TH}color:#64748b;font-weight:500">${c.month_index}</th>`
-	).join("");
-	const month_cells = columns.map((c) =>
-		`<th style="${DIST_TH}white-space:nowrap">${esc(c.label)}</th>`
-	).join("");
-
-	const col_totals = {};
-	columns.forEach((c) => (col_totals[c.key] = { metric: 0, cost: 0 }));
-
-	const body = rows.map((r) => {
-		const cells = columns.map((c) => {
-			const cell = (r.cells && r.cells[c.key]) || { qty: 0, hours: 0, cost: 0 };
-			const metric = flt(cell[metric_key]);
-			const cost = flt(cell.cost);
-			col_totals[c.key].metric += metric;
-			col_totals[c.key].cost += cost;
-			const title = `${esc(c.label)}: ${fmt_num(metric)} ${metric_label} · ${fmt_num(cost)}`;
-			return `<td title="${title}" style="${DIST_TD}text-align:right;padding:2px 4px">` +
-				`<div style="font-weight:600;color:#0f172a">${metric ? fmt_num(metric) : ""}</div>` +
-				`<div style="font-size:10px;color:#64748b">${cost ? fmt_num(cost) : ""}</div></td>`;
-		}).join("");
-
-		return `<tr>` +
-			`<td style="${DIST_TD}max-width:240px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis" title="${esc(r.name || "")}">${esc(r.name || "")}</td>` +
-			`<td style="${DIST_TD}white-space:nowrap">${esc(r.unit || "")}</td>` +
-			`<td style="${DIST_TD}text-align:right;font-weight:600">${fmt_num(r.total_metric)}</td>` +
-			cells +
-			`<td style="${DIST_TF}text-align:right;font-weight:600">${fmt_num(r.total_metric)}</td>` +
-			`<td style="${DIST_TF}text-align:right;font-weight:600">${fmt_num(r.total_cost)}</td>` +
-			`</tr>`;
-	}).join("");
-
-	const foot_cells = columns.map((c) => {
-		const t = col_totals[c.key];
-		return `<td style="${DIST_TF}text-align:right;padding:2px 4px">` +
-			`<div style="font-weight:600;color:#0f172a">${t.metric ? fmt_num(t.metric) : ""}</div>` +
-			`<div style="font-size:10px;color:#64748b">${t.cost ? fmt_num(t.cost) : ""}</div></td>`;
-	}).join("");
-
-	const grand_metric = rows.reduce((s, r) => s + flt(r.total_metric), 0);
-	const grand_cost = rows.reduce((s, r) => s + flt(r.total_cost), 0);
-
-	field.$wrapper.html(
-		'<div style="border:1px solid #e2e8f0;border-radius:10px;overflow:hidden;margin:4px 0">' +
-		'<div style="padding:8px 12px;background:#f8fafc;border-bottom:1px solid #e2e8f0;font-size:12px">' +
-		`<b>${cfg.title}</b> · ${rows.length} ${__("items")} · ${columns.length} ${__("months")} · ` +
-		`<span style="color:#64748b">${__("derived from the workload distribution")}</span></div>` +
-		'<div style="overflow:auto;max-height:75vh">' +
-		'<table style="border-collapse:collapse;font-size:12px;width:100%">' +
-		"<thead>" +
-		`<tr><th rowspan="3" style="${DIST_TH}text-align:left">${__("Resource")}</th>` +
-		`<th rowspan="3" style="${DIST_TH}">${__("Unit")}</th>` +
-		`<th rowspan="3" style="${DIST_TH}text-align:right">${__("Project")} ${metric_label}</th>` +
-		season_cells +
-		`<th rowspan="3" style="${DIST_TH}text-align:right">${__("TOTAL")} ${metric_label}</th>` +
-		`<th rowspan="3" style="${DIST_TH}text-align:right">${__("TOTAL")} ${__("Cost")}</th></tr>` +
-		`<tr>${number_cells}</tr>` +
-		`<tr>${month_cells}</tr>` +
-		"</thead>" +
-		`<tbody>${body}</tbody>` +
-		`<tfoot><tr><td colspan="3" style="${DIST_TF}font-weight:600">${__("Total")}</td>${foot_cells}` +
-		`<td style="${DIST_TF}text-align:right;font-weight:700">${fmt_num(grand_metric)}</td>` +
-		`<td style="${DIST_TF}text-align:right;font-weight:700">${fmt_num(grand_cost)}</td>` +
-		`</tr></tfoot>` +
-		"</table></div></div>"
-	);
-}
-
-// ---------------------------------------------------------------------------
 // Style constants
 // ---------------------------------------------------------------------------
 const DIST_TH =
@@ -1325,4 +1225,817 @@ function fmt_num(value, dp) {
 	const n = flt(value);
 	if (!n) return "";
 	return n.toLocaleString("en-US", { maximumFractionDigits: dp });
+}
+
+const RP_TABS = [
+	{ key: "doz", field: "resource_doz_html", title: "Dozer Requirement", kind: "machine" },
+	{ key: "exc", field: "resource_exc_html", title: "Excavator Requirement", kind: "machine" },
+	{ key: "grader", field: "resource_grader_html", title: "Grader Requirement", kind: "machine" },
+	{ key: "loader", field: "resource_loader_html", title: "Loader Requirement", kind: "machine" },
+	{ key: "dt", field: "resource_dt_html", title: "Dump Truck Requirement", kind: "dt" },
+	{ key: "equipment", field: "resource_equipment_html", title: "Equipment Requirement", kind: "equipment" },
+	{ key: "crew", field: "resource_crew_html", title: "Crew Formation", kind: "crew" },
+	{ key: "fuel", field: "resource_fuel_html", title: "Fuel Requirement", kind: "fuel" },
+	{ key: "manpower", field: "resource_manpower_html", title: "Manpower schedule", kind: "manpower" },
+	{ key: "material", field: "resource_material_html", title: "Material Schedule", kind: "material" },
+];
+
+const RP_MACHINE_DEFAULTS = {
+	doz: 0.1,
+	exc: 20,
+	grader: 80,
+	loader: 140,
+	dt: 15,
+};
+
+const RP_TH = "padding:7px 8px;border:1px solid #dbe4ef;background:#f1f5f9;font-weight:700;white-space:nowrap;color:#0f172a;";
+const RP_TD = "padding:6px 8px;border:1px solid #e8eef5;white-space:nowrap;color:#1e293b;";
+const RP_ROW = "padding:6px 8px;border:1px solid #dbe4ef;background:#f8fafc;font-weight:700;color:#0f172a;white-space:nowrap;";
+const RP_WORKLOAD = "padding:6px 8px;border:1px solid #e8eef5;white-space:nowrap;color:#64748b;font-size:11px;";
+const RP_INPUT = "width:78px;border:1px solid #cbd5e1;border-radius:5px;padding:3px 5px;text-align:right;font:inherit;background:#fff;";
+const RP_INPUT_WIDE = "width:150px;border:1px solid #cbd5e1;border-radius:5px;padding:3px 5px;font:inherit;background:#fff;";
+const RP_SELECT = "max-width:180px;border:1px solid #cbd5e1;border-radius:5px;padding:3px 5px;font:inherit;background:#fff;";
+const RP_BTN = "border:1px solid #cbd5e1;background:#fff;border-radius:5px;padding:4px 9px;cursor:pointer;font-size:11px;color:#0f172a;";
+const RP_BTN_PRIMARY = "border:1px solid #2563eb;background:#2563eb;color:#fff;border-radius:5px;padding:4px 10px;cursor:pointer;font-size:11px;";
+const RP_BTN_DANGER = "border:1px solid #fecaca;background:#fff1f2;color:#b91c1c;border-radius:5px;padding:3px 7px;cursor:pointer;font-size:11px;";
+const RP_LABEL = "padding:6px 10px;border:1px solid #dbe4ef;background:#f8fafc;font-weight:700;white-space:nowrap;color:#0f172a;";
+
+function rp_esc(value) {
+	return frappe.utils.escape_html(String(value == null ? "" : value));
+}
+
+function rp_fmt(value, dp) {
+	const n = Number(value || 0);
+	if (!isFinite(n)) return "";
+	if (Math.abs(n) < 0.0000001) return "";
+	return n.toLocaleString("en-US", { maximumFractionDigits: dp == null ? 2 : dp });
+}
+
+function rp_fmt_zero(value, dp) {
+	return rp_fmt(value, dp) || "0";
+}
+
+function rp_uid(prefix) {
+	return `${prefix}_${Date.now().toString(36)}_${Math.floor(Math.random() * 1000)}`;
+}
+
+function rp_get_state(frm) {
+	if (!frm.__mp_resource_state) {
+		let raw = frm.doc.resource_plan_data;
+		let saved = {};
+		if (raw) {
+			try {
+				saved = typeof raw === "string" ? JSON.parse(raw) : raw;
+			} catch (error) {
+				saved = {};
+			}
+		}
+		saved.meta = saved.meta || {};
+		RP_TABS.forEach((cfg) => {
+			if (!saved[cfg.key] || !Array.isArray(saved[cfg.key].rows)) saved[cfg.key] = { rows: [] };
+		});
+		frm.__mp_resource_state = saved;
+	}
+	return frm.__mp_resource_state;
+}
+
+function rp_set_state(frm, state) {
+	frm.__mp_resource_state = state;
+	frm.set_value("resource_plan_data", JSON.stringify(state));
+	frm.dirty();
+	rp_schedule_persist(frm);
+}
+
+function rp_schedule_persist(frm, delay = 900) {
+	if (!frm.doc.name || frm.is_new()) return;
+	clearTimeout(frm.__mp_resource_persist_timer);
+	if (frm.__mp_resource_persist_inflight || frappe.ui.form.is_saving) {
+		frm.__mp_resource_persist_queued = true;
+		return;
+	}
+	frm.__mp_resource_persist_timer = setTimeout(() => rp_persist_resource_state(frm), delay);
+}
+
+function rp_persist_resource_state(frm) {
+	if (!frm.doc.name || frm.is_new()) return;
+	if (frm.__mp_resource_persist_inflight || frappe.ui.form.is_saving) {
+		frm.__mp_resource_persist_queued = true;
+		return;
+	}
+	frm.__mp_resource_persist_queued = false;
+	frm.__mp_resource_persist_inflight = true;
+	frappe.call({
+		method: `${NS}.save_resource_plan_state`,
+		args: {
+			name: frm.doc.name,
+			state: JSON.stringify(rp_get_state(frm)),
+		},
+		silent: true,
+		error(r) {
+			console.error("Master Plan: save_resource_plan_state failed", r);
+		},
+		always() {
+			frm.__mp_resource_persist_inflight = false;
+			if (frm.__mp_resource_persist_queued) rp_schedule_persist(frm, 100);
+		},
+	});
+}
+
+function rp_state_empty(state) {
+	return RP_TABS.every((cfg) => !(((state || {})[cfg.key] || {}).rows || []).length);
+}
+
+function rp_reset_state(frm) {
+	frm.__mp_resource_state = null;
+	frm.__mp_resource_computed = null;
+	frm.__mp_machine_tables_hydrated = false;
+	clearTimeout(frm.__mp_resource_timer);
+	clearTimeout(frm.__mp_machine_sync_timer);
+	clearTimeout(frm.__mp_resource_persist_timer);
+	frm.__mp_resource_persist_queued = false;
+	RP_MACHINE_KEYS.forEach((tab) => {
+		const field = RP_MACHINE_TABLE_FIELDS[tab];
+		if (frm.get_field(field)) {
+			frm.clear_table(field);
+			frm.refresh_field(field);
+		}
+	});
+	if (frm.get_field("resource_plan_data")) frm.set_value("resource_plan_data", "");
+	rp_schedule_persist(frm);
+}
+
+function rp_child_from_machine_row(tab, row) {
+	const out = {
+		row_id: row.id || "",
+		task_id: row.task_id || "",
+		task_name: row.task_name || "",
+		uom: row.uom || "",
+		total_qty: flt(row.total_qty),
+		eng_pct: flt(row.eng_pct),
+		hours_day: flt(row.hours_day),
+		hourly_output: flt(row.hourly_output),
+		source: row.source || "manual",
+	};
+	if (tab === "dt") {
+		RP_DT_FIELDS.forEach((field) => (out[field] = flt(row[field])));
+	}
+	return out;
+}
+
+function rp_machine_from_child_row(tab, row) {
+	const out = {
+		id: row.row_id || row.name || rp_uid(tab),
+		task_id: row.task_id || "",
+		task_name: row.task_name || "",
+		uom: row.uom || "",
+		total_qty: flt(row.total_qty),
+		eng_pct: flt(row.eng_pct),
+		hours_day: flt(row.hours_day),
+		hourly_output: flt(row.hourly_output),
+		source: row.source || "manual",
+	};
+	if (tab === "dt") {
+		RP_DT_FIELDS.forEach((field) => (out[field] = flt(row[field])));
+	}
+	return out;
+}
+
+function rp_fill_empty_machine_tables(frm) {
+	const state = rp_get_state(frm);
+	frm.__mp_syncing_machine = true;
+	RP_MACHINE_KEYS.forEach((tab) => {
+		const field = RP_MACHINE_TABLE_FIELDS[tab];
+		if (!frm.get_field(field) || (frm.doc[field] || []).length) return;
+		const rows = (state[tab] || {}).rows || [];
+		if (!rows.length) return;
+		frm.clear_table(field);
+		rows.forEach((row) => frm.add_child(field, rp_child_from_machine_row(tab, row)));
+		frm.refresh_field(field);
+	});
+	frm.__mp_syncing_machine = false;
+	frm.__mp_machine_tables_hydrated = true;
+}
+
+function rp_replace_machine_table(frm, tab) {
+	const field = RP_MACHINE_TABLE_FIELDS[tab];
+	if (!field || !frm.get_field(field)) return;
+	const rows = ((rp_get_state(frm)[tab] || {}).rows) || [];
+	frm.__mp_syncing_machine = true;
+	frm.clear_table(field);
+	rows.forEach((row) => frm.add_child(field, rp_child_from_machine_row(tab, row)));
+	frm.refresh_field(field);
+	frm.__mp_syncing_machine = false;
+	frm.__mp_machine_tables_hydrated = true;
+}
+
+function rp_sync_machine_tables(frm, opts = {}) {
+	if (frm.__mp_syncing_machine) return;
+	const state = rp_get_state(frm);
+	const before = JSON.stringify(state);
+	frm.__mp_syncing_machine = true;
+	try {
+		RP_MACHINE_KEYS.forEach((tab) => {
+			const field = RP_MACHINE_TABLE_FIELDS[tab];
+			if (!frm.get_field(field)) return;
+			const child_rows = frm.doc[field] || [];
+			if (child_rows.length || frm.__mp_machine_tables_hydrated) {
+				state[tab] = { rows: child_rows.map((row) => rp_machine_from_child_row(tab, row)) };
+			} else {
+				const rows = (state[tab] || {}).rows || [];
+				if (rows.length) {
+					frm.clear_table(field);
+					rows.forEach((row) => frm.add_child(field, rp_child_from_machine_row(tab, row)));
+					frm.refresh_field(field);
+				}
+			}
+		});
+		frm.__mp_machine_tables_hydrated = true;
+		if (JSON.stringify(state) !== before) rp_set_state(frm, state);
+	} finally {
+		frm.__mp_syncing_machine = false;
+	}
+	if (!opts.skip_compute) rp_compute_resource_plan(frm, { skip_seed: true });
+}
+
+function rp_schedule_machine_sync(frm) {
+	clearTimeout(frm.__mp_machine_sync_timer);
+	frm.__mp_machine_sync_timer = setTimeout(() => rp_sync_machine_tables(frm), 350);
+}
+
+function rp_options(items, selected, placeholder) {
+	const list = Array.isArray(items) ? items : [];
+	let html = `<option value="">${rp_esc(placeholder || __("Select..."))}</option>`;
+	list.forEach((item) => {
+		const value = item.value == null ? "" : String(item.value);
+		const label = item.label == null ? value : String(item.label);
+		const is_selected = String(selected == null ? "" : selected) === value ? " selected" : "";
+		html += `<option value="${rp_esc(value)}"${is_selected}>${rp_esc(label)}</option>`;
+	});
+	return html;
+}
+
+function rp_task_options(data, selected) {
+	return rp_options(
+		(data.rows || []).map((r) => ({
+			value: r.task_id,
+			label: `${r.series ? r.series + " · " : ""}${r.task_name || r.task_id}`,
+		})),
+		selected,
+		__("Select task")
+	);
+}
+
+function rp_equipment_options(computed, selected) {
+	const rows = ((computed || {}).tabs || {}).equipment?.rows || [];
+	return rp_options(rows.map((r) => ({ value: r.id, label: r.name || r.id })), selected, __("Select equipment"));
+}
+
+function rp_machine_option_groups(computed) {
+	const groups = [];
+	RP_MACHINE_KEYS.forEach((tab) => {
+		const rows = ((computed || {}).tabs || {})[tab]?.rows || [];
+		rows.forEach((row) => groups.push({
+			value: `${tab}:${row.id}`,
+			label: `${tab.toUpperCase()} · ${row.task_name || row.id}`,
+		}));
+	});
+	return groups;
+}
+
+function rp_machine_tab_options(selected) {
+	return rp_options(
+		RP_MACHINE_KEYS.map((key) => ({ value: key, label: key.toUpperCase() })),
+		selected,
+		__("Select machine tab")
+	);
+}
+
+function rp_input(tab, index, field, value, opts = {}) {
+	const type = opts.type || "text";
+	const step = type === "number" ? ` step="${opts.step || "any"}"` : "";
+	const style = opts.wide ? RP_INPUT_WIDE : RP_INPUT;
+	return `<input type="${type}"${step} class="mpr-input" data-tab="${rp_esc(tab)}" data-row="${index}" data-field="${rp_esc(field)}" data-type="${type}" value="${rp_esc(value == null ? "" : value)}" style="${style}" placeholder="${rp_esc(opts.placeholder || "")}">`;
+}
+
+function rp_select(tab, index, field, value, options, opts = {}) {
+	return `<select class="mpr-input" data-tab="${rp_esc(tab)}" data-row="${index}" data-field="${rp_esc(field)}" style="${opts.wide ? RP_INPUT_WIDE : RP_SELECT}">${options}</select>`;
+}
+
+function rp_btn(action, label, tab, index, opts = {}) {
+	return `<button type="button" class="mpr-action" data-action="${rp_esc(action)}" data-tab="${rp_esc(tab)}" data-row="${index == null ? "" : index}" style="${opts.primary ? RP_BTN_PRIMARY : (opts.danger ? RP_BTN_DANGER : RP_BTN)}">${rp_esc(label)}</button>`;
+}
+
+function rp_month_input(tab, index, month, value, display) {
+	return `<div title="${__("Manual monthly value")}">` +
+		`<div style="font-size:10px;color:#64748b;margin-bottom:2px">${rp_fmt(display)}</div>` +
+		`<input type="number" step="any" class="mpr-input" data-tab="${rp_esc(tab)}" data-row="${index}" data-field="manual_cells" data-month="${rp_esc(month)}" data-type="number" value="${rp_esc(value == null ? "" : value)}" style="width:70px;border:1px dashed #f59e0b;border-radius:5px;padding:2px 4px;text-align:right;font:inherit;background:#fffbeb">` +
+		"</div>";
+}
+
+function rp_manual_cell(state, tab, index, month, fallback) {
+	const row = ((state[tab] || {}).rows || [])[index] || {};
+	const saved = (row.manual_cells || {})[month];
+	return saved == null ? (fallback == null ? "" : fallback) : saved;
+}
+
+function rp_card(title, subtitle, toolbar, body) {
+	return `<div style="border:1px solid #dbe4ef;border-radius:10px;overflow:hidden;background:#fff;margin:6px 0">` +
+		`<div style="padding:9px 12px;background:#f8fafc;border-bottom:1px solid #dbe4ef;display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap">` +
+		`<div style="font-size:12px"><b>${rp_esc(title)}</b>${subtitle ? ` · <span style="color:#64748b">${rp_esc(subtitle)}</span>` : ""}</div>` +
+		`<div style="display:flex;gap:6px;flex-wrap:wrap">${toolbar || ""}</div></div>` +
+		`<div style="overflow:auto;max-height:72vh">${body}</div></div>`;
+}
+
+function rp_month_head(data, left_headers, right_headers = []) {
+	const cols = data.columns || [];
+	let head = "<thead><tr>";
+	left_headers.forEach((h) => (head += `<th rowspan="2" style="${RP_TH}text-align:left">${h}</th>`));
+	cols.forEach((c) => (head += `<th style="${RP_TH}text-align:center;min-width:92px">${rp_esc(c.label || c.key)}</th>`));
+	right_headers.forEach((h) => (head += `<th rowspan="2" style="${RP_TH}text-align:right">${h}</th>`));
+	head += "</tr><tr>";
+	cols.forEach((c) => (head += `<td style="${RP_WORKLOAD}text-align:center;font-weight:700;color:#92400e">${rp_esc(c.working_days == null ? "" : c.working_days)}</td>`));
+	head += "</tr></thead>";
+	return head;
+}
+
+function rp_toolbar(tab, show_seed = true) {
+	let html = "";
+	if (show_seed) html += rp_btn("seed-tab", __("Reload from CBD"), tab, null);
+	if (!RP_MACHINE_KEYS.includes(tab)) {
+		html += rp_btn("add-row", __("Add Row"), tab, null, { primary: true });
+	}
+	html += rp_btn("recalc", __("Recalculate"), tab, null);
+	return html;
+}
+
+function rp_clear_tabs(frm, message) {
+	RP_TABS.forEach((cfg) => {
+		const field = frm.get_field(cfg.field);
+		if (field && field.$wrapper) field.$wrapper.html(html_placeholder(message));
+	});
+}
+
+function rp_render_machine(frm, cfg, computed, state) {
+	const tab = computed.tabs[cfg.key] || { rows: [], totals: {} };
+	const cols = computed.columns || [];
+	const is_dt = cfg.kind === "dt";
+	const left = ["#", __("Task"), __("Description"), __("Project Qty")];
+	if (is_dt) {
+		left.push(__("Workload Qty (Eng%)"), __("Distance km"), __("Speed"), __("Load/Unload min"), __("Capacity m3"), __("Eff."), __("Avail."), __("Loose"), __("Hr/day"), __("Effective/day"));
+	} else {
+		left.push(__("Eng %"), __("Workload Qty (Eng%)"), __("Hr/day"), __("Hourly output"), __("Daily output"));
+	}
+	left.push(__("Source"));
+
+	if (!tab.rows.length) {
+		const field = frm.get_field(cfg.field);
+		if (field && field.$wrapper) {
+			field.$wrapper.html(rp_card(
+				cfg.title,
+				__("Auto-loaded from Cost Break Down machinery"),
+				rp_toolbar(cfg.key),
+				html_placeholder(__("No matching machinery rows found. Add a task in the task list below or reload from CBD."))
+			));
+			rp_bind_resource_tabs(frm);
+		}
+		return;
+	}
+
+	const body = tab.rows.map((row, index) => {
+		const cells = cols.map((col) => {
+			const cell = row.cells[col.key] || {};
+			return `<td style="${RP_TD}text-align:right;min-width:92px">` +
+				`<div style="font-weight:700;color:#0f172a">${rp_fmt_zero(cell.machines)}</div>` +
+				`<div style="font-size:10px;color:#64748b" title="${__("Monthly workload")}">${rp_fmt_zero(cell.workload)}</div></td>`;
+		}).join("");
+		const daily = cols.length ? (row.cells[cols[0].key] || {}).daily_output : 0;
+		const values = is_dt
+			? [
+				rp_fmt(row.total_workload),
+				rp_fmt(row.distance),
+				rp_fmt(row.speed),
+				rp_fmt(row.load_unload_min),
+				rp_fmt(row.capacity),
+				rp_fmt(row.efficiency),
+				rp_fmt(row.availability),
+				rp_fmt(row.loose_factor),
+				rp_fmt(row.hours_day),
+				rp_fmt(daily),
+			]
+			: [
+				rp_fmt(row.eng_pct),
+				rp_fmt(row.total_workload),
+				rp_fmt(row.hours_day),
+				rp_fmt(row.hourly_output),
+				rp_fmt(daily),
+			];
+		return "<tr>" +
+			`<td style="${RP_TD}color:#94a3b8">${index + 1}</td>` +
+			`<td style="${RP_TD}">${rp_esc(row.task_id || "")}</td>` +
+			`<td style="${RP_TD}max-width:240px;overflow:hidden;text-overflow:ellipsis" title="${rp_esc(row.task_name)}">${rp_esc(row.task_name || "")}</td>` +
+			`<td style="${RP_TD}text-align:right;font-weight:600">${rp_fmt(row.total_qty)}</td>` +
+			values.map((value) => `<td style="${RP_TD}text-align:right;font-weight:600;color:#0f172a">${value}</td>`).join("") +
+			`<td style="${RP_TD}"><span style="font-size:10px;color:#64748b">${rp_esc(row.source || "manual")}</span></td>` +
+			cells +
+			`<td style="${RP_ROW}text-align:right">${rp_fmt_zero(row.total)}</td>` +
+			"</tr>";
+	}).join("");
+
+	const total_cells = cols.map((col) => {
+		const totals = tab.totals[col.key] || {};
+		const total = totals.rounded || 0;
+		const exact = totals.raw || 0;
+		return `<td style="${RP_ROW}text-align:right" title="${__("Exact sum")}: ${rp_fmt_zero(exact)}">${rp_fmt_zero(total, 0)}</td>`;
+	}).join("");
+	const grand_total = Object.values(tab.totals || {}).reduce((s, t) => s + flt(t.rounded), 0);
+	const table = `<table style="border-collapse:collapse;font-size:12px;width:100%;min-width:${1100 + cols.length * 96}px">` +
+		rp_month_head(computed, left, [__("Row Total")]) +
+		`<tbody>${body}</tbody>` +
+		`<tfoot><tr><td colspan="${left.length}" style="${RP_ROW}">${__("Machinery Qty Sum")}</td>${total_cells}<td style="${RP_ROW}text-align:right">${rp_fmt_zero(grand_total, 0)}</td></tr></tfoot>` +
+		"</table>";
+
+	const subtitle = is_dt
+		? __("Computed view. Workload = project qty × Eng%; edit the DT task list below. Effective m3/hr = capacity ÷ ((distance ÷ speed) + loading minutes ÷ 60) × efficiency × availability")
+		: __("Computed view. Workload = project qty × Eng%; edit the task list below. Machines = workload ÷ (hourly output × hr/day × working days)");
+	const field = frm.get_field(cfg.field);
+	if (field && field.$wrapper) field.$wrapper.html(rp_card(cfg.title, subtitle, rp_toolbar(cfg.key), table));
+}
+
+function rp_render_equipment(frm, cfg, computed, state) {
+	const rows = computed.tabs.equipment.rows || [];
+	const cols = computed.columns || [];
+	const left = ["#", __("Equipment"), __("Source type"), __("Source tab"), __("Source row / equipment"), __("Multiplier")];
+	const machine_options = rp_machine_option_groups(computed);
+
+	const body = rows.map((row, index) => {
+		const source_type = row.source_type || "manual";
+		let source_tab = rp_select(cfg.key, index, "source_tab", row.source_tab, rp_machine_tab_options(row.source_tab));
+		let source_row = rp_input(cfg.key, index, "source_value", row.source_row_id || row.source_id || (Array.isArray(row.source_ids) ? row.source_ids.join(", ") : row.source_ids || ""), { wide: true });
+		if (source_type === "tab_total") source_row = "";
+		if (source_type === "tab_row") source_row = rp_select(cfg.key, index, "source_row_id", row.source_row_id, rp_options(machine_options, row.source_row_id, __("Select activity")));
+		if (source_type === "equipment") source_row = rp_select(cfg.key, index, "source_id", row.source_id, rp_equipment_options(computed, row.source_id));
+		const cells = cols.map((col) => {
+			const value = (row.cells[col.key] || {}).value || 0;
+			if (source_type === "manual") {
+				const manual_value = rp_manual_cell(state, cfg.key, index, col.key, value);
+				return `<td style="${RP_TD}text-align:right;min-width:92px">${rp_month_input(cfg.key, index, col.key, manual_value, value)}</td>`;
+			}
+			return `<td style="${RP_TD}text-align:right;min-width:92px;font-weight:600;color:#0f172a">${rp_fmt(value)}</td>`;
+		}).join("");
+		return "<tr>" +
+			`<td style="${RP_TD}color:#94a3b8">${index + 1}<br>${rp_btn("remove-row", "×", cfg.key, index, { danger: true })}</td>` +
+			`<td style="${RP_TD}">${rp_input(cfg.key, index, "name", row.name, { wide: true })}</td>` +
+			`<td style="${RP_TD}">${rp_select(cfg.key, index, "source_type", source_type, rp_options([
+				{ value: "tab_total", label: __("Machine tab total") },
+				{ value: "tab_row", label: __("Machine activity") },
+				{ value: "equipment", label: __("Equipment row") },
+				{ value: "equipment_sum", label: __("Equipment sum") },
+				{ value: "manual", label: __("Manual") },
+			], source_type))}</td>` +
+			`<td style="${RP_TD}">${source_tab}</td>` +
+			`<td style="${RP_TD}">${source_row}</td>` +
+			`<td style="${RP_TD}">${rp_input(cfg.key, index, "multiplier", row.multiplier, { type: "number", step: "0.01" })}</td>` +
+			cells +
+			`<td style="${RP_ROW}text-align:right">${rp_fmt(row.peak)}</td>` +
+			"</tr>";
+	}).join("");
+
+	const totals = cols.map((col) => `<td style="${RP_ROW}text-align:right">${rp_fmt((computed.tabs.equipment.totals || {})[col.key])}</td>`).join("");
+	const table = `<table style="border-collapse:collapse;font-size:12px;width:100%;min-width:${900 + cols.length * 96}px">` +
+		rp_month_head(computed, left, [__("Peak")]) +
+		`<tbody>${body}</tbody>` +
+		`<tfoot><tr><td colspan="${left.length}" style="${RP_ROW}">${__("Fleet total")}</td>${totals}<td style="${RP_ROW}"></td></tr></tfoot>` +
+		"</table>";
+	const field = frm.get_field(cfg.field);
+	if (field && field.$wrapper) field.$wrapper.html(rp_card(cfg.title, __("Peak = MAX of the monthly row; this sheet is not a grand total."), rp_toolbar(cfg.key, false), table));
+}
+
+function rp_render_crew(frm, cfg, computed) {
+	const rows = computed.tabs.crew.rows || [];
+	const cols = computed.columns || [];
+	const left = ["#", __("Activity"), __("Source"), __("Source tab"), __("Hourly output"), __("Hr/day"), __("Crew size"), __("Daily output")];
+	const body = rows.map((row, index) => {
+		const cells = cols.map((col) => `<td style="${RP_TD}text-align:right;min-width:92px">${rp_fmt((row.cells[col.key] || {}).output)}</td>`).join("");
+		return "<tr>" +
+			`<td style="${RP_TD}color:#94a3b8">${index + 1}<br>${rp_btn("remove-row", "×", cfg.key, index, { danger: true })}</td>` +
+			`<td style="${RP_TD}">${rp_input(cfg.key, index, "activity", row.activity, { wide: true })}</td>` +
+			`<td style="${RP_TD}">${rp_select(cfg.key, index, "source_type", row.source_type, rp_options([
+				{ value: "machine_tab", label: __("Machine tab output") },
+				{ value: "manual", label: __("Manual") },
+			], row.source_type))}</td>` +
+			`<td style="${RP_TD}">${rp_select(cfg.key, index, "source_tab", row.source_tab, rp_machine_tab_options(row.source_tab))}</td>` +
+			`<td style="${RP_TD}">${rp_input(cfg.key, index, "hourly_output", row.hourly_output, { type: "number", step: "0.0001" })}</td>` +
+			`<td style="${RP_TD}">${rp_input(cfg.key, index, "hours_day", row.hours_day, { type: "number" })}</td>` +
+			`<td style="${RP_TD}">${rp_input(cfg.key, index, "crew_size", row.crew_size, { type: "number" })}</td>` +
+			`<td style="${RP_ROW}text-align:right">${rp_fmt(row.daily_output)}</td>` +
+			cells + "</tr>";
+	}).join("");
+	const table = `<table style="border-collapse:collapse;font-size:12px;width:100%;min-width:${950 + cols.length * 96}px">` +
+		rp_month_head(computed, left) + `<tbody>${body}</tbody></table>`;
+	const field = frm.get_field(cfg.field);
+	if (field && field.$wrapper) field.$wrapper.html(rp_card(cfg.title, __("Reference only; Crew Formation does not feed fuel, manpower or materials."), rp_toolbar(cfg.key, false), table));
+}
+
+function rp_render_fuel(frm, cfg, computed, state) {
+	const rows = computed.tabs.fuel.rows || [];
+	const cols = computed.columns || [];
+	const summary = computed.tabs.fuel.summary || {};
+	const cards = `<div style="display:flex;gap:10px;flex-wrap:wrap;padding:10px 12px;border-bottom:1px solid #dbe4ef;background:#fffbeb">` +
+		`<div style="font-size:11px;color:#64748b">${__("Total litres")}: <b style="color:#92400e">${rp_fmt(summary.total_litres)}</b></div>` +
+		`<div style="font-size:11px;color:#64748b">${__("13,000 L tankers")}: <b style="color:#92400e">${rp_fmt(summary.tanker_loads)}</b></div>` +
+		`<div style="font-size:11px;color:#64748b">${__("Scenario")} ${rp_input("fuel", -1, "scenario_pct", state.fuel.scenario_pct == null ? 85 : state.fuel.scenario_pct, { type: "number" })} % = <b style="color:#92400e">${rp_fmt(summary.scenario_litres)}</b> L</div>` +
+		"</div>";
+	const left = ["#", __("Item"), __("Equipment"), __("L/hr"), __("Hr/day")];
+	const body = rows.map((row, index) => {
+		const cells = cols.map((col) => `<td style="${RP_TD}text-align:right;min-width:92px;font-weight:600">${rp_fmt((row.cells[col.key] || {}).litres)}</td>`).join("");
+		return "<tr>" +
+			`<td style="${RP_TD}color:#94a3b8">${index + 1}<br>${rp_btn("remove-row", "×", cfg.key, index, { danger: true })}</td>` +
+			`<td style="${RP_TD}">${rp_input(cfg.key, index, "item", row.item, { wide: true })}</td>` +
+			`<td style="${RP_TD}">${rp_select(cfg.key, index, "equipment_id", row.equipment_id, rp_equipment_options(computed, row.equipment_id))}</td>` +
+			`<td style="${RP_TD}">${rp_input(cfg.key, index, "l_per_hour", row.l_per_hour, { type: "number", step: "0.01" })}</td>` +
+			`<td style="${RP_TD}">${rp_input(cfg.key, index, "hours_day", row.hours_day, { type: "number" })}</td>` +
+			cells +
+			`<td style="${RP_ROW}text-align:right">${rp_fmt(row.total)}</td>` +
+			"</tr>";
+	}).join("");
+	const totals = cols.map((col) => `<td style="${RP_ROW}text-align:right">${rp_fmt((computed.tabs.fuel.totals || {})[col.key])}</td>`).join("");
+	const table = cards + `<table style="border-collapse:collapse;font-size:12px;width:100%;min-width:${750 + cols.length * 96}px">` +
+		rp_month_head(computed, left, [__("Total L")]) +
+		`<tbody>${body}</tbody>` +
+		`<tfoot><tr><td colspan="${left.length}" style="${RP_ROW}">${__("Total fuel")}</td>${totals}<td style="${RP_ROW}text-align:right">${rp_fmt(summary.total_litres)}</td></tr></tfoot>` +
+		"</table>";
+	const field = frm.get_field(cfg.field);
+	if (field && field.$wrapper) field.$wrapper.html(rp_card(cfg.title, __("Litres = equipment count × L/hr × hr/day × working days"), rp_toolbar(cfg.key, false), table));
+}
+
+function rp_render_manpower(frm, cfg, computed, state) {
+	const rows = computed.tabs.manpower.rows || [];
+	const cols = computed.columns || [];
+	const left = ["#", __("Role"), __("Source type"), __("Equipment"), __("Factor")];
+	const body = rows.map((row, index) => {
+		const source_type = row.source_type || "manual";
+		let source = "";
+		if (source_type === "equipment") source = rp_select(cfg.key, index, "source_id", row.source_id, rp_equipment_options(computed, row.source_id));
+		if (source_type === "equipment_sum") source = rp_input(cfg.key, index, "source_ids", Array.isArray(row.source_ids) ? row.source_ids.join(", ") : row.source_ids || "", { wide: true });
+		const cells = cols.map((col) => {
+			const value = (row.cells[col.key] || {}).headcount || 0;
+			if (source_type === "manual") {
+				const manual_value = rp_manual_cell(state, cfg.key, index, col.key, value);
+				return `<td style="${RP_TD}text-align:right;min-width:92px">${rp_month_input(cfg.key, index, col.key, manual_value, value)}</td>`;
+			}
+			return `<td style="${RP_TD}text-align:right;min-width:92px;font-weight:600">${rp_fmt(value)}</td>`;
+		}).join("");
+		return "<tr>" +
+			`<td style="${RP_TD}color:#94a3b8">${index + 1}<br>${rp_btn("remove-row", "×", cfg.key, index, { danger: true })}</td>` +
+			`<td style="${RP_TD}">${rp_input(cfg.key, index, "role", row.role, { wide: true })}</td>` +
+			`<td style="${RP_TD}">${rp_select(cfg.key, index, "source_type", source_type, rp_options([
+				{ value: "equipment", label: __("Equipment row") },
+				{ value: "equipment_sum", label: __("Equipment sum (IDs)") },
+				{ value: "manual", label: __("Manual") },
+			], source_type))}</td>` +
+			`<td style="${RP_TD}">${source}</td>` +
+			`<td style="${RP_TD}">${rp_input(cfg.key, index, "factor", row.factor, { type: "number", step: "0.01" })}</td>` +
+			cells +
+			`<td style="${RP_ROW}text-align:right">${rp_fmt(row.peak)}</td>` +
+			"</tr>";
+	}).join("");
+	const totals = cols.map((col) => `<td style="${RP_ROW}text-align:right">${rp_fmt((computed.tabs.manpower.totals || {})[col.key])}</td>`).join("");
+	const table = `<table style="border-collapse:collapse;font-size:12px;width:100%;min-width:${800 + cols.length * 96}px">` +
+		rp_month_head(computed, left, [__("Peak")]) +
+		`<tbody>${body}</tbody>` +
+		`<tfoot><tr><td colspan="${left.length}" style="${RP_ROW}">${__("Total headcount")}</td>${totals}<td style="${RP_ROW}"></td></tr></tfoot>` +
+		"</table>";
+	const field = frm.get_field(cfg.field);
+	if (field && field.$wrapper) field.$wrapper.html(rp_card(cfg.title, __("Linked rows read the Equipment Requirement; manual rows stay editable."), rp_toolbar(cfg.key, false), table));
+}
+
+function rp_render_material(frm, cfg, computed, state) {
+	const rows = computed.tabs.material.rows || [];
+	const cols = computed.columns || [];
+	const left = ["#", __("Item"), __("Unit"), __("Source type"), __("Task"), __("Factor"), __("Divisor")];
+	const body = rows.map((row, index) => {
+		const source_type = row.source_type || "manual";
+		let task = "";
+		if (source_type === "workload") task = rp_select(cfg.key, index, "task_id", row.task_id, rp_task_options(computed, row.task_id), { wide: true });
+		const cells = cols.map((col) => {
+			const value = (row.cells[col.key] || {}).value || 0;
+			if (source_type === "manual") {
+				const manual_value = rp_manual_cell(state, cfg.key, index, col.key, value);
+				return `<td style="${RP_TD}text-align:right;min-width:92px">${rp_month_input(cfg.key, index, col.key, manual_value, value)}</td>`;
+			}
+			return `<td style="${RP_TD}text-align:right;min-width:92px;font-weight:600">${rp_fmt(value)}</td>`;
+		}).join("");
+		return "<tr>" +
+			`<td style="${RP_TD}color:#94a3b8">${index + 1}<br>${rp_btn("remove-row", "×", cfg.key, index, { danger: true })}</td>` +
+			`<td style="${RP_TD}">${rp_input(cfg.key, index, "item", row.item, { wide: true })}</td>` +
+			`<td style="${RP_TD}">${rp_input(cfg.key, index, "unit", row.unit)}</td>` +
+			`<td style="${RP_TD}">${rp_select(cfg.key, index, "source_type", source_type, rp_options([
+				{ value: "fuel_total", label: __("Fuel total") },
+				{ value: "workload", label: __("Workload × factor") },
+				{ value: "manual", label: __("Manual") },
+			], source_type))}</td>` +
+			`<td style="${RP_TD}">${task}</td>` +
+			`<td style="${RP_TD}">${rp_input(cfg.key, index, "factor", row.factor, { type: "number", step: "0.000001" })}</td>` +
+			`<td style="${RP_TD}">${rp_input(cfg.key, index, "divisor", row.divisor, { type: "number", step: "any" })}</td>` +
+			cells +
+			`<td style="${RP_ROW}text-align:right">${rp_fmt(row.total)}</td>` +
+			"</tr>";
+	}).join("");
+	const totals = cols.map((col) => `<td style="${RP_ROW}text-align:right">${rp_fmt((computed.tabs.material.totals || {})[col.key])}</td>`).join("");
+	const table = `<table style="border-collapse:collapse;font-size:12px;width:100%;min-width:${900 + cols.length * 96}px">` +
+		rp_month_head(computed, left, [__("Total")]) +
+		`<tbody>${body}</tbody>` +
+		`<tfoot><tr><td colspan="${left.length}" style="${RP_ROW}">${__("Total material")}</td>${totals}<td style="${RP_ROW}"></td></tr></tfoot>` +
+		"</table>";
+	const field = frm.get_field(cfg.field);
+	if (field && field.$wrapper) field.$wrapper.html(rp_card(cfg.title, __("Fuel comes from Fuel Requirement; materials come from workload × unit consumption."), rp_toolbar(cfg.key, false), table));
+}
+
+function rp_render_all(frm, computed) {
+	const state = rp_get_state(frm);
+	RP_TABS.forEach((cfg) => {
+		if (RP_MACHINE_KEYS.includes(cfg.key)) rp_render_machine(frm, cfg, computed, state);
+		else if (cfg.key === "equipment") rp_render_equipment(frm, cfg, computed, state);
+		else if (cfg.key === "crew") rp_render_crew(frm, cfg, computed);
+		else if (cfg.key === "fuel") rp_render_fuel(frm, cfg, computed, state);
+		else if (cfg.key === "manpower") rp_render_manpower(frm, cfg, computed, state);
+		else if (cfg.key === "material") rp_render_material(frm, cfg, computed, state);
+	});
+	rp_bind_resource_tabs(frm);
+}
+
+function rp_default_row(tab, frm) {
+	if (RP_MACHINE_KEYS.includes(tab)) {
+		const row = {
+			id: rp_uid(tab),
+			task_id: "",
+			task_name: "",
+			uom: "",
+			total_qty: 0,
+			eng_pct: 100,
+			hours_day: 8,
+			hourly_output: RP_MACHINE_DEFAULTS[tab] || 0,
+			source: "manual",
+		};
+		if (tab === "dt") Object.assign(row, {
+			distance: 13, speed: 20, load_unload_min: 9, capacity: 16,
+			efficiency: 0.9, availability: 0.85, loose_factor: 1.25,
+		});
+		return row;
+	}
+	if (tab === "equipment") return { id: rp_uid("eq"), name: __("New Equipment"), source_type: "manual", multiplier: 1, manual_cells: {} };
+	if (tab === "crew") return { id: rp_uid("crew"), activity: __("New Crew"), source_type: "manual", hourly_output: 0, hours_day: 8, crew_size: 1 };
+	if (tab === "fuel") return { id: rp_uid("fuel"), item: __("New Fuel Item"), equipment_id: "", l_per_hour: 0, hours_day: 8 };
+	if (tab === "manpower") return { id: rp_uid("mp"), role: __("New Role"), source_type: "manual", factor: 1, manual_cells: {} };
+	return { id: rp_uid("mat"), item: __("New Material"), unit: "", source_type: "manual", factor: 1, divisor: 1, manual_cells: {} };
+}
+
+function rp_seed_resource_plan(frm, data, opts = {}) {
+	if (frm.__mp_resource_seed_pending) return;
+	frm.__mp_resource_seed_pending = true;
+	const tasks = (frm.doc.wbs || []).filter((r) => r.task_id).map((r) => ({
+		task_id: r.task_id,
+		task_name: r.task_name,
+		uom: r.uom,
+		contract_qty: r.contract_qty,
+	}));
+	frappe.call({
+		method: `${NS}.get_resource_plan_seed`,
+		args: {
+			tasks: JSON.stringify(tasks),
+			distribution: JSON.stringify(data || {}),
+			material_resources: "[]",
+		},
+		freeze: !opts.silent,
+		freeze_message: __("Loading resource plans from Cost Break Down..."),
+		callback(r) {
+			const seeded = r.message || {};
+			const state = rp_get_state(frm);
+			if (opts.tab) {
+				state[opts.tab] = seeded[opts.tab] || { rows: [] };
+			} else {
+				RP_TABS.forEach((cfg) => (state[cfg.key] = seeded[cfg.key] || { rows: [] }));
+			}
+			state.meta = Object.assign({}, state.meta, { seeded: 1 });
+			rp_set_state(frm, state);
+			if (opts.tab && RP_MACHINE_TABLE_FIELDS[opts.tab]) rp_replace_machine_table(frm, opts.tab);
+			else rp_fill_empty_machine_tables(frm);
+			rp_compute_resource_plan(frm, { skip_seed: true, silent: opts.silent });
+			if (!opts.silent) frappe.show_alert({ message: __("Resource rows loaded from the Cost Break Down."), indicator: "green" });
+		},
+		error(r) {
+			console.error("Master Plan: get_resource_plan_seed failed", r);
+			rp_clear_tabs(frm, __("Resource seeding failed. Check the browser console and Error Log."));
+		},
+		always() {
+			frm.__mp_resource_seed_pending = false;
+		},
+	});
+}
+
+function rp_compute_resource_plan(frm, opts = {}) {
+	const data = frm.__mp_distribution_data;
+	if (!data || !data.columns || !data.columns.length) {
+		rp_clear_tabs(frm, __("Build the workload distribution first."));
+		return;
+	}
+	if (!opts.skip_seed) rp_sync_machine_tables(frm, { skip_compute: true });
+	const state = rp_get_state(frm);
+	if (!opts.skip_seed && (!state.meta.seeded || rp_state_empty(state))) {
+		rp_seed_resource_plan(frm, data, { silent: true });
+		return;
+	}
+	frappe.call({
+		method: `${NS}.compute_resource_plan`,
+		args: {
+			distribution: JSON.stringify(data),
+			state: JSON.stringify(state),
+		},
+		freeze: false,
+		callback(r) {
+			frm.__mp_resource_computed = r.message || {};
+			rp_render_all(frm, frm.__mp_resource_computed);
+		},
+		error(r) {
+			console.error("Master Plan: compute_resource_plan failed", r);
+			rp_clear_tabs(frm, __("Resource calculation failed. Check the browser console and Error Log."));
+		},
+	});
+}
+
+function rp_schedule_compute(frm) {
+	clearTimeout(frm.__mp_resource_timer);
+	frm.__mp_resource_timer = setTimeout(() => rp_compute_resource_plan(frm), 450);
+}
+
+function render_resource_plan(frm, data) {
+	if (!frm.doc.project || !data || !data.columns || !data.columns.length) {
+		rp_clear_tabs(frm, __("Select a project and build the workload distribution first."));
+		return;
+	}
+	rp_compute_resource_plan(frm);
+}
+
+function rp_on_input(frm, el) {
+	const tab = el.getAttribute("data-tab");
+	const row_index = Number(el.getAttribute("data-row"));
+	const field = el.getAttribute("data-field");
+	const month = el.getAttribute("data-month");
+	const state = rp_get_state(frm);
+	let value = el.value;
+	if (el.getAttribute("data-type") === "number") value = value === "" ? 0 : Number(value);
+	if (field === "source_ids") value = String(value || "").split(",").map((v) => v.trim()).filter(Boolean);
+
+	if (row_index === -1) {
+		state[tab] = state[tab] || {};
+		state[tab][field] = value;
+	} else {
+		const row = ((state[tab] || {}).rows || [])[row_index];
+		if (!row) return;
+		if (month) {
+			row.manual_cells = row.manual_cells || {};
+			row.manual_cells[month] = value;
+		} else {
+			row[field] = value;
+		}
+		if (field === "task_id") {
+			const task = ((frm.__mp_distribution_data || {}).rows || []).find((r) => String(r.task_id) === String(value));
+			if (task) {
+				row.task_name = task.task_name;
+				row.uom = task.uom;
+				row.total_qty = flt(task.contract_qty);
+			}
+		}
+	}
+	rp_set_state(frm, state);
+	rp_schedule_compute(frm);
+}
+
+function rp_bind_resource_tabs(frm) {
+	RP_TABS.forEach((cfg) => {
+		const field = frm.get_field(cfg.field);
+		if (!field || !field.$wrapper) return;
+		field.$wrapper.off(".mpr");
+		field.$wrapper.on("input.mpr", "input.mpr-input", function () { rp_on_input(frm, this); });
+		field.$wrapper.on("change.mpr", "select.mpr-input", function () { rp_on_input(frm, this); });
+		field.$wrapper.on("click.mpr", "button.mpr-action", function () {
+			const action = this.getAttribute("data-action");
+			const tab = this.getAttribute("data-tab");
+			const row_index = this.getAttribute("data-row") === "" ? null : Number(this.getAttribute("data-row"));
+			const state = rp_get_state(frm);
+			if (action === "add-row") {
+				state[tab].rows.push(rp_default_row(tab, frm));
+				rp_set_state(frm, state);
+				rp_compute_resource_plan(frm, { skip_seed: true });
+			} else if (action === "remove-row" && row_index !== null) {
+				state[tab].rows.splice(row_index, 1);
+				rp_set_state(frm, state);
+				rp_compute_resource_plan(frm, { skip_seed: true });
+			} else if (action === "seed-tab") {
+				rp_seed_resource_plan(frm, frm.__mp_distribution_data, { tab, silent: false });
+			} else if (action === "recalc") {
+				rp_compute_resource_plan(frm, { skip_seed: true });
+			}
+		});
+	});
 }
